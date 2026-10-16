@@ -1,0 +1,740 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-16T00:00:00+00:00",
+  "title": "Design System: Gifty",
+  "extensions": {
+    "colorMeta": {
+      "primary": {
+        "role": "primary",
+        "displayName": "Gifty Teal",
+        "purpose": "Primary actions, links, page titles, selected states, focus ring.",
+        "dark": "#7cccc8",
+        "incumbentUses": 274,
+        "tonalRamp": [
+          "#001112",
+          "#002f2f",
+          "#005050",
+          "#227473",
+          "#4e9797",
+          "#7cbbba",
+          "#a6dddc",
+          "#c8faf9"
+        ]
+      },
+      "primary-strong": {
+        "role": "primary",
+        "displayName": "Deep Teal",
+        "purpose": "Hover/pressed for primary; emphasized text on the wash.",
+        "dark": "#b4e0e0",
+        "incumbentUses": 17,
+        "tonalRamp": [
+          "#001010",
+          "#002e2e",
+          "#194e4e",
+          "#367171",
+          "#5c9594",
+          "#87b9b8",
+          "#aedbda",
+          "#d0f8f7"
+        ]
+      },
+      "primary-bright": {
+        "role": "primary",
+        "displayName": "Bright Teal",
+        "purpose": "Fills, icons, large text, progress only (4.77:1 on white).",
+        "dark": "#2a9d8f",
+        "incumbentUses": 52,
+        "tonalRamp": [
+          "#001213",
+          "#003031",
+          "#005252",
+          "#007676",
+          "#3d9999",
+          "#71bdbd",
+          "#9ddfde",
+          "#c1fcfb"
+        ]
+      },
+      "primary-wash": {
+        "role": "primary",
+        "displayName": "Teal Wash",
+        "purpose": "Page gradient start, selected rows, secondary/ghost hover.",
+        "dark": "#134e4a",
+        "incumbentUses": 26,
+        "tonalRamp": [
+          "#050d0f",
+          "#1f282b",
+          "#3d474a",
+          "#5d686b",
+          "#808c8e",
+          "#a4b0b3",
+          "#c7d4d7",
+          "#e4f1f4"
+        ]
+      },
+      "on-fill": {
+        "role": "neutral",
+        "displayName": "On Fill",
+        "purpose": "Text and icons on filled buttons.",
+        "dark": "#0f172a",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#262626",
+          "#454545",
+          "#666666",
+          "#898989",
+          "#aeaeae",
+          "#d1d1d1",
+          "#eeeeee"
+        ]
+      },
+      "chrome": {
+        "role": "secondary",
+        "displayName": "Slate Chrome",
+        "purpose": "The fixed header and its menu only.",
+        "dark": "#020617",
+        "incumbentUses": 29,
+        "tonalRamp": [
+          "#050b16",
+          "#1d2735",
+          "#3a4657",
+          "#59677c",
+          "#7c8aa0",
+          "#a1afc3",
+          "#c6d2e4",
+          "#e4f0ff"
+        ]
+      },
+      "on-chrome": {
+        "role": "secondary",
+        "displayName": "On Chrome",
+        "purpose": "Header icons and wordmark.",
+        "dark": "#e2e8f0",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#262626",
+          "#454545",
+          "#666666",
+          "#898989",
+          "#aeaeae",
+          "#d1d1d1",
+          "#eeeeee"
+        ]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "Card White",
+        "purpose": "Cards, dialogs, inputs.",
+        "dark": "#1e293b",
+        "incumbentUses": 32,
+        "tonalRamp": [
+          "#0b0b0b",
+          "#262626",
+          "#454545",
+          "#666666",
+          "#898989",
+          "#aeaeae",
+          "#d1d1d1",
+          "#eeeeee"
+        ]
+      },
+      "surface-muted": {
+        "role": "neutral",
+        "displayName": "Mist",
+        "purpose": "Page gradient end, inner wells, disabled fill.",
+        "dark": "#0f172a",
+        "incumbentUses": 75,
+        "tonalRamp": [
+          "#0b0b0c",
+          "#262627",
+          "#444546",
+          "#656667",
+          "#88898a",
+          "#adaeaf",
+          "#d0d1d2",
+          "#edeeef"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "purpose": "Body text and non-teal headings.",
+        "dark": "#e2e8f0",
+        "incumbentUses": 29,
+        "tonalRamp": [
+          "#0b0b0b",
+          "#262626",
+          "#454545",
+          "#666666",
+          "#898989",
+          "#aeaeae",
+          "#d1d1d1",
+          "#eeeeee"
+        ]
+      },
+      "ink-muted": {
+        "role": "neutral",
+        "displayName": "Muted Ink",
+        "purpose": "Secondary text, help text, placeholders. Lightest allowed text.",
+        "dark": "#94a3b8",
+        "incumbentUses": 39,
+        "tonalRamp": [
+          "#0b0b0b",
+          "#262626",
+          "#454545",
+          "#666666",
+          "#898989",
+          "#aeaeae",
+          "#d1d1d1",
+          "#eeeeee"
+        ]
+      },
+      "border": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "purpose": "Card borders and dividers (decorative).",
+        "dark": "#334155",
+        "incumbentUses": 74,
+        "tonalRamp": [
+          "#0b0b0b",
+          "#262626",
+          "#454545",
+          "#666666",
+          "#898989",
+          "#aeaeae",
+          "#d1d1d1",
+          "#eeeeee"
+        ]
+      },
+      "border-input": {
+        "role": "neutral",
+        "displayName": "Field Edge",
+        "purpose": "Form control outlines (3.54:1).",
+        "dark": "#64748b",
+        "incumbentUses": 4,
+        "tonalRamp": [
+          "#0b0b0b",
+          "#262626",
+          "#454545",
+          "#666666",
+          "#898989",
+          "#aeaeae",
+          "#d1d1d1",
+          "#eeeeee"
+        ]
+      },
+      "success": {
+        "role": "semantic",
+        "displayName": "Success Green",
+        "purpose": "Saved, purchased, healthy.",
+        "dark": "#a5d6a7",
+        "incumbentUses": 3,
+        "tonalRamp": [
+          "#001300",
+          "#003200",
+          "#0f5415",
+          "#2d7831",
+          "#559c56",
+          "#82c081",
+          "#aae2a9",
+          "#ccfeca"
+        ]
+      },
+      "success-wash": {
+        "role": "semantic",
+        "displayName": "Success Wash",
+        "purpose": "Success alert/badge background.",
+        "dark": "#14301f",
+        "incumbentUses": 3,
+        "tonalRamp": [
+          "#080d08",
+          "#212922",
+          "#3f4840",
+          "#5f6960",
+          "#828d83",
+          "#a7b1a8",
+          "#cbd4cb",
+          "#e9f1e9"
+        ]
+      },
+      "warning": {
+        "role": "semantic",
+        "displayName": "Warning Amber",
+        "purpose": "Warnings; text on warning wash.",
+        "dark": "#fcd34d",
+        "incumbentUses": 7,
+        "tonalRamp": [
+          "#170700",
+          "#382200",
+          "#5b4000",
+          "#806107",
+          "#a4843d",
+          "#c7aa6d",
+          "#e8ce97",
+          "#ffecbb"
+        ]
+      },
+      "warning-wash": {
+        "role": "semantic",
+        "displayName": "Warning Wash",
+        "purpose": "Warning alert background.",
+        "dark": "#3a2e0f",
+        "incumbentUses": 4,
+        "tonalRamp": [
+          "#100a00",
+          "#2d260f",
+          "#4d4529",
+          "#706645",
+          "#938969",
+          "#b7ae90",
+          "#d9d1b6",
+          "#f6eed6"
+        ]
+      },
+      "danger": {
+        "role": "semantic",
+        "displayName": "Danger Red",
+        "purpose": "Destructive fills, error borders and icons.",
+        "dark": "#ef9a9a",
+        "incumbentUses": 34,
+        "tonalRamp": [
+          "#2f0000",
+          "#5b0000",
+          "#8a0016",
+          "#bc1630",
+          "#e44c55",
+          "#ff7e7f",
+          "#ffa8a7",
+          "#ffcbc8"
+        ]
+      },
+      "danger-strong": {
+        "role": "semantic",
+        "displayName": "Deep Danger",
+        "purpose": "Danger hover; error text and text on danger wash.",
+        "dark": "#ffcdd2",
+        "incumbentUses": 4,
+        "tonalRamp": [
+          "#2f0000",
+          "#5b0000",
+          "#890013",
+          "#bb1b2d",
+          "#e34f52",
+          "#ff7f7d",
+          "#ffaaa5",
+          "#ffccc7"
+        ]
+      },
+      "danger-wash": {
+        "role": "semantic",
+        "displayName": "Danger Wash",
+        "purpose": "Error alert background.",
+        "dark": "#3b1d22",
+        "incumbentUses": 8,
+        "tonalRamp": [
+          "#10090a",
+          "#2e2325",
+          "#4e4143",
+          "#726164",
+          "#958487",
+          "#b9a9ac",
+          "#dbcdcf",
+          "#f8ebed"
+        ]
+      },
+      "info": {
+        "role": "semantic",
+        "displayName": "Steelblue",
+        "purpose": "Non-text info marks, header edge, avatar ring.",
+        "dark": "#4682b4",
+        "incumbentUses": 44,
+        "tonalRamp": [
+          "#000b24",
+          "#002848",
+          "#15486f",
+          "#316b99",
+          "#588fbe",
+          "#83b4df",
+          "#abd7fe",
+          "#ccf4ff"
+        ]
+      },
+      "info-ink": {
+        "role": "semantic",
+        "displayName": "Info Ink",
+        "purpose": "Info text (derived; 6.26:1 on white).",
+        "dark": "#a8c6df",
+        "incumbentUses": 0,
+        "tonalRamp": [
+          "#000c1f",
+          "#072842",
+          "#224868",
+          "#3e6a90",
+          "#638eb4",
+          "#8cb3d6",
+          "#b2d6f6",
+          "#d3f3ff"
+        ]
+      },
+      "info-wash": {
+        "role": "semantic",
+        "displayName": "Info Wash",
+        "purpose": "Info alert background.",
+        "dark": "#1c2e44",
+        "incumbentUses": 4,
+        "tonalRamp": [
+          "#070c10",
+          "#21272c",
+          "#3f464b",
+          "#60676c",
+          "#828a90",
+          "#a7afb5",
+          "#cad2d8",
+          "#e7f0f6"
+        ]
+      },
+      "scrim": {
+        "role": "neutral",
+        "displayName": "Scrim",
+        "purpose": "Dialog backdrop.",
+        "dark": "rgba(0, 0, 0, 0.7)"
+      },
+      "data-1": {
+        "role": "data",
+        "displayName": "Data 1 (blue)",
+        "purpose": "Categorical chart series, fixed order, never cycled; more than six fold into Other (ink-muted). Never text.",
+        "light": "#2a78d6",
+        "dark": "#3987e5"
+      },
+      "data-2": {
+        "role": "data",
+        "displayName": "Data 2 (orange)",
+        "purpose": "Categorical chart series, fixed order, never cycled; more than six fold into Other (ink-muted). Never text.",
+        "light": "#eb6834",
+        "dark": "#d95926"
+      },
+      "data-3": {
+        "role": "data",
+        "displayName": "Data 3 (aqua)",
+        "purpose": "Categorical chart series, fixed order, never cycled; more than six fold into Other (ink-muted). Never text.",
+        "light": "#1baf7a",
+        "dark": "#199e70"
+      },
+      "data-4": {
+        "role": "data",
+        "displayName": "Data 4 (yellow)",
+        "purpose": "Categorical chart series, fixed order, never cycled; more than six fold into Other (ink-muted). Never text.",
+        "light": "#eda100",
+        "dark": "#c98500"
+      },
+      "data-5": {
+        "role": "data",
+        "displayName": "Data 5 (magenta)",
+        "purpose": "Categorical chart series, fixed order, never cycled; more than six fold into Other (ink-muted). Never text.",
+        "light": "#e87ba4",
+        "dark": "#d55181"
+      },
+      "data-6": {
+        "role": "data",
+        "displayName": "Data 6 (violet)",
+        "purpose": "Categorical chart series, fixed order, never cycled; more than six fold into Other (ink-muted). Never text.",
+        "light": "#6250d6",
+        "dark": "#9085e9"
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "The one page title per page.",
+        "cssVar": "--type-display",
+        "cssClass": ".type-display",
+        "cssValue": "700 var(--text-display)/var(--leading-display) var(--font-display)"
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section and card headings, dialog titles.",
+        "cssVar": "--type-headline",
+        "cssClass": ".type-headline",
+        "cssValue": "700 var(--text-headline)/var(--leading-headline) var(--font-display)"
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Sub-sections, gift and event card names.",
+        "cssVar": "--type-title",
+        "cssClass": ".type-title",
+        "cssValue": "700 var(--text-title)/var(--leading-title) var(--font-display)"
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Running text, table cells, inputs."
+      },
+      "body-sm": {
+        "displayName": "Body small",
+        "purpose": "Help text, metadata, dense lists."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Form labels, table headers, chips."
+      },
+      "button": {
+        "displayName": "Button",
+        "purpose": "Button text, sentence case."
+      },
+      "caption": {
+        "displayName": "Caption",
+        "purpose": "Timestamps, badge counts. Floor size."
+      }
+    },
+    "shadows": [
+      {
+        "name": "rest",
+        "value": "0 2px 4px rgba(0, 0, 0, 0.05)",
+        "dark": "0 2px 4px rgba(0, 0, 0, 0.4)",
+        "purpose": "Cards and panels at rest (28 incumbent uses)."
+      },
+      {
+        "name": "raised",
+        "value": "0 4px 12px rgba(0, 102, 102, 0.1)",
+        "dark": "0 4px 12px rgba(0, 0, 0, 0.5)",
+        "purpose": "Hover on clickable cards, dropdowns, floating add button (17 uses)."
+      },
+      {
+        "name": "overlay",
+        "value": "0 10px 30px rgba(0, 0, 0, 0.1)",
+        "dark": "0 10px 30px rgba(0, 0, 0, 0.6)",
+        "purpose": "Dialogs and popovers (7 uses)."
+      },
+      {
+        "name": "focus-ring",
+        "value": "outline: 2px solid #006666; outline-offset: 2px",
+        "dark": "outline: 2px solid #7cccc8; outline-offset: 2px",
+        "purpose": "Every focusable control. Replaces the invisible 0 0 0 2px rgba(0,102,102,0.1)."
+      }
+    ],
+    "motion": [
+      {
+        "name": "duration-fast",
+        "value": "150ms",
+        "purpose": "Color and background changes."
+      },
+      {
+        "name": "duration-base",
+        "value": "200ms",
+        "purpose": "Shadow and 2px lift on cards."
+      },
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.2, 0, 0, 1)",
+        "purpose": "Default easing. Never transition: all; nothing moves under prefers-reduced-motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "phone",
+        "value": "480px"
+      },
+      {
+        "name": "tablet",
+        "value": "768px"
+      },
+      {
+        "name": "desktop",
+        "value": "1024px"
+      },
+      {
+        "name": "content-max",
+        "value": "1200px"
+      }
+    ],
+    "pageBackground": {
+      "light": "linear-gradient(135deg, #eaf7fa 0%, #f8f9fa 100%)",
+      "dark": "#0f172a"
+    },
+    "typeRoles": {
+      "note": "Each heading role is one font shorthand token; h1/h2/h3 default to display/headline/title in index.css; .type-* classes for Tailwind markup. Compared figures use font-variant-numeric: tabular-nums.",
+      "measure": {
+        "cssVar": "--measure",
+        "value": "70ch",
+        "purpose": "Longest line for running text."
+      }
+    },
+    "pageFrame": {
+      "purpose": "Every page root: padding var(--page-padding), max-width var(--content-max), centred; .page-frame is the same for Tailwind markup. Pages do not paint their own background or set min-height 100vh; .main-content carries --page-background.",
+      "tokens": [
+        {
+          "cssVar": "--content-max",
+          "value": "1200px"
+        },
+        {
+          "cssVar": "--page-pad-top",
+          "value": "var(--space-4xl)",
+          "phone": "var(--space-2xl) under 768px"
+        },
+        {
+          "cssVar": "--page-pad-x",
+          "value": "var(--space-xl)",
+          "phone": "var(--space-lg) under 480px"
+        },
+        {
+          "cssVar": "--page-pad-bottom",
+          "value": "var(--space-4xl)",
+          "phone": "var(--space-3xl) under 768px"
+        },
+        {
+          "cssVar": "--page-padding",
+          "value": "var(--page-pad-top) var(--page-pad-x) var(--page-pad-bottom)"
+        },
+        {
+          "cssVar": "--page-background",
+          "value": "linear-gradient(135deg, var(--color-primary-wash) 0%, var(--color-surface-muted) 100%)",
+          "dark": "var(--color-surface-muted)"
+        }
+      ],
+      "cssClass": ".page-frame"
+    }
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The one main action in a view region.",
+      "html": "<button class=\"ds-btn ds-btn-primary\">Save changes</button>",
+      "css": ".ds-btn{font-family:system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;font-size:1rem;font-weight:600;line-height:1.25;height:44px;padding:12px 20px;border-radius:8px;border:1px solid transparent;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:background-color .15s ease-out,color .15s ease-out,border-color .15s ease-out}.ds-btn:focus-visible{outline:2px solid #006666;outline-offset:2px}.ds-btn:disabled{background:#f8f9fa;color:#666666;border-color:#e0e0e0;cursor:not-allowed}.ds-btn-primary{background:#006666;color:#ffffff}.ds-btn-primary:hover{background:#004c4c}"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Alternative action beside a primary, or dismiss in a dialog.",
+      "html": "<button class=\"ds-btn ds-btn-secondary\">Export</button>",
+      "css": ".ds-btn{font-family:system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;font-size:1rem;font-weight:600;line-height:1.25;height:44px;padding:12px 20px;border-radius:8px;border:1px solid transparent;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:background-color .15s ease-out,color .15s ease-out,border-color .15s ease-out}.ds-btn:focus-visible{outline:2px solid #006666;outline-offset:2px}.ds-btn:disabled{background:#f8f9fa;color:#666666;border-color:#e0e0e0;cursor:not-allowed}.ds-btn-secondary{background:#ffffff;color:#006666;border-color:#006666}.ds-btn-secondary:hover{background:#eaf7fa;color:#004c4c}"
+    },
+    {
+      "name": "Danger Button",
+      "kind": "button",
+      "refersTo": "button-danger",
+      "description": "Confirms a destructive action inside a confirmation dialog.",
+      "html": "<button class=\"ds-btn ds-btn-danger\">Delete recipient</button>",
+      "css": ".ds-btn{font-family:system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;font-size:1rem;font-weight:600;line-height:1.25;height:44px;padding:12px 20px;border-radius:8px;border:1px solid transparent;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:background-color .15s ease-out,color .15s ease-out,border-color .15s ease-out}.ds-btn:focus-visible{outline:2px solid #006666;outline-offset:2px}.ds-btn:disabled{background:#f8f9fa;color:#666666;border-color:#e0e0e0;cursor:not-allowed}.ds-btn-danger{background:#dc3545;color:#ffffff}.ds-btn-danger:hover{background:#c82333}"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Low-emphasis actions such as Refresh Holidays or View all.",
+      "html": "<button class=\"ds-btn ds-btn-ghost\">View all</button>",
+      "css": ".ds-btn{font-family:system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;font-size:1rem;font-weight:600;line-height:1.25;height:44px;padding:12px 20px;border-radius:8px;border:1px solid transparent;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:background-color .15s ease-out,color .15s ease-out,border-color .15s ease-out}.ds-btn:focus-visible{outline:2px solid #006666;outline-offset:2px}.ds-btn:disabled{background:#f8f9fa;color:#666666;border-color:#e0e0e0;cursor:not-allowed}.ds-btn-ghost{background:transparent;color:#006666;padding:12px 16px}.ds-btn-ghost:hover{background:#eaf7fa;color:#004c4c}"
+    },
+    {
+      "name": "Text Field",
+      "kind": "input",
+      "refersTo": "field-input",
+      "description": "Label above a 44px input with help text below.",
+      "html": "<label class=\"ds-field\"><span class=\"ds-field-label\">Recipient name</span><input class=\"ds-input\" placeholder=\"e.g. Maria\"><span class=\"ds-field-help\">Shown on gift cards and reminders.</span></label>",
+      "css": ".ds-field{display:flex;flex-direction:column;gap:8px;font-family:system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;max-width:360px}.ds-field-label{font-size:.875rem;font-weight:600;color:#333333}.ds-input{height:44px;padding:0 12px;font:inherit;font-size:1rem;color:#333333;background:#ffffff;border:1px solid #888888;border-radius:8px;transition:border-color .15s ease-out}.ds-input::placeholder{color:#666666}.ds-input:hover{border-color:#666666}.ds-input:focus-visible{outline:2px solid #006666;outline-offset:2px;border-color:#006666}.ds-field-help{font-size:.875rem;color:#666666;margin-top:-4px}"
+    },
+    {
+      "name": "Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "White container on the page wash; clickable cards lift on hover.",
+      "html": "<div class=\"ds-card\"><h3 class=\"ds-card-title\">Mom's birthday</h3><p class=\"ds-card-body\">March 14 · Budget $80 · 2 ideas saved</p></div>",
+      "css": ".ds-card{background:#ffffff;border:1px solid #e0e0e0;border-radius:12px;padding:24px;box-shadow:0 2px 4px rgba(0,0,0,0.05);font-family:system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;color:#333333;transition:box-shadow .2s ease-out,transform .2s ease-out,border-color .2s ease-out}.ds-card:hover{box-shadow:0 4px 12px rgba(0,102,102,0.1);transform:translateY(-2px);border-color:#006666}.ds-card-title{font-family:Quicksand, system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;font-weight:700;font-size:1.25rem;line-height:1.35;color:#006666;margin:0 0 8px}.ds-card-body{margin:0;font-size:.875rem;color:#666666}"
+    },
+    {
+      "name": "Dialog",
+      "kind": "custom",
+      "refersTo": "modal",
+      "description": "The one modal: scrim, white panel, headline title, right-aligned footer.",
+      "html": "<div class=\"ds-scrim\"><div class=\"ds-dialog\" role=\"dialog\" aria-modal=\"true\" aria-labelledby=\"ds-d-t\"><h2 id=\"ds-d-t\" class=\"ds-dialog-title\">Delete this gift?</h2><p class=\"ds-dialog-body\">This removes it from the list and from purchase history.</p><div class=\"ds-dialog-footer\"><button class=\"ds-d-btn ds-d-sec\">Cancel</button><button class=\"ds-d-btn ds-d-danger\">Delete gift</button></div></div></div>",
+      "css": ".ds-scrim{background:rgba(0,0,0,0.5);padding:32px;display:flex;justify-content:center}.ds-dialog{background:#ffffff;border-radius:12px;padding:32px;max-width:560px;width:100%;box-shadow:0 10px 30px rgba(0,0,0,0.1);font-family:system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;color:#333333}.ds-dialog-title{font-family:Quicksand, system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;font-weight:700;font-size:1.5rem;line-height:1.3;color:#006666;margin:0 0 16px}.ds-dialog-body{margin:0 0 24px}.ds-dialog-footer{display:flex;justify-content:flex-end;gap:12px;padding-top:16px;border-top:1px solid #e0e0e0}.ds-d-btn{height:44px;padding:12px 20px;border-radius:8px;font:600 1rem/1.25 system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;cursor:pointer;border:1px solid transparent}.ds-d-btn:focus-visible{outline:2px solid #006666;outline-offset:2px}.ds-d-sec{background:#ffffff;color:#006666;border-color:#006666}.ds-d-sec:hover{background:#eaf7fa}.ds-d-danger{background:#dc3545;color:#ffffff}.ds-d-danger:hover{background:#c82333}"
+    },
+    {
+      "name": "App Header",
+      "kind": "nav",
+      "refersTo": "header",
+      "description": "Fixed slate header with the Quicksand wordmark and icon links.",
+      "html": "<nav class=\"ds-header\"><span class=\"ds-wordmark\">Gifty</span><span class=\"ds-nav\"><a href=\"#\" class=\"ds-nav-link\" aria-current=\"page\" aria-label=\"Home\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M3 11l9-8 9 8v10H5V11\"/></svg></a><a href=\"#\" class=\"ds-nav-link\" aria-label=\"Gifts\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><rect x=\"3\" y=\"8\" width=\"18\" height=\"13\"/><path d=\"M12 8v13M3 12h18\"/></svg></a></span></nav>",
+      "css": ".ds-header{height:56px;padding:8px 20px;background:#334155;border-bottom:2px solid #4682b4;display:flex;align-items:center;justify-content:space-between;color:#ffffff}.ds-wordmark{font-family:Quicksand, system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;font-weight:700;font-size:1.5rem;color:#ffffff}.ds-nav{display:flex;gap:8px}.ds-nav-link{color:#ffffff;width:44px;height:44px;display:inline-flex;align-items:center;justify-content:center;border-radius:8px;transition:background-color .15s ease-out}.ds-nav-link:hover,.ds-nav-link[aria-current=page]{background:rgba(255,255,255,0.12)}.ds-nav-link:focus-visible{outline:2px solid #ffffff;outline-offset:2px}"
+    },
+    {
+      "name": "Page Title",
+      "kind": "custom",
+      "refersTo": "page-title",
+      "description": "One Display title per page, left-aligned, with optional subtitle.",
+      "html": "<header class=\"ds-page-head\"><h1 class=\"ds-page-title\">Recipients</h1><p class=\"ds-page-sub\">12 people · 3 birthdays this month</p></header>",
+      "css": ".ds-page-head{background:linear-gradient(135deg,#eaf7fa 0%,#f8f9fa 100%);padding:40px 20px 24px}.ds-page-title{font-family:Quicksand, system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;font-weight:700;font-size:2rem;line-height:1.25;color:#006666;margin:0}.ds-page-sub{font-family:system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;font-size:.875rem;color:#666666;margin:4px 0 0}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Gift Ledger",
+    "overview": "Gifty is a working tool, not a showroom. People open it to check who has a birthday coming up, what they already bought, and how much budget is left. The interface should feel like a well-kept ledger: calm, legible, one confident teal used for the things you can act on, and everything else quiet. Brand lives in the details (the teal, the rounded Quicksand titles, the soft teal wash behind every page), not in decoration.\n\nThis file records the world the authenticated app already has, then consolidates it. The theming audit (2026-10-15) counted 212 distinct hex colors, 49 font sizes, 108 box-shadows and 19 radii across 46 CSS files. Most of that is drift: the same job done with four teals, five reds and three gray ramps borrowed from Bootstrap, Flat UI and Tailwind. Every canonical value below was picked from the values the app already uses most (usage counts in parentheses), and changed only where the incumbent fails WCAG AA. Nothing here is a redesign.\n\nThe app is in **Operate** mode everywhere except the public landing page. Scanability, consistency between pages and predictable controls outrank expression. The landing page (`/`) and the login and register pages currently use their own palette (coral #f74949, a red-purple-navy gradient, pink #e6739f, a Playfair serif that never loads). They are off-world and **move into the teal world** described here: same tokens, same buttons, same type.",
+    "keyCharacteristics": [
+      "One brand teal (#006666, 274 uses) carries every primary action, page title and selected state.",
+      "A slate header (#334155) is the only dark surface; pages sit on a pale teal-to-gray wash with white cards.",
+      "Rounded but not bubbly: 8px controls, 12px cards and dialogs, pills only for chips and avatars.",
+      "Quicksand (the one webfont actually loaded) for titles and the wordmark; the system sans for everything you read.",
+      "Soft, low shadows; depth comes mostly from white cards on a tinted page.",
+      "Every color token has a dark-theme counterpart, so the Theme setting can become real."
+    ],
+    "rules": [
+      {
+        "name": "The One Teal Rule",
+        "body": "Every interactive or selected thing is `primary`. A new screen does not introduce a second brand hue, a cyan, a steelblue button or a teal gradient.",
+        "section": "colors"
+      },
+      {
+        "name": "The Muted Floor Rule",
+        "body": "No text, including placeholders, is lighter than `ink-muted` (#666666) on light surfaces or `ink-muted` dark (#94a3b8) on dark ones.",
+        "section": "colors"
+      },
+      {
+        "name": "The Status Is Not Decoration Rule",
+        "body": "Success, warning, danger and info appear only when they mean that status. The header's rainbow icon hovers (orange, dodger blue, tomato, lime, gold) are decoration and go.",
+        "section": "colors"
+      },
+      {
+        "name": "The One Title Rule",
+        "body": "Every page opens with exactly one Display title: Quicksand 700, 2rem, `primary`, left-aligned at the start of the content column. No gradient text, no centering, no icon-in-title variants.",
+        "section": "typography"
+      },
+      {
+        "name": "The No Gradient Text Rule",
+        "body": "All eight `background-clip: text` headings (including the muddy header wordmark) become solid color. Emphasis comes from size and weight.",
+        "section": "typography"
+      },
+      {
+        "name": "The Three Shadows Rule",
+        "body": "A new surface uses Rest, Raised or Overlay. The other 105 shadow values in the code converge on these.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Calm Motion Rule",
+        "body": "Transitions animate `background-color`, `color`, `border-color`, `box-shadow` or `transform` over 150–200ms ease-out; never `transition: all` (over 100 uses today), and nothing moves under `prefers-reduced-motion: reduce`. Clickable cards may lift 2px on hover; nothing scales.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** use `primary` (#006666) for every primary action, link, selected state and page title, and `primary-strong` (#004c4c) for its hover.",
+      "**Do** put pages on the `primary-wash` → `surface-muted` gradient with white cards (lg 12px, Rest shadow, 24px padding).",
+      "**Do** use exactly one Display page title per page, left-aligned, Quicksand 700 2rem teal.",
+      "**Do** keep all text at `ink-muted` (#666666) or darker on light surfaces, and check ratios for every new pairing, including the dark theme.",
+      "**Do** use rem for type and the 4px spacing scale (4 / 8 / 12 / 16 / 20 / 24 / 32 / 40) for every gap and padding.",
+      "**Do** confirm destructive actions in the shared dialog with a Danger button; report results with a toast.",
+      "**Do** give every focusable control the 2px `primary` focus ring.",
+      "**Do** bring the landing, login and register pages into this palette: teal primary buttons, Quicksand titles, the page wash background."
+    ],
+    "donts": [
+      "**Don't** use coral (#f74949), the red-purple-navy landing gradient, the login pink #e6739f (2.86:1 with white text) or a serif anywhere; those pages move into the teal world.",
+      "**Don't** use steelblue (#4682b4), cyan (#0891b2), green (#2c922f) or a gradient as a button fill.",
+      "**Don't** use gradient text, including on the wordmark.",
+      "**Don't** use #888, #999 or #a0a0a0 for text or placeholders.",
+      "**Don't** add a new hex value, shadow or radius when a token covers the job; add a token here first.",
+      "**Don't** load a webfont from a third-party origin, or declare a font family that is not loaded.",
+      "**Don't** use decorative side stripes on cards, list items or notifications.",
+      "**Don't** use `alert()` or `window.confirm()` for app feedback.",
+      "**Don't** animate with `transition: all`, or ignore `prefers-reduced-motion`."
+    ]
+  }
+}

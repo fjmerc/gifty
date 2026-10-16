@@ -1,0 +1,13 @@
+# Development only: databases for `npm run dev` (backend) and `npm start` (frontend).
+services:
+  mongo:
+    image: ${MONGO_IMAGE:-mongo:7}   # mongo:4.4 on CPUs without AVX
+    ports: ["127.0.0.1:27017:27017"]
+    volumes: [mongo_dev:/data/db]
+  redis:
+    image: redis:7-alpine
+    ports: ["127.0.0.1:6379:6379"]
+    volumes: [redis_dev:/data]
+volumes:
+  mongo_dev:
+  redis_dev:

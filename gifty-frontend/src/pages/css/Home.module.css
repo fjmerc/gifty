@@ -1,0 +1,123 @@
+/* General Layout */
+.homePage {
+  color: var(--color-ink);
+  line-height: 1.6;
+}
+
+
+header {
+  background: var(--color-chrome);
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+footer {
+  background: var(--color-chrome);
+  text-align: center;
+  padding: 1rem 0;
+  font-size: var(--text-caption);
+  color: var(--color-on-chrome);
+}
+
+.main-content {
+  min-height: 100vh;  /* This ensures that the main tag takes the full viewport height */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Hero Section */
+.heroSection {
+  text-align: center;
+  background: var(--page-background);
+  color: var(--color-ink);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: var(--page-padding);
+  margin: 0;
+}
+
+.homepage-hero {
+  width: min(180px, 50vw);
+  height: auto;
+}
+
+.heroSection h1 {
+  font: var(--type-display);
+  color: var(--color-primary);
+  margin: 0 0 var(--space-sm);
+}
+
+.heroSection p {
+  font-size: var(--text-body);
+  max-width: var(--measure);
+  margin: 0 0 var(--space-2xl);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+
+
+/* Buttons (DESIGN.md > Buttons) */
+.btn {
+  font-size: var(--text-button);
+  line-height: var(--leading-button);
+  padding: 12px 20px;
+  min-height: 44px;
+  box-sizing: border-box;
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  transition: background-color var(--duration-fast) var(--ease-out), color var(--duration-fast) var(--ease-out);
+  font-weight: 600;
+}
+
+.btn-primary {
+  background-color: var(--color-primary);
+  color: var(--color-on-fill);
+  border: 1px solid var(--color-primary);
+}
+
+.btn-secondary {
+  background-color: var(--color-surface);
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-primary-strong);
+  border-color: var(--color-primary-strong);
+}
+
+.btn-secondary:hover {
+  background-color: var(--color-primary-wash);
+  color: var(--color-primary-strong);
+}
+
+.loginLink {
+  color: var(--color-primary);
+  text-decoration: none; /* Optional: Removes underline from the link */
+}
+
+.loginLink:hover {
+  text-decoration: underline; /* Optional: Adds underline on hover for better user interaction */
+  color: var(--color-primary-strong);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+
+
+  .heroSection p {
+    font-size: var(--text-body);
+  }
+}

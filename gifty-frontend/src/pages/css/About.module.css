@@ -1,0 +1,223 @@
+.aboutPage {
+  padding: 2rem;
+  background: var(--page-background);
+  min-height: 100vh;
+}
+
+.heroSection {
+  text-align: center;
+  margin-bottom: 3rem;
+  background: var(--color-chrome);
+  padding: 3rem 2rem;
+  border-radius: var(--radius-lg);
+  color: var(--color-on-chrome);
+  box-shadow: var(--shadow-raised);
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.heroSection h1 {
+  font: var(--type-display);
+  color: var(--color-on-chrome);
+  margin-bottom: 1rem;
+}
+
+.heroSection p {
+  font-size: var(--text-title);
+  color: var(--color-on-chrome);
+  max-width: 700px;
+  margin: 0 auto 2rem;
+}
+
+.featuresSection, .faqSection {
+  margin-bottom: 3rem;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.sectionTitle {
+  font: var(--type-headline);
+  color: var(--color-primary);
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.featuresGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.feature {
+  background-color: var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-raised);
+  padding: 1.5rem;
+  border: 1px solid var(--color-border);
+}
+
+.featureIcon {
+  font-size: 2rem;
+  line-height: 1;
+  color: var(--color-primary);
+  margin-bottom: 16px;
+}
+
+.feature h3 {
+  font: var(--type-title);
+  color: var(--color-primary);
+  margin-bottom: 0.75rem;
+}
+
+.feature p {
+  color: var(--color-ink-muted);
+  line-height: 1.6;
+}
+
+.ctaSection {
+  background-color: var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-raised);
+  padding: 3rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  border: 1px solid var(--color-border);
+}
+
+.ctaSection h2 {
+  font: var(--type-headline);
+  color: var(--color-ink);
+  margin-bottom: 1rem;
+}
+
+.ctaSection p {
+  color: var(--color-ink-muted);
+  max-width: 700px;
+  margin: 0 auto 2rem;
+  line-height: 1.6;
+}
+
+.btnPrimary {
+  background-color: var(--color-primary);
+  color: var(--color-on-fill);
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.15s ease-out;
+  display: inline-block;
+  border: none;
+  box-shadow: var(--shadow-rest);
+}
+
+.btnPrimary:hover {
+  background-color: var(--color-primary-strong);
+}
+
+.faqSection {
+  margin-bottom: 3rem;
+}
+
+.faqItem {
+  background-color: var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-rest);
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid var(--color-border);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.faqItem:hover {
+  box-shadow: var(--shadow-raised);
+  border-color: var(--color-border);
+}
+
+.faqItem h3 {
+  font: var(--type-title);
+  color: var(--color-ink);
+  margin: 0;
+}
+
+.faqQuestion {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.faqIndicator {
+  flex: none;
+  color: var(--color-primary);
+}
+
+.faqItem p {
+  color: var(--color-ink-muted);
+  line-height: 1.6;
+  margin-top: 0.75rem;
+}
+
+.footer {
+  text-align: center;
+  padding: 2rem;
+  color: var(--color-on-chrome);
+  background: var(--color-chrome);
+  margin-top: 3rem;
+  border-radius: var(--radius-lg);
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: var(--shadow-raised);
+}
+
+@media (max-width: 768px) {
+  .featuresGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .aboutPage {
+    padding: 1rem;
+  }
+  
+  .ctaSection {
+    padding: 2rem 1rem;
+  }
+}
+
+.backHome {
+  margin-top: 16px;
+}
+
+.backHomeLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-on-chrome);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.backHomeLink:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.version {
+  opacity: 0.7;
+  font-size: var(--text-caption);
+  margin-top: 0.5rem;
+}

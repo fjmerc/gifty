@@ -1,0 +1,909 @@
+.notificationCard.retroactive {
+  background: var(--color-warning-wash);
+}
+
+.notificationCard.retroactive:hover {
+  background: var(--color-warning-wash);
+}
+
+.notificationCard.retroactive.read {
+  opacity: 0.75;
+  background: var(--color-warning-wash);
+}
+
+/* New styles for snoozed notifications - updated to use app theme colors */
+.notificationCard.snoozed {
+  background: var(--color-info-wash);
+}
+
+.notificationCard.snoozed:hover {
+  background: var(--color-info-wash);
+}
+
+.notificationCard.snoozed.read {
+  opacity: 0.75;
+  background: var(--color-info-wash);
+}
+
+.snoozedBadge {
+  font-size: var(--text-caption);
+  background: var(--color-info-wash);
+  color: var(--color-info-ink);
+  padding: 0.2rem 0.4rem;
+  border-radius: var(--radius-sm);
+  margin-left: 0.5rem;
+  font-weight: normal;
+}
+
+.snoozedTime {
+  display: block;
+  margin-top: 0.25rem;
+  font-style: italic;
+  color: var(--color-info-ink);
+  font-size: var(--text-caption);
+}
+
+.snoozedIcon {
+  color: var(--color-info-ink);
+}
+
+.retroactiveBadge {
+  font-size: var(--text-caption);
+  background: var(--color-warning-wash);
+  color: var(--color-warning);
+  color: var(--color-on-fill);
+  padding: 0.2rem 0.4rem;
+  border-radius: var(--radius-sm);
+  margin-left: 0.5rem;
+  font-weight: normal;
+}
+
+.originalTime {
+  display: block;
+  margin-top: 0.25rem;
+  font-style: italic;
+  color: var(--color-warning);
+  font-size: var(--text-caption);
+}
+
+/* Stats row styling */
+.statsRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.statItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: var(--color-info-wash);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: var(--text-body-sm);
+  color: var(--color-info-ink);
+}
+
+.headerActions {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.filterButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  background: var(--color-surface-muted);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: var(--text-body-sm);
+  color: var(--color-ink);
+  cursor: pointer;
+  transition-property: color, background-color, border-color, box-shadow, transform, opacity;
+  transition-duration: 0.2s;
+  transition-timing-function: ease;
+}
+
+.filterButton:hover {
+  background: var(--color-border);
+}
+
+.filterButtonActive {
+  background: var(--color-primary);
+  color: var(--color-on-fill);
+  border-color: var(--color-info);
+}
+
+.filterButtonActive:hover {
+  background: var(--color-info-ink);
+}
+
+.settingsButton {
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-surface-muted);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-ink);
+  cursor: pointer;
+  transition-property: color, background-color, border-color, box-shadow, transform, opacity;
+  transition-duration: 0.2s;
+  transition-timing-function: ease;
+}
+
+.settingsButton:hover {
+  background: var(--color-border);
+}
+
+.retroactiveInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: var(--color-warning-wash);
+  border: 1px solid var(--color-warning);
+  border-radius: var(--radius-md);
+  font-size: var(--text-body-sm);
+  color: var(--color-warning);
+}
+
+.retroactiveIcon {
+  color: var(--color-warning);
+}
+
+.retroactiveInfo span {
+  font-weight: 500;
+}
+
+.notificationsPage {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: var(--page-padding);
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+  font-size: var(--text-headline);
+  color: var(--color-primary);
+}
+
+.loading svg {
+  margin-right: 10px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.container {
+  max-width: var(--content-max);
+  width: 100%;
+}
+
+.centerContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  gap: 1rem;
+  color: var(--color-ink);
+}
+
+.errorIcon {
+  color: var(--color-danger-strong);
+  margin-bottom: 1rem;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: var(--space-2xl);
+}
+
+.headerContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.header h1 {
+  font: var(--type-display);
+  color: var(--color-primary);
+  margin: 0;
+}
+
+.headerIcon {
+  font-size: 1.75rem;
+  color: var(--color-info-ink);
+}
+
+.notificationList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.notificationCard {
+  border: 1px solid var(--color-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem;
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-rest);
+  transition-property: color, background-color, border-color, box-shadow, transform, opacity;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
+  border: 1px solid var(--color-border);
+  position: relative;
+}
+
+.notificationCard:hover {
+  /* Removed translateY(-3px) to eliminate bounce effect */
+  box-shadow: var(--shadow-raised);
+}
+
+.notificationCard.unread {
+  background: var(--color-surface);
+}
+
+.notificationCard.read {
+  background: var(--color-surface-muted);
+  transition: opacity 0.2s ease;
+}
+
+.notificationCard.read:hover {
+  opacity: 0.95;
+}
+
+.notificationCard.read .notificationTitle {
+  color: var(--color-ink-muted);
+  font-weight: 400;
+}
+
+.notificationCard.read .notificationIcon {
+  color: var(--color-info-ink);
+}
+
+.notificationCard.read .notificationMeta {
+  color: var(--color-ink-muted);
+}
+
+.notificationCard.read .ellipsisButton {
+  color: var(--color-info-ink);
+}
+
+.notificationInfo {
+  flex: 1;
+  padding-right: 1rem;
+}
+
+.notificationTitle {
+  margin: 0;
+  font-family: var(--font-body); /* read state drops to 400; Quicksand ships only 700 */
+  font-size: var(--text-body);
+  color: var(--color-ink);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.notificationIcon {
+  color: var(--color-info-ink);
+  font-size: var(--text-body);
+}
+
+.notificationMeta {
+  margin: 0.5rem 0 0 2rem;
+  font-size: var(--text-body-sm);
+  color: var(--color-ink-muted);
+}
+
+.notificationActions {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.ellipsisButton {
+  background: transparent;
+  border: none;
+  color: var(--color-info-ink);
+  padding: 0.5rem;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition-property: color, background-color, border-color, box-shadow, transform, opacity;
+  transition-duration: 0.2s;
+  transition-timing-function: ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  z-index: 1;
+}
+
+.ellipsisButton:hover {
+  background: var(--color-info-wash);
+  /* Removed transform: scale(1.1) to eliminate bouncing effect */
+}
+
+/* Updated Dropdown Menu Styles */
+.dropdownMenu {
+  position: absolute;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-overlay);
+  z-index: 1000;
+  padding: 0.5rem;
+  min-width: 240px;
+  display: flex;
+  flex-direction: column;
+  top: 50%;
+  left: calc(100% + 10px);
+  transform: translateY(-50%);
+  animation: slideRight 0.2s ease-out;
+  backdrop-filter: blur(10px);
+  background: var(--color-surface);
+}
+
+/* Updated animations */
+@keyframes slideRight {
+  from {
+    opacity: 0;
+    transform: translate(-10px, -50%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0, -50%);
+  }
+}
+
+/* Updated dropdown arrow */
+.dropdownMenu::after {
+  content: '';
+  position: absolute;
+  left: -6px;
+  top: 50%;
+  width: 12px;
+  height: 12px;
+  background: var(--color-surface);
+  transform: translateY(-50%) rotate(45deg);
+  border-left: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  box-shadow: -2px 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.dropdownMenu button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--color-ink);
+  font-size: var(--text-body-sm);
+  text-align: left;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  transition-property: color, background-color, border-color, box-shadow, transform, opacity;
+  transition-duration: 0.2s;
+  transition-timing-function: ease;
+  width: 100%;
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+.dropdownMenu button:hover {
+  background: var(--color-info-wash);
+  /* Removed transform: translateX(2px) to eliminate moving effect */
+}
+
+.dropdownMenu button:active {
+  /* Removed transform: translateX(2px) scale(0.98) to eliminate animation */
+}
+
+/* Remove the default color for all dropdown button icons */
+.dropdownMenu button svg {
+  width: 16px;
+  flex-shrink: 0;
+}
+
+/* Style for read/unread button */
+.readStateButton svg {
+  color: var(--color-success);
+}
+
+/* When notification is read, show muted blue for "mark as unread" */
+.notificationCard.read ~ .notificationActions .dropdownMenu .readStateButton svg {
+  color: var(--color-ink-muted);
+}
+
+/* Hover state for read/unread button */
+.readStateButton:hover svg {
+  color: var(--color-info-ink);
+}
+
+/* Make the trash icon red */
+.trashIcon svg {
+  color: var(--color-danger-strong);
+}
+
+.trashIcon:hover svg {
+  color: var(--color-danger-strong);
+}
+
+.snoozeSection {
+  border-bottom: 2px solid var(--color-border);
+  padding: 0.5rem 0;
+  margin-bottom: 0.5rem;
+}
+
+.snoozeSection button {
+  color: var(--color-info-ink);
+  font-size: var(--text-body-sm);
+}
+
+.snoozeSection button:hover {
+  background: var(--color-info-wash);
+  color: var(--color-info-ink);
+}
+
+.snoozeButton {
+  color: var(--color-info-ink);
+  font-size: var(--text-body-sm);
+}
+
+.unsnoozeButton {
+  border: 2px dashed var(--color-info);
+  margin: 0.25rem 0.25rem 1rem;
+  color: var(--color-info-ink);
+  background: var(--color-info-wash);
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radius-md);
+  font-weight: 500;
+}
+
+.unsnoozeButton:hover {
+  background: var(--color-info-wash);
+  border-color: var(--color-info);
+}
+
+.snoozeHeader {
+  padding: 0.5rem 1rem;
+  color: var(--color-ink-muted);
+  font-size: var(--text-body-sm);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.snoozeHeader svg {
+  width: 14px;
+  color: var(--color-info-ink);
+  flex-shrink: 0;
+}
+
+.snoozeOptions {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.upcomingSection {
+  margin-top: 2.5rem;
+  padding-top: 2.5rem;
+  border-top: 2px solid var(--color-border);
+}
+
+.emptyState {
+  text-align: center;
+  padding: 3rem 2rem;
+  color: var(--color-ink-muted);
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  margin: 1rem 0;
+  border: 1px solid var(--color-border);
+  font-size: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.emptyIcon {
+  font-size: var(--text-display);
+  color: var(--color-info-ink);
+  opacity: 0.5;
+}
+
+.loadMoreButton {
+  background: transparent;
+  border: 2px solid var(--color-info);
+  color: var(--color-info-ink);
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-size: var(--text-body);
+  font-weight: 600;
+  transition-property: color, background-color, border-color, box-shadow, transform, opacity;
+  transition-duration: 0.2s;
+  transition-timing-function: ease;
+  margin: 1rem auto;
+  display: block;
+}
+
+.loadMoreButton:hover {
+  background: var(--color-primary-strong);
+  color: var(--color-on-fill);
+  /* Removed transform: translateY(-2px) to eliminate bounce effect */
+}
+
+.marginBottom {
+  margin-bottom: 2rem;
+}
+
+/* Feedback message styles */
+.feedbackMessage {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 12px 20px;
+  background: var(--color-info-wash);
+  color: var(--color-info-ink);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-raised);
+  z-index: 1100;
+  animation: slideInRight 0.3s ease-out;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  max-width: 90%;
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.feedbackMessage svg {
+  font-size: var(--text-title);
+}
+
+.feedbackMessage.success {
+  background: var(--color-success-wash);
+  color: var(--color-success);
+}
+
+.feedbackMessage.error {
+  background: var(--color-danger-wash);
+  color: var(--color-danger-strong);
+}
+
+.feedbackMessage.info {
+  background: var(--color-info-wash);
+  color: var(--color-info-ink);
+}
+
+/* Settings Modal Styles */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+
+
+
+
+
+.settingGroup {
+  margin-bottom: 1.75rem;
+}
+
+.settingLabel {
+  display: block;
+  font-weight: 600;
+  color: var(--color-ink);
+  margin-bottom: 0.5rem;
+  font-size: var(--text-body);
+}
+
+.settingInput,
+.settingSelect {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: var(--text-body);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.settingInput:focus,
+.settingSelect:focus {
+  border-color: var(--color-info);
+}
+
+.settingInput[type="number"] {
+  width: 120px;
+}
+
+.checkboxWrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.settingCheckbox {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--color-info);
+  cursor: pointer;
+}
+
+.checkboxLabel {
+  font-weight: 600;
+  color: var(--color-ink);
+  cursor: pointer;
+}
+
+.settingDescription {
+  font-size: var(--text-body-sm);
+  color: var(--color-ink-muted);
+  margin-left: 2rem;
+}
+
+.permissionTitle {
+  font-size: var(--text-body);
+  font-weight: 600;
+  color: var(--color-ink);
+  margin-bottom: 0.75rem;
+}
+
+.permissionGranted {
+  color: var(--color-success);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  background: var(--color-success-wash);
+  border-radius: var(--radius-md);
+}
+
+.permissionDenied {
+  color: var(--color-danger-strong);
+  font-weight: 500;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  background: var(--color-danger-wash);
+  border-radius: var(--radius-md);
+}
+
+.permissionDefault {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  background: var(--color-info-wash);
+  border-radius: var(--radius-md);
+}
+
+.permissionUnsupported {
+  color: var(--color-ink-muted);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  background: var(--color-surface-muted);
+  border-radius: var(--radius-md);
+}
+
+.permissionIcon {
+  font-size: var(--text-body);
+  margin-right: 0.25rem;
+}
+
+.permissionDescription {
+  font-size: var(--text-body-sm);
+  color: var(--color-ink-muted);
+  margin-top: 0.25rem;
+}
+
+.helpLinkContainer {
+  margin-top: 0.5rem;
+}
+
+.helpLink {
+  color: var(--color-info-ink);
+  text-decoration: none;
+  font-size: var(--text-body-sm);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.helpLink:hover {
+  text-decoration: underline;
+}
+
+.permissionButton {
+  padding: 0.6rem 1.25rem;
+  background: var(--color-primary);
+  border: none;
+  border-radius: var(--radius-md);
+  color: var(--color-on-fill);
+  font-size: var(--text-body-sm);
+  font-weight: 500;
+  cursor: pointer;
+  transition-property: color, background-color, border-color, box-shadow, transform, opacity;
+  transition-duration: 0.2s;
+  transition-timing-function: ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: center;
+  width: fit-content;
+}
+
+.browserNotificationSetting {
+  margin-top: 0.75rem;
+  margin-left: 2rem;
+  padding-top: 0.5rem;
+  border-top: 1px dashed var(--color-border);
+}
+
+/* Ensure filterButton in settings layout properly */
+.settingGroup .filterButton {
+  margin-bottom: 0.5rem;
+  min-width: 180px;
+}
+
+.permissionButton:hover {
+  background: var(--color-info-ink);
+  /* Removed transform: translateY(-2px) to eliminate bounce effect */
+}
+
+
+.cancelButton {
+  padding: 0.6rem 1.25rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-ink-muted);
+  font-weight: 500;
+  cursor: pointer;
+  transition-property: color, background-color, border-color, box-shadow, transform, opacity;
+  transition-duration: 0.2s;
+  transition-timing-function: ease;
+}
+
+.cancelButton:hover {
+  background: var(--color-surface-muted);
+  color: var(--color-ink);
+}
+
+.saveButton {
+  padding: 0.6rem 1.25rem;
+  background: var(--color-primary);
+  border: 1px solid var(--color-info);
+  border-radius: var(--radius-md);
+  color: var(--color-on-fill);
+  font-weight: 500;
+  cursor: pointer;
+  transition-property: color, background-color, border-color, box-shadow, transform, opacity;
+  transition-duration: 0.2s;
+  transition-timing-function: ease;
+}
+
+.saveButton:hover {
+  background: var(--color-info-ink);
+  /* Removed transform: translateY(-2px) to eliminate bounce effect */
+}
+
+@media (max-width: 768px) {
+
+
+  .notificationCard {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .notificationActions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .dropdownMenu {
+    position: fixed;
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    border-radius: 20px 20px 0 0;
+    padding: 1.5rem;
+    animation: slideUpMobile 0.3s ease-out;
+    box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.15);
+    transform: none;
+  }
+
+  .dropdownMenu::after {
+    display: none;
+  }
+
+  .dropdownMenu button {
+    padding: 1rem;
+    font-size: var(--text-body);
+  }
+
+  @keyframes slideUpMobile {
+    from {
+      transform: translateY(100%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+
+  .notificationMeta {
+    margin-left: 0;
+  }
+
+
+
+
+}

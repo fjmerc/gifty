@@ -1,0 +1,218 @@
+.editBudgetPage {
+  padding: var(--page-padding);
+}
+
+.container {
+  max-width: 700px;
+  margin: 0 auto;
+  background-color: var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-overlay);
+  transition: box-shadow 0.3s ease;
+}
+
+.container:hover {
+  box-shadow: var(--shadow-overlay);
+}
+
+.editBudget {
+  padding: 40px;
+}
+
+.editBudget h1 {
+  font: var(--type-display);
+  color: var(--color-primary);
+  margin-bottom: var(--space-2xl);
+  
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 24px;
+}
+
+.formGroup label {
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: var(--color-primary-strong);
+  font-size: var(--text-body-sm);
+}
+
+.formGroup input,
+.formGroup select {
+  padding: 16px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: var(--text-body);
+  background-color: var(--color-surface);
+  color: var(--color-ink);
+  transition-property: color, background-color, border-color, box-shadow, transform, opacity;
+  transition-duration: 0.2s;
+  transition-timing-function: ease;
+  box-shadow: var(--shadow-rest);
+}
+
+.formGroup input:focus,
+.formGroup select:focus {
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-raised);
+}
+
+.checkboxGroup {
+  margin-bottom: 24px;
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  font-weight: 500;
+  color: var(--color-ink);
+  transition: color 0.2s ease;
+}
+
+.checkboxLabel:hover {
+  color: var(--color-primary);
+}
+
+.checkboxLabel input[type="checkbox"] {
+  margin-right: 12px;
+  width: 20px;
+  height: 20px;
+  border-radius: var(--radius-sm);
+  border: 2px solid var(--color-primary);
+  cursor: pointer;
+}
+
+.buttonGroup {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 32px;
+}
+
+.submitButton,
+.cancelButton {
+  padding: 14px 28px;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-size: var(--text-body);
+  font-weight: 600;
+  transition-property: color, background-color, border-color, box-shadow, transform, opacity;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
+  letter-spacing: 0.3px;
+}
+
+.submitButton {
+  background-color: var(--color-primary);
+  color: var(--color-on-fill);
+  box-shadow: var(--shadow-raised);
+}
+
+.cancelButton {
+  background-color: var(--color-surface);
+  color: var(--color-ink-muted);
+  border: 2px solid var(--color-border);
+  box-shadow: var(--shadow-rest);
+}
+
+.submitButton:hover {
+  background-color: var(--color-primary-strong);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-raised);
+}
+
+.cancelButton:hover {
+  background-color: var(--color-surface-muted);
+  border-color: var(--color-border);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-raised);
+}
+
+.submitButton:active,
+.cancelButton:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-rest);
+}
+
+.loading,
+.error {
+  text-align: center;
+  margin-top: 40px;
+  font-size: 18px;
+  padding: 20px;
+  border-radius: var(--radius-md);
+  font-weight: 500;
+}
+
+.loading {
+  background-color: var(--color-success-wash);
+  color: var(--color-success);
+  border: 1px solid var(--color-success);
+}
+
+.error {
+  background-color: var(--color-danger-wash);
+  color: var(--color-danger-strong);
+  border: 1px solid var(--color-danger);
+}
+
+@media (max-width: 768px) {
+
+
+  .editBudget {
+    padding: 30px;
+  }
+
+  .editBudget h1 {
+    margin-bottom: 30px;
+  }
+
+  .formGroup input,
+  .formGroup select {
+    padding: 14px;
+    font-size: var(--text-body-sm);
+  }
+
+  .submitButton,
+  .cancelButton {
+    padding: 12px 24px;
+    font-size: var(--text-body-sm);
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+  }
+
+  .editBudget {
+    padding: 20px;
+  }
+
+
+  .formGroup label {
+    font-size: var(--text-body-sm);
+  }
+
+  .formGroup input,
+  .formGroup select {
+    padding: 12px;
+    font-size: var(--text-body-sm);
+  }
+
+  .buttonGroup {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .submitButton,
+  .cancelButton {
+    width: 100%;
+    padding: 12px 20px;
+    font-size: var(--text-body-sm);
+  }
+}

@@ -1,0 +1,94 @@
+/* OverallBudgetForm.module.css */
+
+.event-form {
+  width: 100%;
+}
+
+.event-form h2 {
+  font: var(--type-headline);
+  margin-top: 0;
+  margin-bottom: 20px;
+  color: var(--color-ink);
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--color-border);
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: var(--color-ink-muted);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-body-sm);
+}
+
+.form-group textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.checkboxGroup {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.checkboxGroup input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+}
+
+.checkboxGroup label {
+  margin: 0;
+  color: var(--color-ink-muted);
+  font-weight: bold;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.form-actions button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: var(--text-body-sm);
+}
+
+.form-actions button[type="button"] {
+  background-color: var(--color-surface-muted);
+  color: var(--color-ink-muted);
+  color: var(--color-ink);
+}
+
+.form-actions button[type="submit"] {
+  background-color: var(--color-primary-bright);
+  color: var(--color-on-fill);
+}
+
+.form-actions button:hover {
+  opacity: 0.9;
+}
+
+.error {
+  color: var(--color-danger-strong);
+  font-size: var(--text-caption);
+  margin-top: 4px;
+}

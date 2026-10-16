@@ -1,0 +1,55 @@
+.main-content {
+    margin-top: 3.5rem; /* Match header height */
+    min-height: calc(100vh - 3.5rem); /* Ensure full height */
+    /* The one page background (DESIGN.md > Layout); pages sit on it
+       instead of painting their own, so the export banner shares it */
+    background: var(--page-background);
+    /* A page that is too wide must never widen the layout viewport and push
+       the header (and its menu button) off-screen. clip, unlike hidden, does
+       not create a scroll container. */
+    overflow-x: hidden;
+    overflow-x: clip;
+  }
+  
+  .main-content.no-margin {
+    margin-top: 0;
+  }
+
+/* Loading spinner animation */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+/* Skip link: first stop for the keyboard, hidden until focused, then shown
+   over the header's top-left corner */
+.skip-link {
+  position: fixed;
+  top: 8px;
+  left: 8px;
+  z-index: 1100;
+  padding: 12px 16px;
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  color: var(--color-primary);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transform: translateY(calc(-100% - 16px));
+}
+
+/* The shadow only while shown, so the hidden link leaves no smudge at the top */
+.skip-link:focus {
+  transform: none;
+  box-shadow: var(--shadow-raised);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .skip-link {
+    transition: transform 0.15s ease-out;
+  }
+}
+
+/* The skip target takes focus by script; the page itself shows no ring */
+.main-content:focus {
+  outline: none;
+}

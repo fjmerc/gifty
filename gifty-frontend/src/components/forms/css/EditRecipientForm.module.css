@@ -1,0 +1,85 @@
+/* Apply the font globally or to the container that holds both the list and the form */
+
+.edit-recipient-form {
+  background: var(--color-surface-muted);
+  padding: 20px;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-rest);
+  margin-top: 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.edit-recipient-form form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  width: 100%;
+}
+
+.edit-recipient-form label {
+  display: flex;
+  flex-direction: column;
+  font-weight: bold;
+  font-size: var(--text-body-sm); /* Adjust if needed to match recipient-item */
+  color: var(--color-ink); /* Adjust if needed to match recipient-item */
+}
+
+.edit-recipient-form input {
+  padding: 10px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  font-size: var(--text-body);
+  margin-top: 5px;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: inherit; /* This will inherit the font from the body or container */
+}
+
+.full-width-field {
+  grid-column: 1 / -1;
+}
+
+.form-actions {
+  grid-column: span 2;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 20px;
+  gap: 10px;
+}
+
+.cancel-button, .save-button {
+  padding: 10px 20px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: var(--text-body);
+  transition: background-color 0.3s;
+  border: none;
+  font-family: inherit; /* This will inherit the font from the body or container */
+}
+
+.cancel-button {
+  background-color: var(--color-ink-muted);
+  color: var(--color-on-fill);
+}
+
+.cancel-button:hover {
+  background-color: var(--color-ink);
+}
+
+.save-button {
+  background-color: var(--color-primary-bright);
+  color: var(--color-on-fill);
+}
+
+.save-button:hover {
+  background-color: var(--color-primary);
+}
+
+.form-text {
+  font-size: 0.85em;
+  color: var(--color-ink-muted);
+  margin-top: 5px;
+  font-family: inherit; /* This will inherit the font from the body or container */
+}

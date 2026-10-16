@@ -1,0 +1,455 @@
+/* UserHome.module.css */
+.container {
+  box-sizing: content-box; /* max-width is the content column */
+  margin: 0 auto;
+  max-width: var(--content-max);
+  padding: var(--page-padding);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-2xl);
+}
+
+.welcomeText {
+  font: var(--type-display);
+  color: var(--color-primary);
+  margin: 0;
+}
+
+.statsGrid {
+  display: grid;
+  /* Columns follow the text size, not the window: at 200% text the cards
+     drop to fewer columns instead of squeezing their numbers out */
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+
+.card {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: var(--space-2xl);
+  box-shadow: var(--shadow-rest);
+  transition: box-shadow 0.3s ease;
+  border: 1px solid var(--color-border);
+}
+
+.statCard:hover {
+  box-shadow: var(--shadow-raised);
+}
+
+.statCard {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-md);
+}
+
+/* The add button sits in the corner, so the text gets the card's width */
+.statCard .addEventButton {
+  position: absolute;
+  top: var(--space-lg);
+  right: var(--space-lg);
+}
+
+.statCard .statInfo p:first-child,
+.statCard .budgetInfo p:first-child {
+  padding-right: 2.5rem;
+}
+
+.statLink {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-lg);
+  color: inherit;
+  text-decoration: none;
+  border-radius: var(--radius-md);
+}
+
+.statLink:hover .statInfo p:first-child,
+.statLink:hover .budgetInfo p:first-child {
+  color: var(--color-primary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.iconWrapper {
+  flex: none;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  background-color: var(--color-primary-wash);
+  color: var(--color-primary);
+}
+
+.statInfo,
+.budgetInfo {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.statInfo p,
+.budgetInfo p {
+  margin: 0;
+}
+
+.statInfo p:first-child,
+.budgetInfo p:first-child {
+  color: var(--color-ink-muted);
+  font-size: var(--text-label);
+  line-height: var(--leading-label);
+  font-weight: 600;
+}
+
+.statInfo p:last-child {
+  font-variant-numeric: tabular-nums;
+  color: var(--color-ink);
+  font-size: var(--text-headline);
+  line-height: var(--leading-headline);
+  font-weight: 700;
+}
+
+/* The budget card's fullest state (label, amount, Spent and Left rows) is
+   its height from the first paint, so the row does not grow or shrink when
+   the budget arrives; the other cards in the row stretch to match */
+.budgetInfo {
+  min-height: calc(
+    var(--text-label) * var(--leading-label)
+    + var(--text-headline) * var(--leading-headline)
+    + 2 * var(--text-body-sm) * var(--leading-body-sm)
+    + 2 * var(--space-xs)
+  );
+}
+
+/* Counts stay on one line; a very large budget amount may wrap rather
+   than spill out of the card */
+.statInfo p:last-child {
+  white-space: nowrap;
+}
+
+.budgetAmount {
+  font-variant-numeric: tabular-nums;
+  color: var(--color-ink);
+  font-size: var(--text-headline);
+  line-height: var(--leading-headline);
+  font-weight: 700;
+}
+
+.budgetRows {
+  margin: 0;
+  font-size: var(--text-body-sm);
+  line-height: var(--leading-body-sm);
+}
+
+.budgetRows div {
+  display: flex;
+  gap: var(--space-sm);
+}
+
+.budgetRows dt {
+  min-width: 3rem;
+  color: var(--color-ink-muted);
+}
+
+.budgetRows dd {
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-ink);
+  white-space: nowrap;
+}
+
+.budgetRows .overBudget {
+  color: var(--color-danger-strong);
+  font-weight: 600;
+}
+
+.noBudget {
+  color: var(--color-ink-muted);
+  font-size: var(--text-body-sm);
+}
+
+.mainGrid {
+  display: grid;
+  /* minmax(0, …): a panel's widest row must not widen the column past a
+     320px screen */
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+  .mainGrid {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 30rem), 1fr));
+  }
+
+  .purchaseHistoryCard {
+    grid-column: span 2;
+  }
+}
+
+.chartCard {
+  min-height: 25rem;
+}
+
+/* Side by side: start at the height four event rows need, so the row does
+   not grow when the events arrive. Stacked, the events card fits its rows */
+@media (min-width: 1024px) {
+  .chartCard, .eventsCard {
+    min-height: 31rem;
+  }
+}
+
+/* rem, so the panels grow with the text size. The events panel shows whole
+   rows and a link to the rest, never a list cut mid-row; beside it the chart
+   stretches to the same height */
+.chartCard, .eventsCard, .purchaseHistoryCard {
+  min-width: 0;
+}
+
+.chartCard {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.eventsCard {
+  display: flex;
+  flex-direction: column;
+}
+
+.eventList {
+  flex: 1;
+}
+
+.ghostLink {
+  align-self: flex-end;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  min-height: 36px;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-md);
+  color: var(--color-primary);
+  font-size: var(--text-body-sm);
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color var(--duration-fast) var(--ease-out), color var(--duration-fast) var(--ease-out);
+}
+
+.ghostLink:hover {
+  background-color: var(--color-primary-wash);
+  color: var(--color-primary-strong);
+}
+
+.ghostLink svg {
+  font-size: var(--text-caption);
+}
+
+/* The canvas sizes itself to this box (chart.js responsive, no aspect ratio) */
+.chartArea {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  min-width: 0;
+}
+
+.chartTitle {
+  font: var(--type-title);
+  color: var(--color-ink);
+  margin-bottom: 1rem;
+}
+
+.eventHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.eventHeader .chartTitle {
+  margin: 0;
+}
+
+/* Holiday filter and refresh, one row under the panel title */
+.toggles {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+}
+
+.holidayToggle {
+  border: 0;
+  background: transparent;
+  font: inherit;
+  color: inherit;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  min-height: 36px;
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-md);
+  transition: background-color var(--duration-fast) var(--ease-out);
+}
+
+.holidayToggle:hover {
+  background-color: var(--color-primary-wash);
+}
+
+.toggleLabel {
+  font-size: var(--text-body-sm);
+  color: var(--color-ink);
+}
+
+
+.holidayEvent {
+  background-color: var(--color-primary-wash);
+}
+
+.holidayLabel {
+  color: var(--color-primary);
+  font-weight: 500;
+}
+
+.emptyState {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md) var(--space-lg);
+  padding: var(--space-lg);
+  background-color: var(--color-surface-muted);
+  border-radius: var(--radius-md);
+}
+
+.emptyState p {
+  margin: 0;
+  max-width: var(--measure);
+  color: var(--color-ink-muted);
+  font-size: var(--text-body-sm);
+}
+
+.emptyAction {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 var(--space-xl);
+  border: 1px solid var(--color-primary);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface);
+  color: var(--color-primary);
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color var(--duration-fast) var(--ease-out), color var(--duration-fast) var(--ease-out);
+}
+
+.emptyAction:hover {
+  background-color: var(--color-primary-wash);
+  color: var(--color-primary-strong);
+}
+
+.noEvents {
+  padding: 2rem;
+  text-align: center;
+  color: var(--color-ink-muted);
+  font-style: italic;
+  background-color: var(--color-surface-muted);
+  border-radius: var(--radius-md);
+}
+
+
+.addEventButton {
+  flex: none;
+  background-color: var(--color-primary-wash);
+  color: var(--color-primary);
+  border: none;
+  border-radius: var(--radius-full);
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--ease-out), color var(--duration-fast) var(--ease-out);
+}
+
+/* 44px touch target */
+@media (pointer: coarse) {
+  .addEventButton {
+    width: 44px;
+    height: 44px;
+  }
+}
+
+.addEventButton:hover {
+  background-color: var(--color-primary);
+  color: var(--color-on-fill);
+}
+
+
+.eventItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  padding: var(--space-md) var(--space-lg);
+  background: var(--color-surface-muted);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-sm);
+}
+
+.eventInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 0;
+}
+
+/* Long names end in an ellipsis; the full name is in the title */
+.eventInfo > div {
+  min-width: 0;
+}
+
+.eventName {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 600;
+  color: var(--color-ink);
+  margin: 0;
+  font-size: var(--text-body);
+}
+
+.eventDate {
+  font-size: var(--text-body-sm);
+  color: var(--color-ink-muted);
+  margin: 0;
+}
+
+.purchasePrice {
+  flex: none;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  color: var(--color-ink);
+  font-size: var(--text-body);
+}
+
+
+

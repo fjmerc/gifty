@@ -1,0 +1,198 @@
+/* EventForm.module.css */
+
+.event-form-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--color-scrim);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.event-form-container {
+  background-color: var(--color-surface);
+  padding: 20px;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-rest);
+  max-width: 500px;
+  width: 100%;
+  max-height: 80vh;
+  overflow-y: auto;
+  margin-bottom: 10vh; /* Increased margin to move form up more */
+}
+
+.event-form {
+  width: 100%;
+}
+
+.event-form h2 {
+  font: var(--type-headline);
+  margin-top: 0;
+  margin-bottom: 20px;
+  color: var(--color-ink);
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--color-border);
+}
+
+.form-group {
+  margin-bottom: 15px;
+  /* Grid items default to their content's width; let them fit the column */
+  min-width: 0;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: var(--color-ink-muted);
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 8px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-body-sm);
+}
+
+/* Custom styling for event type select groups */
+.form-group [aria-invalid='true'] {
+  border-color: var(--color-danger-strong);
+}
+
+.form-group select optgroup {
+  font-weight: bold;
+  color: var(--color-ink);
+  padding: 5px;
+}
+
+.form-group select optgroup[label="System Event Types"] {
+  background-color: var(--color-primary-wash);
+}
+
+.form-group select optgroup[label="Custom Event Types"] {
+  background-color: var(--color-surface-muted);
+  border-top: 1px solid var(--color-border);
+}
+
+.form-group input[type="checkbox"] {
+  width: auto;
+  margin-right: 10px;
+}
+
+.exception-item {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.exception-item input {
+  flex-grow: 1;
+}
+
+.exception-item button,
+.form-group button {
+  background-color: var(--color-danger);
+  color: var(--color-on-fill);
+  border: none;
+  padding: 5px 10px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.form-actions button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: var(--text-body-sm);
+}
+
+.form-actions button[type="button"] {
+  background-color: var(--color-surface-muted);
+  color: var(--color-ink-muted);
+  color: var(--color-ink);
+}
+
+.form-actions button[type="submit"] {
+  background-color: var(--color-primary-bright);
+  color: var(--color-on-fill);
+}
+
+.form-actions button:hover {
+  opacity: 0.9;
+}
+
+.error {
+  color: var(--color-danger-strong);
+  font-size: var(--text-caption);
+  margin-top: 4px;
+}
+
+/* New styles for two-column layout */
+.two-column {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.recurring-section,
+.reminder-section {
+  border: 1px solid var(--color-border);
+  padding: 15px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 15px;
+}
+
+.section-title {
+  font: var(--type-title);
+  color: var(--color-ink);
+  margin-bottom: 10px;
+}
+
+.checkbox-group {
+  margin-bottom: 10px;
+}
+
+.checkbox-group label {
+  display: flex;
+  align-items: center;
+  font-weight: normal;
+}
+
+.checkbox-group input[type="checkbox"] {
+  margin-right: 8px;
+}
+
+/* Phones (320 px and up): one field per row, so dates and selects are not
+   clipped or truncated */
+@media (max-width: 480px) {
+  .two-column {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .recurring-section,
+  .reminder-section {
+    padding: 10px;
+  }
+
+  .exception-item {
+    flex-wrap: wrap;
+  }
+}

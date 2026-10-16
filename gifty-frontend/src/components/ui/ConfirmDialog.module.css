@@ -1,0 +1,17 @@
+.message {
+  margin: 0;
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+  color: var(--color-ink);
+  max-width: 65ch;
+}
+
+.error {
+  margin: var(--space-lg) 0 0;
+  padding: var(--space-md) var(--space-lg);
+  border-radius: var(--radius-md);
+  background-color: var(--color-danger-wash);
+  color: var(--color-danger-strong);
+  font-size: var(--text-body-sm);
+  line-height: var(--leading-body-sm);
+}

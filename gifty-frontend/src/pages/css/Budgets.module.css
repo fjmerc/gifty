@@ -1,0 +1,359 @@
+.container {
+  padding: var(--page-padding);
+}
+
+.budgetDashboard {
+  max-width: var(--content-max);
+  margin: 0 auto;
+}
+
+.contentContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3xl);
+}
+
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title {
+  font: var(--type-display);
+  margin: 0;
+  color: var(--color-primary);
+}
+
+.yearSelector {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.yearSelector select {
+  padding: 10px 16px;
+  border-radius: var(--radius-md);
+  border: 2px solid var(--color-border);
+  background-color: var(--color-surface);
+  font-size: 1em;
+  color: var(--color-primary);
+  transition-property: color, background-color, border-color, box-shadow, transform, opacity;
+  transition-duration: 0.2s;
+  transition-timing-function: ease;
+  cursor: pointer;
+}
+
+.yearSelector select:hover {
+  border-color: var(--color-primary);
+}
+
+.refreshButton {
+  padding: 10px 20px;
+  background: var(--color-primary);
+  color: var(--color-on-fill);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition-property: color, background-color, border-color, box-shadow, transform, opacity;
+  transition-duration: 0.2s;
+  transition-timing-function: ease;
+  font-weight: 500;
+}
+
+.refreshButton:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-raised);
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+  font-size: var(--text-headline);
+  color: var(--color-primary);
+}
+
+.loading svg {
+  margin-right: 10px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.overallBudget {
+  background-color: var(--color-surface);
+  padding: 25px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-raised);
+  transition-property: color, background-color, border-color, box-shadow, transform, opacity;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
+}
+
+.overallBudget:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-raised);
+}
+
+.overallBudget h2 {
+  font: var(--type-headline);
+  color: var(--color-primary);
+  margin-bottom: 20px;
+}
+
+.overallBudgetDetails {
+  display: grid;
+  gap: 20px;
+}
+
+.budgetAmount, .budgetStatus {
+  font-variant-numeric: tabular-nums;
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
+  background-color: var(--color-surface-muted);
+  border-radius: var(--radius-md);
+  transition: background-color 0.2s ease;
+}
+
+.budgetAmount:hover, .budgetStatus:hover {
+  background-color: var(--color-surface-muted);
+}
+
+.budgetAmount span:first-child, .budgetStatus span:first-child {
+  color: var(--color-primary);
+  font-weight: 500;
+}
+
+.notes {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: var(--color-surface-muted);
+  border-radius: var(--radius-md);
+}
+
+.notes span {
+  font-weight: 500;
+  color: var(--color-primary);
+}
+
+.notes p {
+  margin: 8px 0 0;
+  color: var(--color-ink-muted);
+  line-height: 1.5;
+}
+
+.editButton, .addButton {
+  padding: 10px 20px;
+  background: var(--color-primary);
+  color: var(--color-on-fill);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition-property: color, background-color, border-color, box-shadow, transform, opacity;
+  transition-duration: 0.2s;
+  transition-timing-function: ease;
+  font-weight: 500;
+  width: fit-content;
+}
+
+.editButton:hover, .addButton:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-raised);
+}
+
+.editButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.noBudget {
+  text-align: center;
+  padding: 30px;
+  background-color: var(--color-surface-muted);
+  border-radius: var(--radius-md);
+  border: 2px dashed var(--color-primary);
+}
+
+.recipientBudgets {
+  margin-top: 30px;
+}
+
+.recipientBudgets h2 {
+  font: var(--type-headline);
+  color: var(--color-primary);
+  margin-bottom: 20px;
+}
+
+.recipientBudgetsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
+  gap: 25px;
+  margin-top: 20px;
+}
+
+.recipientBudgetCard {
+  background-color: var(--color-surface);
+  padding: 25px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-raised);
+  transition-property: color, background-color, border-color, box-shadow, transform, opacity;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
+  position: relative;
+  overflow: hidden;
+}
+
+
+.recipientBudgetCard:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-raised);
+}
+
+.recipientBudgetCard.warning::before {
+  background: var(--color-warning);
+}
+
+.recipientBudgetCard.critical::before {
+  background: var(--color-danger);
+}
+
+.recipientHeader {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.recipientName {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  font-weight: 600;
+  color: var(--color-primary);
+  font-size: 1.2em;
+}
+
+.recipientStatus {
+  font-size: 0.9em;
+  padding: 6px 12px;
+  border-radius: var(--radius-full);
+  color: var(--color-on-fill);
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: var(--shadow-rest);
+  transition-property: color, background-color, border-color, box-shadow, transform, opacity;
+  transition-duration: 0.2s;
+  transition-timing-function: ease;
+}
+
+.statusCompleted {
+  background-color: var(--color-primary-bright);
+}
+
+.statusInProgress {
+  background-color: var(--color-primary);
+}
+
+.statusPending {
+  background-color: var(--color-warning-wash);
+  color: var(--color-warning);
+}
+
+.statusOverdue {
+  background-color: var(--color-danger);
+}
+
+.budgetDetails {
+  display: grid;
+  gap: 20px;
+}
+
+.budgetType {
+  padding: 15px;
+  background-color: var(--color-surface-muted);
+  border-radius: var(--radius-md);
+  transition: background-color 0.2s ease;
+}
+
+.budgetType:hover {
+  background-color: var(--color-surface-muted);
+}
+
+.percentageAllocation, .fixedAllocation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.spendingDetails {
+  display: grid;
+  gap: 12px;
+}
+
+.spent, .remaining {
+  font-variant-numeric: tabular-nums;
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
+  background-color: var(--color-surface-muted);
+  border-radius: var(--radius-md);
+  transition: background-color 0.2s ease;
+}
+
+.spent:hover, .remaining:hover {
+  background-color: var(--color-surface-muted);
+}
+
+.error {
+  text-align: center;
+  padding: 20px;
+  color: var(--color-danger-strong);
+  background-color: var(--color-danger-wash);
+  border-radius: var(--radius-md);
+  margin: 20px 0;
+}
+
+.noBudgets {
+  text-align: center;
+  padding: 30px;
+  color: var(--color-ink-muted);
+  background-color: var(--color-surface-muted);
+  border-radius: var(--radius-md);
+  border: 2px dashed var(--color-primary);
+}
+
+@media (max-width: 768px) {
+
+
+  .header {
+    margin: 0;
+  }
+}
+
+/* Touch: the recipient name link gets a 44px hit area without moving the layout */
+@media (pointer: coarse) {
+  .recipientName a {
+    display: inline-block;
+    padding: 12px 0;
+    margin: -12px 0;
+  }
+}

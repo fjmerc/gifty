@@ -1,0 +1,36 @@
+/* "Related pages on the web" links of a Web-Enhanced suggestion */
+.webSources {
+  margin-top: 6px;
+}
+
+.heading {
+  margin: 0;
+  font-weight: 600;
+  color: var(--color-ink-muted);
+  font-size: var(--text-body-sm);
+}
+
+.list {
+  list-style: none;
+  margin: 2px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.link {
+  color: var(--color-primary);
+  text-decoration: underline;
+  overflow-wrap: anywhere;
+}
+
+.link:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.host {
+  color: var(--color-ink-muted);
+  font-size: var(--text-caption);
+}
