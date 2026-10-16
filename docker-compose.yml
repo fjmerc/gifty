@@ -1,0 +1,49 @@
+# Gifty — self-hosted install. See README.md.
+services:
+  gifty:
+    image: ghcr.io/fjmerc/gifty:${GIFTY_VERSION:-latest}
+    ports:
+      - "${GIFTY_PORT:-3000}:3000"
+    # Behind a reverse proxy (Caddy, nginx, Traefik…) set TRUST_PROXY in .env
+    # to the proxy's address or CIDR (e.g. 172.18.0.0/16), or a hop count.
+    # Without it every client looks like the proxy, so one person's failed
+    # logins lock everyone out; Gifty logs a warning when it sees this.
+    # Every setting in .env reaches the app, including DEFAULT_COUNTRY and
+    # DEFAULT_CURRENCY (new accounts' holidays and currency; see README).
+    env_file: .env
+    volumes:
+      - ./data/app:/app/data
+    depends_on:
+      mongo:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    # Longer than the app's 30s queue drain, so Docker doesn't SIGKILL mid-job
+    stop_grace_period: 45s
+    restart: unless-stopped
+
+  mongo:
+    # MongoDB 5+ needs a CPU with AVX. On older x86 CPUs set MONGO_IMAGE=mongo:4.4 in .env
+    image: ${MONGO_IMAGE:-mongo:7}
+    volumes:
+      - ./data/mongo:/data/db
+    healthcheck:
+      # mongosh ships with Mongo 6+, the legacy mongo shell with 4.4
+      test: ["CMD-SHELL", "mongosh --quiet --eval 'db.adminCommand(\"ping\").ok' || mongo --quiet --eval 'db.adminCommand(\"ping\").ok'"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - ./data/redis:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped

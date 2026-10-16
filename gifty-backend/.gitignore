@@ -1,0 +1,60 @@
+# Dependency directories
+node_modules/
+
+# Environment variables
+.env
+
+# Log files
+npm-debug.log
+yarn-error.log
+yarn-debug.log
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# MacOS system files
+.DS_Store
+
+# Optional editors' directories and files
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-project
+*.sublime-workspace
+
+# Build output directory
+/dist
+
+# Production build directory
+/build
+
+# Ignore all contents of the uploads folder
+uploads/*
+
+# Explicitly ignore .jpg files in uploads (including subdirectories)
+uploads/**/*.jpg
+
+# But keep the uploads folder itself
+!uploads/
+!uploads/.gitkeep
+
+# Database backups
+database_backups/
+/database_backups/
+../database_backups/
+
+coverage/
+
+# Ignore all log files in logs directory
+logs/**
+
+# Legacy scripts directory
+legacy-scripts/
+
+# Ignore tests directory
+# tests/
+data/

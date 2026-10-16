@@ -1,0 +1,228 @@
+.tagCloudCard {
+  height: 100%;
+  background-color: var(--color-surface);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-rest);
+  transition-property: color, background-color, border-color, box-shadow, transform, opacity;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.tagCloudCard:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-raised);
+  border-color: var(--color-primary);
+}
+
+.cardHeader {
+  padding: 15px 20px;
+  border-bottom: 2px solid var(--color-primary-bright);
+  color: var(--color-primary);
+  font-weight: 600;
+  border-top-left-radius: var(--radius-md);
+  border-top-right-radius: var(--radius-md);
+}
+
+.cardHeader h5 {
+  margin: 0;
+  font-weight: 600;
+  font-size: 1.2em;
+}
+
+.cardBody {
+  padding: 20px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.controls {
+  display: flex;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 15px;
+  padding: 15px;
+  background-color: var(--color-surface);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-rest);
+}
+
+.formGroup {
+  flex: 1;
+  min-width: 120px;
+  margin: 0 8px;
+}
+
+.formLabel {
+  font-size: var(--text-body-sm);
+  color: var(--color-ink-muted);
+  margin-bottom: 8px;
+  display: block;
+  font-weight: 500;
+}
+
+.formSelect {
+  width: 100%;
+  padding: 10px 15px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface);
+  font-size: var(--text-body-sm);
+  box-shadow: var(--shadow-rest);
+}
+
+.formSelect:focus {
+  border-color: var(--color-primary);
+}
+
+.tagCloudContainer {
+  flex-grow: 1;
+  background-color: var(--color-surface);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  overflow: hidden;
+  position: relative;
+  min-height: 280px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-rest);
+}
+
+.tagCloud {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  max-width: 100%;
+  padding: 10px;
+  line-height: 1.8;
+}
+
+.tag {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition-property: color, background-color, border-color, box-shadow, transform, opacity;
+  transition-duration: 0.2s;
+  transition-timing-function: ease;
+  white-space: nowrap;
+  background-color: var(--color-primary-wash);
+  color: var(--color-primary);
+  border: 1px solid var(--color-border);
+  font-size: var(--text-body-sm);
+  margin: 2px;
+}
+
+.tag:hover {
+  background-color: var(--color-primary);
+  color: var(--color-on-fill);
+  transform: scale(1.05);
+}
+
+/* Tag sizes are now controlled via inline styles with more modest scaling */
+
+.loadingPlaceholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-surface-muted);
+  border-radius: var(--radius-md);
+  color: var(--color-ink-muted);
+}
+
+/* Empty period or everything filtered out: one plain sentence */
+.noDataMessage {
+  margin: 0;
+  max-width: 36ch;
+  text-align: center;
+  color: var(--color-ink-muted);
+  font-size: var(--text-body-sm);
+  text-wrap: pretty;
+}
+
+.tagCountInfo {
+  text-align: center;
+  margin-top: 20px;
+  font-size: var(--text-body-sm);
+  color: var(--color-ink-muted);
+  background-color: var(--color-surface);
+  padding: 15px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-rest);
+}
+
+.tagCountHighlight {
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.tagFilter {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.filterButton {
+  padding: 8px 16px;
+  background-color: var(--color-surface-muted);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-ink-muted);
+  font-size: var(--text-body-sm);
+  cursor: pointer;
+  transition-property: color, background-color, border-color, box-shadow, transform, opacity;
+  transition-duration: 0.2s;
+  transition-timing-function: ease;
+}
+
+.filterButton:hover {
+  background-color: var(--color-primary-wash);
+  border-color: var(--color-primary);
+}
+
+.filterButton.active {
+  background-color: var(--color-primary);
+  color: var(--color-on-fill);
+  border-color: var(--color-primary);
+}
+
+@media (max-width: 576px) {
+  .controls {
+    flex-direction: column;
+    padding: 12px;
+  }
+  
+  .formGroup {
+    width: 100%;
+    margin: 4px 0;
+  }
+  
+  .tagCloudContainer {
+    min-height: 200px;
+    padding: 15px;
+  }
+  
+  .tag {
+    padding: 4px 10px;
+    margin: 4px;
+  }
+  
+  .tagFilter {
+    flex-wrap: wrap;
+  }
+}

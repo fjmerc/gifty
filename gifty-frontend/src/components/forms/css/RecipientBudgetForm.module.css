@@ -1,0 +1,232 @@
+.budgetFormOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--color-scrim);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.budgetFormContainer {
+  background-color: var(--color-surface);
+  padding: 25px;
+  border-radius: var(--radius-md);
+  width: 90%;
+  max-width: 1000px;
+  max-height: 85vh;
+  overflow-y: auto;
+}
+
+.budgetForm {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.formTitle {
+  font: var(--type-headline);
+  color: var(--color-primary);
+  margin: 0 0 25px;
+  grid-column: 1 / -1;
+  padding-bottom: 15px;
+  border-bottom: 2px solid var(--color-border);
+  letter-spacing: -0.5px;
+}
+
+.formSection {
+  grid-column: 1 / -1;
+  background-color: var(--color-surface-muted);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  margin-bottom: 5px;
+}
+
+.sectionTitle {
+  font: var(--type-title);
+  color: var(--color-primary);
+  margin: 0 0 15px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.formGroup.full-width {
+  grid-column: 1 / -1;
+}
+
+.formGroup label {
+  font-weight: bold;
+  color: var(--color-ink-muted);
+  font-size: 0.9em;
+}
+
+.formGroup input,
+.formGroup select,
+.formGroup textarea {
+  padding: 8px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: 0.95em;
+  background-color: var(--color-surface);
+}
+
+.formGroup input:focus,
+.formGroup select:focus,
+.formGroup textarea:focus {
+  border-color: var(--color-primary);
+}
+
+.formGroup textarea {
+  min-height: 60px;
+  max-height: 80px;
+  resize: vertical;
+}
+
+.percentageInput {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.percentageInput input {
+  width: 80px;
+}
+
+.percentageInput span {
+  color: var(--color-ink-muted);
+}
+
+.checkboxGroup {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  background-color: var(--color-surface);
+  padding: 12px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  margin-top: 15px;
+  transition-property: color, background-color, border-color, box-shadow, transform, opacity;
+  transition-duration: 0.2s;
+  transition-timing-function: ease;
+  width: 100%;
+}
+
+.checkboxGroup:hover {
+  border-color: var(--color-primary);
+  background-color: var(--color-primary-wash);
+}
+
+.checkboxGroup input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin-right: 12px;
+  accent-color: var(--color-primary);
+  cursor: pointer;
+}
+
+.checkboxGroup label {
+  margin: 0;
+  cursor: pointer;
+  font-weight: 500;
+  color: var(--color-ink-muted);
+  font-size: 0.95em;
+}
+
+.error {
+  color: var(--color-danger-strong);
+  font-size: 0.8em;
+  margin-top: 2px;
+}
+
+.formActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+  grid-column: 1 / -1;
+  padding-top: 20px;
+  border-top: 2px solid var(--color-border);
+}
+
+.cancelButton,
+.submitButton {
+  padding: 10px 20px;
+  border-radius: var(--radius-sm);
+  font-weight: bold;
+  cursor: pointer;
+  transition-property: color, background-color, border-color, box-shadow, transform, opacity;
+  transition-duration: 0.2s;
+  transition-timing-function: ease;
+}
+
+.cancelButton {
+  background-color: var(--color-border);
+  border: none;
+  color: var(--color-ink-muted);
+}
+
+.submitButton {
+  background-color: var(--color-primary);
+  border: none;
+  color: var(--color-on-fill);
+}
+
+.cancelButton:hover {
+  background-color: var(--color-border);
+}
+
+.submitButton:hover {
+  background-color: var(--color-primary-strong);
+}
+
+.hint {
+  color: var(--color-ink-muted);
+  font-size: 0.8em;
+  margin-top: -4px;
+}
+
+.allocationType {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  align-items: start;
+}
+
+.notes {
+  grid-column: 1 / -1;
+}
+
+input[type="date"] {
+  width: 100%;
+}
+
+.sectionContent {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+}
+
+@media (max-width: 768px) {
+  .budgetForm {
+    grid-template-columns: 1fr;
+  }
+
+  .sectionContent {
+    grid-template-columns: 1fr;
+  }
+  
+  .allocationType {
+    grid-template-columns: 1fr;
+  }
+
+}

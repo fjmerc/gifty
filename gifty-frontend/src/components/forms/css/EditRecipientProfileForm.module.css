@@ -1,0 +1,257 @@
+/* Page container */
+.edit-recipient-page {
+  padding: var(--page-padding);
+  color: var(--color-ink);
+}
+
+/* Form container */
+.edit-recipient-form {
+  max-width: 1000px;
+  margin: 0 auto 20px;
+  margin-top: 75px;
+  padding: 40px;
+  background-color: var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-raised);
+}
+
+/* Headings */
+.edit-recipient-form h2, .edit-recipient-form h3 {
+  color: var(--color-primary);
+  margin-bottom: 30px;
+}
+
+.edit-recipient-form h2 {
+  font: var(--type-headline);
+}
+
+.edit-recipient-form h3 {
+  font: var(--type-title);
+  border-bottom: 2px solid var(--color-primary);
+  padding-bottom: 10px;
+}
+
+/* Layout */
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -15px;
+}
+
+.form-group {
+  flex: 1 1 calc(50% - 30px);
+  margin: 0 15px 25px;
+}
+
+/* Form elements */
+.form-group label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+.form-group input,
+.form-group select,
+.input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: var(--text-body);
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.input:focus {
+  border-color: var(--color-primary);
+}
+
+/* Error messages */
+.error {
+  color: var(--color-danger-strong);
+  font-size: 0.9em;
+  margin-top: 8px;
+  font-weight: 500;
+}
+
+/* Error state for input fields */
+.input.error {
+  border-color: var(--color-danger) !important;
+  background-color: var(--color-danger-wash) !important;
+  box-shadow: 0 0 0 2px rgba(220, 53, 69, 0.2) !important;
+}
+
+.input.error:focus {
+  border-color: var(--color-danger) !important;
+}
+
+/* Error message container for general form errors */
+.errorMessage {
+  color: var(--color-danger-strong);
+  text-align: center;
+  margin: 16px 0;
+  padding: 12px;
+  background-color: var(--color-danger-wash);
+  border: 1px solid var(--color-danger);
+  border-radius: var(--radius-md);
+  font-size: var(--text-body-sm);
+  font-weight: 500;
+}
+
+/* Success message for positive feedback */
+.successMessage {
+  color: var(--color-primary);
+  text-align: center;
+  margin: 16px 0;
+  padding: 12px;
+  background-color: var(--color-primary-wash);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: var(--text-body-sm);
+  font-weight: 500;
+}
+
+/* Form actions */
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 40px;
+}
+
+.form-actions button {
+  padding: 14px 28px;
+  margin-left: 20px;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-size: var(--text-body);
+  font-weight: 600;
+  transition: background-color 0.3s, transform 0.1s, box-shadow 0.3s;
+}
+
+.form-actions button:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-raised);
+}
+
+.form-actions button[type="button"] {
+  background-color: var(--color-ink-muted);
+  color: var(--color-on-fill);
+}
+
+.form-actions button[type="submit"] {
+  background-color: var(--color-primary);
+  color: var(--color-on-fill);
+}
+
+.form-actions button[type="button"]:hover {
+  background-color: var(--color-ink);
+}
+
+.form-actions button[type="submit"]:hover {
+  background-color: var(--color-primary-strong);
+}
+
+/* Personality Traits */
+.personality-traits {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 150px), 1fr));
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.personality-trait {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+.personality-trait input[type="checkbox"] {
+  margin: 0;
+  padding: 0;
+  width: auto;
+  height: auto;
+}
+
+.personality-trait label {
+  font-size: var(--text-body-sm);
+  white-space: nowrap;
+  margin: 0;
+  padding-left: 5px;
+  cursor: pointer;
+}
+
+/* Wish List */
+.wish-list-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.wish-list-item input,
+.wish-list-item select {
+  flex: 1;
+  margin-right: 10px;
+}
+
+.add-button,
+.remove-button {
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-full);
+  border: none;
+  color: var(--color-on-fill);
+  font-size: var(--text-body);
+  font-weight: bold;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin-left: 10px;
+  flex-shrink: 0;
+}
+
+.add-button {
+  background-color: var(--color-success);
+}
+
+.remove-button {
+  background-color: var(--color-danger);
+}
+
+.wish-list-actions {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 10px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .edit-recipient-form {
+    padding: 20px;
+  }
+
+  .row {
+    flex-direction: column;
+  }
+
+  .form-group {
+    flex-basis: 100%;
+    margin-bottom: 20px;
+  }
+
+  .form-actions {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+
+  .form-actions button {
+    margin: 10px 0;
+    width: 100%;
+  }
+}

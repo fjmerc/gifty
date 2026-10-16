@@ -1,0 +1,202 @@
+.dateRangeFilter {
+  padding: 20px;
+  background-color: var(--color-surface-muted);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  margin-bottom: 20px;
+  transition-property: color, background-color, border-color, box-shadow, transform, opacity;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
+}
+
+.dateRangeFilter:hover {
+  border-color: var(--color-primary);
+}
+
+.filterTitle {
+  font: var(--type-title);
+  color: var(--color-primary);
+  margin-bottom: 20px;
+  border-bottom: 2px solid var(--color-primary-bright);
+  padding-bottom: 10px;
+}
+
+.dateInputRow {
+  margin-bottom: 20px;
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 15px;
+  background-color: var(--color-surface);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+}
+
+.dateLabel {
+  font-weight: 500;
+  color: var(--color-primary);
+  margin-bottom: 8px;
+  display: block;
+}
+
+.datePicker {
+  width: 100%;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 10px 15px;
+  transition-property: color, background-color, border-color, box-shadow, transform, opacity;
+  transition-duration: 0.2s;
+  transition-timing-function: ease;
+  background-color: var(--color-surface);
+  box-shadow: var(--shadow-rest);
+}
+
+.datePicker:focus {
+  border-color: var(--color-primary);
+}
+
+.applyButtonCol {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  margin-top: 28px; /* Align with input fields */
+}
+
+.applyButton {
+  width: 100%;
+  background: var(--color-primary);
+  color: var(--color-on-fill);
+  border: none;
+  padding: 10px 20px;
+  border-radius: var(--radius-md);
+  font-weight: 500;
+  cursor: pointer;
+  transition-property: color, background-color, border-color, box-shadow, transform, opacity;
+  transition-duration: 0.2s;
+  transition-timing-function: ease;
+}
+
+.applyButton:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-raised);
+}
+
+.quickSelectRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 20px;
+  background-color: var(--color-surface);
+  padding: 15px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+}
+
+.quickSelectLabel {
+  color: var(--color-primary);
+  margin-right: 15px;
+  font-size: var(--text-body-sm);
+  font-weight: 500;
+}
+
+.quickSelectButton {
+  margin-right: 8px;
+  margin-bottom: 8px;
+  font-size: var(--text-body-sm);
+  padding: 8px 15px;
+  background-color: var(--color-primary-wash);
+  color: var(--color-primary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition-property: color, background-color, border-color, box-shadow, transform, opacity;
+  transition-duration: 0.2s;
+  transition-timing-function: ease;
+}
+
+.quickSelectButton:hover {
+  background-color: var(--color-primary-wash);
+  border-color: var(--color-primary);
+}
+
+.quickSelectButton.active {
+  background: var(--color-primary);
+  color: var(--color-on-fill);
+  border-color: var(--color-primary);
+}
+
+.validationError {
+  color: var(--color-danger-strong);
+  font-size: var(--text-body-sm);
+  margin-bottom: 15px;
+  padding: 10px 15px;
+  background-color: var(--color-danger-wash);
+  border-radius: var(--radius-md);
+}
+
+.currentFilter {
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  border: 1px solid var(--color-border);
+}
+
+.currentFilterLabel {
+  color: var(--color-primary);
+  margin-right: 15px;
+  font-size: var(--text-body-sm);
+  font-weight: 500;
+}
+
+.currentFilterValue {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  color: var(--color-primary);
+  font-weight: 600;
+  background-color: var(--color-primary-wash);
+  padding: 6px 12px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-primary);
+}
+
+@media (max-width: 768px) {
+  .dateInputRow {
+    flex-direction: column;
+    gap: 15px;
+    padding: 12px;
+  }
+  
+  .applyButtonCol {
+    margin-top: 15px;
+    width: 100%;
+  }
+  
+  .applyButton {
+    width: 100%;
+  }
+  
+  .quickSelectRow {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 12px;
+  }
+  
+  .quickSelectLabel {
+    margin-bottom: 10px;
+  }
+  
+  .quickSelectButton {
+    margin-right: 6px;
+    margin-bottom: 6px;
+  }
+
+  .currentFilter {
+    padding: 12px;
+  }
+}

@@ -1,0 +1,22 @@
+.notFound {
+  max-width: 32rem;
+  margin: var(--space-4xl) auto;
+  padding: 0 var(--space-lg);
+  text-align: center;
+  color: var(--color-ink);
+}
+
+.notFound h1 {
+  font: var(--type-headline);
+  margin: 0 0 var(--space-sm);
+}
+
+.notFound p {
+  margin: 0 0 var(--space-xl);
+  color: var(--color-ink-muted);
+}
+
+.backLink {
+  color: var(--color-primary);
+  font-weight: 600;
+}

@@ -1,0 +1,201 @@
+.categoryCard {
+  height: 100%;
+  background-color: var(--color-surface);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-rest);
+  transition-property: color, background-color, border-color, box-shadow, transform, opacity;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.categoryCard:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-raised);
+  border-color: var(--color-primary);
+}
+
+.cardHeader {
+  padding: 15px 20px;
+  border-bottom: 2px solid var(--color-primary-bright);
+  color: var(--color-primary);
+  font-weight: 600;
+  border-top-left-radius: var(--radius-md);
+  border-top-right-radius: var(--radius-md);
+}
+
+.cardHeader h5 {
+  margin: 0;
+  font-weight: 600;
+  font-size: 1.2em;
+}
+
+.cardBody {
+  padding: 20px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.controls {
+  display: flex;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 15px;
+  padding: 15px;
+  background-color: var(--color-surface);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-rest);
+}
+
+.formGroup {
+  flex: 1;
+  min-width: 120px;
+  margin: 0 8px;
+}
+
+.formLabel {
+  font-size: var(--text-body-sm);
+  color: var(--color-ink-muted);
+  margin-bottom: 8px;
+  display: block;
+  font-weight: 500;
+}
+
+.formSelect {
+  width: 100%;
+  padding: 10px 15px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface);
+  font-size: var(--text-body-sm);
+  margin: 0;
+  box-shadow: var(--shadow-rest);
+}
+
+.formSelect:focus {
+  border-color: var(--color-primary);
+}
+
+.chartArea {
+  position: relative;
+  height: 330px;
+  min-width: 0;
+}
+
+.chartContainer {
+  flex-grow: 1;
+  background-color: var(--color-surface);
+  border-radius: var(--radius-md);
+  padding: 15px;
+  position: relative;
+  min-height: 350px;
+  margin-bottom: 20px;
+  overflow: visible;
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-rest);
+}
+
+.loadingPlaceholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-surface-muted);
+  border-radius: var(--radius-md);
+  color: var(--color-ink-muted);
+}
+
+/* Empty period: a sentence where the chart would be, no invented slices */
+.noDataMessage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 10rem;
+  height: 100%;
+  margin: 0;
+  padding: 16px;
+  text-align: center;
+  color: var(--color-ink-muted);
+  font-size: var(--text-body-sm);
+}
+
+.categoryLegend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 15px;
+  justify-content: center;
+  background-color: var(--color-surface);
+  padding: 15px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-rest);
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  font-size: var(--text-body-sm);
+  color: var(--color-ink-muted);
+  margin-right: 12px;
+}
+
+.legendColor {
+  width: 16px;
+  height: 16px;
+  border-radius: var(--radius-sm);
+  margin-right: 8px;
+}
+
+.summaryText {
+  text-align: center;
+  margin-top: 15px;
+  font-size: var(--text-body-sm);
+  color: var(--color-ink-muted);
+  background-color: var(--color-surface);
+  padding: 15px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-rest);
+}
+
+.summaryHighlight {
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+@media (max-width: 576px) {
+  .controls {
+    flex-direction: column;
+    padding: 12px;
+  }
+  
+  .formGroup {
+    width: 100%;
+    margin: 4px 0;
+  }
+
+  .chartContainer {
+    min-height: 260px;
+    padding: 15px;
+  }
+  
+  .categoryLegend {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    padding: 10px;
+  }
+  
+  .legendItem {
+    font-size: var(--text-caption);
+    margin-bottom: 5px;
+  }
+}

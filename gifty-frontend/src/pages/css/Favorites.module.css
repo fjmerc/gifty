@@ -1,0 +1,40 @@
+.emptyState {
+  text-align: center;
+  padding: 40px 20px;
+  margin: 20px auto;
+  background-color: var(--color-surface-muted);
+  border-radius: var(--radius-lg);
+  max-width: 600px;
+}
+
+.emptyState h3 {
+  font: var(--type-title);
+  color: var(--color-primary);
+  margin-bottom: 15px;
+}
+
+.emptyState p {
+  color: var(--color-ink-muted);
+  margin-bottom: 10px;
+}
+
+/* Same secondary link as the empty Recent Purchases on the home page */
+.emptyAction {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  margin-top: var(--space-sm);
+  padding: 0 var(--space-xl);
+  border: 1px solid var(--color-primary);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface);
+  color: var(--color-primary);
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color var(--duration-fast) var(--ease-out), color var(--duration-fast) var(--ease-out);
+}
+
+.emptyAction:hover {
+  background-color: var(--color-primary-wash);
+  color: var(--color-primary-strong);
+}

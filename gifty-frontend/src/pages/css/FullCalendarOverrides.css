@@ -1,0 +1,144 @@
+/* FullCalendar Overrides */
+
+/* Calendar container. FullCalendar draws its grid from these custom
+   properties; pointing them at the design tokens makes it follow the theme. */
+.fc {
+  --fc-page-bg-color: var(--color-surface);
+  --fc-neutral-bg-color: var(--color-surface-muted);
+  --fc-neutral-text-color: var(--color-ink-muted);
+  --fc-border-color: var(--color-border);
+  --fc-today-bg-color: var(--color-primary-wash);
+  --fc-list-event-hover-bg-color: var(--color-primary-wash);
+  --fc-highlight-color: var(--color-primary-wash);
+  --fc-non-business-color: var(--color-surface-muted);
+  --fc-bg-event-color: var(--color-primary-bright);
+  --fc-event-bg-color: var(--color-primary-bright);
+  --fc-event-border-color: var(--color-primary-bright);
+  --fc-event-text-color: var(--color-on-fill);
+  --fc-button-text-color: var(--color-primary);
+  --fc-button-bg-color: var(--color-primary-wash);
+  --fc-button-border-color: var(--color-border);
+  --fc-button-hover-bg-color: var(--color-primary-wash);
+  --fc-button-hover-border-color: var(--color-primary);
+  --fc-button-active-bg-color: var(--color-primary);
+  --fc-button-active-border-color: var(--color-primary);
+  color: var(--color-ink);
+}
+
+/* Button styling */
+.fc .fc-button.fc-button-primary {
+  background-color: var(--color-primary-wash) !important;
+  border-color: var(--color-border) !important;
+  color: var(--color-primary) !important;
+  box-shadow: var(--shadow-rest) !important;
+  transition-property: color, background-color, border-color, box-shadow, transform, opacity !important;
+  transition-duration: 0.3s !important;
+  transition-timing-function: ease !important;
+}
+
+.fc .fc-button.fc-button-primary:hover {
+  background-color: var(--color-primary-wash) !important;
+  background-color: color-mix(in srgb, var(--color-primary) 10%, var(--color-surface)) !important;
+  border-color: var(--color-primary) !important;
+  color: var(--color-primary) !important;
+  box-shadow: var(--shadow-raised) !important;
+}
+
+.fc .fc-button.fc-button-primary:not(:disabled).fc-button-active,
+.fc .fc-button.fc-button-primary:not(:disabled):active {
+  background-color: var(--color-primary) !important;
+  border-color: var(--color-primary) !important;
+  color: var(--color-on-fill) !important;
+  box-shadow: none !important;
+}
+
+/* Today button styling */
+.fc .fc-today-button {
+  background-color: var(--color-primary-wash) !important;
+  border-color: var(--color-border) !important;
+  color: var(--color-primary) !important;
+  margin-left: 6px !important;
+}
+
+.fc .fc-today-button:hover,
+.fc .fc-today-button:focus {
+  background-color: var(--color-primary-wash) !important;
+  background-color: color-mix(in srgb, var(--color-primary) 10%, var(--color-surface)) !important;
+  border-color: var(--color-primary) !important;
+  color: var(--color-primary) !important;
+}
+
+/* Title centering */
+.fc .fc-toolbar-title {
+  font-size: 1.5em !important;
+  color: var(--color-primary) !important;
+  font-weight: 600 !important;
+  text-align: center !important;
+}
+
+.fc .fc-toolbar.fc-header-toolbar {
+  display: flex !important;
+  justify-content: space-between !important;
+  margin-bottom: 1.5em !important;
+}
+
+.fc .fc-toolbar.fc-header-toolbar .fc-toolbar-chunk:nth-child(2) {
+  flex-grow: 1 !important;
+  display: flex !important;
+  justify-content: center !important;
+  text-align: center !important;
+}
+
+/* Override header layout completely */
+.fc .fc-toolbar {
+  display: grid !important;
+  grid-template-columns: 1fr auto 1fr !important;
+  align-items: center !important;
+  width: 100% !important;
+}
+
+.fc .fc-toolbar-chunk:first-child {
+  justify-self: start !important;
+}
+
+.fc .fc-toolbar-chunk:nth-child(2) {
+  justify-self: center !important;
+  transform: translateX(-80px) !important; /* Move significantly to the left */
+}
+
+.fc .fc-toolbar-chunk:last-child {
+  justify-self: end !important;
+}
+
+/* Calendar event styling */
+.fc .fc-daygrid-event {
+  background-color: var(--color-primary-bright) !important;
+  border-color: var(--color-primary-bright) !important;
+  color: var(--color-on-fill) !important;
+  border-radius: var(--radius-sm) !important;
+  padding: 2px 4px !important;
+  font-size: 0.85em !important;
+  box-shadow: var(--shadow-rest) !important;
+}
+
+.fc .fc-daygrid-event:hover {
+  background-color: var(--color-primary) !important;
+  box-shadow: var(--shadow-rest) !important;
+  transform: translateY(-1px) !important;
+}
+
+/* Event title centering */
+.fc .fc-event-title-container {
+  text-align: center !important;
+}
+
+.fc .fc-event-title {
+  text-align: center !important;
+  width: 100% !important;
+  display: block !important;
+}
+
+/* Today's date highlight */
+.fc .fc-day-today {
+  background-color: var(--color-primary-wash) !important;
+}

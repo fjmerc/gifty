@@ -1,0 +1,299 @@
+.overviewCard {
+  height: 100%;
+  background-color: var(--color-surface);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-rest);
+  transition-property: color, background-color, border-color, box-shadow, transform, opacity;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.overviewCard:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-raised);
+  border-color: var(--color-primary);
+}
+
+.cardHeader {
+  padding: 15px 20px;
+  border-bottom: 2px solid var(--color-primary-bright);
+  color: var(--color-primary);
+  font-weight: 600;
+  border-top-left-radius: var(--radius-md);
+  border-top-right-radius: var(--radius-md);
+}
+
+.cardHeader h5 {
+  margin: 0;
+  font-weight: 600;
+  font-size: 1.2em;
+}
+
+.cardBody {
+  padding: 20px;
+  flex-grow: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.metricsSection {
+  flex: 1;
+  min-width: min(100%, 280px);
+  background-color: var(--color-surface);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-rest);
+}
+
+.metricsTitle {
+  font: var(--type-title);
+  margin-bottom: 20px;
+  color: var(--color-primary);
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 8px;
+}
+
+.metricItem {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px dashed var(--color-border);
+  transition: transform 0.2s;
+}
+
+.metricItem:hover {
+  transform: translateX(5px);
+}
+
+.metricItem:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.metricIcon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-primary);
+  border-radius: var(--radius-full);
+  margin-right: 15px;
+  color: var(--color-on-fill);
+  font-size: 1.3rem;
+}
+
+.metricIcon.sentimentHigh {
+  background-color: var(--color-success);
+}
+
+.metricIcon.sentimentMedium {
+  background-color: var(--color-warning);
+}
+
+.metricIcon.sentimentLow {
+  background-color: var(--color-danger);
+}
+
+.metricItem:hover .metricIcon {
+  transform: scale(1.1);
+}
+
+.metricInfo {
+  flex: 1;
+}
+
+.metricLabel {
+  font-size: var(--text-body-sm);
+  color: var(--color-ink-muted);
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+
+.metricValue {
+  font-variant-numeric: tabular-nums;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  display: flex;
+  align-items: center;
+}
+
+.metricValue.positive {
+  color: var(--color-primary);
+}
+
+.metricValue.negative {
+  color: var(--color-danger-strong);
+}
+
+.metricValue.neutral {
+  color: var(--color-primary);
+}
+
+.trendIndicator {
+  margin-left: 8px;
+  font-size: var(--text-body-sm);
+}
+
+/* Same inset as Key Metrics, so both titles start on one line */
+.chartSection {
+  flex: 2;
+  min-width: min(100%, 320px);
+  padding: 16px;
+}
+
+.chartTitle {
+  font: var(--type-title);
+  margin-bottom: 20px;
+  color: var(--color-primary);
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 8px;
+}
+
+.chartArea {
+  position: relative;
+  height: 250px;
+  min-width: 0;
+}
+
+/* The chart sets the height; the box only frames it (no card in a card) */
+.chartContainer {
+  margin-bottom: var(--space-lg);
+  padding: var(--space-lg) 0;
+}
+
+.mostCommonAction {
+  text-align: center;
+  font-size: var(--text-body-sm);
+  color: var(--color-ink-muted);
+  background-color: var(--color-surface-muted);
+  padding: var(--space-md) var(--space-lg);
+  border-radius: var(--radius-md);
+}
+
+.mostCommonAction span {
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.loadingPlaceholder {
+  display: inline-block;
+  height: 24px;
+  width: 80px;
+  background-color: var(--color-surface-muted);
+  border-radius: var(--radius-sm);
+  animation: pulse 1.5s infinite;
+}
+
+.loadingChartPlaceholder {
+  height: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-surface-muted);
+  border-radius: var(--radius-md);
+  color: var(--color-ink-muted);
+  border: 1px dashed var(--color-border);
+}
+
+/* No feedback in the period: a sentence in place of the bars */
+.noData {
+  height: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 16px;
+  text-align: center;
+  color: var(--color-ink-muted);
+  font-size: var(--text-body-sm);
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0.6;
+  }
+}
+
+.sentimentIndicator {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-full);
+  margin-right: 8px;
+}
+
+.sentimentPositive {
+  background-color: var(--color-primary-wash);
+  color: var(--color-primary);
+}
+
+.sentimentNegative {
+  background-color: var(--color-danger-wash);
+  color: var(--color-danger-strong);
+}
+
+.sentimentNeutral {
+  background-color: var(--color-primary-wash);
+  color: var(--color-primary);
+}
+
+.tagsDisplay {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 15px;
+}
+
+.tag {
+  background-color: var(--color-surface-muted);
+  color: var(--color-primary);
+  border-radius: var(--radius-full);
+  padding: 3px 10px;
+  font-size: var(--text-caption);
+  font-weight: 500;
+}
+
+@media (max-width: 992px) {
+  .metricsSection, .chartSection {
+    min-width: 100%;
+  }
+  
+  .chartArea,
+  .loadingChartPlaceholder {
+    height: 220px;
+  }
+}
+
+@media (max-width: 576px) {
+  .metricIcon {
+    width: 40px;
+    height: 40px;
+    font-size: 1.1rem;
+  }
+  
+  .metricValue {
+    font-size: var(--text-title);
+  }
+  
+  .chartArea,
+  .loadingChartPlaceholder {
+    height: 200px;
+  }
+}

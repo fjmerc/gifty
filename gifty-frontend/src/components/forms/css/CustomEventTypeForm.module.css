@@ -1,0 +1,128 @@
+/* CustomEventTypeForm.module.css */
+
+.formContainer {
+  background-color: var(--color-surface);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-rest);
+  max-width: 500px;
+  width: 100%;
+  padding: 20px;
+  position: relative;
+  max-height: 80vh; /* Reduced from 85vh to 80vh */
+  overflow-y: auto;
+  margin-bottom: 10vh; /* Added to be consistent with event form */
+}
+
+.embedded {
+  position: relative;
+}
+
+.formHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--color-border);
+}
+
+.formHeader h2 {
+  font: var(--type-headline);
+  margin: 0;
+  color: var(--color-ink);
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  font-size: var(--text-title);
+  color: var(--color-ink-muted);
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.closeButton:hover {
+  color: var(--color-ink);
+}
+
+.formGroup {
+  margin-bottom: 15px;
+}
+
+.formGroup label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: var(--color-ink-muted);
+}
+
+.formGroup input,
+.formGroup textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-body-sm);
+  transition: border-color 0.2s;
+}
+
+.formGroup input:focus,
+.formGroup textarea:focus {
+  border-color: var(--color-primary-bright);
+}
+
+.fieldError {
+  display: block;
+  color: var(--color-danger-strong);
+  font-size: var(--text-caption);
+  margin-top: 4px;
+}
+
+.errorMessage {
+  background-color: var(--color-danger-wash);
+  color: var(--color-danger-strong);
+  padding: 12px;
+  margin-bottom: 20px;
+  border-radius: var(--radius-sm);
+}
+
+.formActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.cancelButton,
+.submitButton {
+  padding: 10px 20px;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  font-size: var(--text-body-sm);
+  cursor: pointer;
+  transition: opacity 0.3s;
+}
+
+.cancelButton {
+  background-color: var(--color-surface-muted);
+  color: var(--color-ink-muted);
+  border: none;
+  color: var(--color-ink);
+}
+
+.submitButton {
+  background-color: var(--color-primary-bright);
+  border: none;
+  color: var(--color-on-fill);
+}
+
+.cancelButton:hover,
+.submitButton:hover {
+  opacity: 0.9;
+}
+
+.submitButton:disabled {
+  background-color: var(--color-surface-muted);
+  color: var(--color-ink-muted);
+  cursor: not-allowed;
+}

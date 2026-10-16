@@ -1,0 +1,383 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Quicksand, self-hosted (SIL OFL 1.1, see assets/fonts/OFL.txt). Only the
+   700 weight DESIGN.md uses for titles and the wordmark; the browser fetches
+   the latin-ext file only when a heading needs one of its characters. */
+@font-face {
+  font-family: 'Quicksand';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('./assets/fonts/quicksand-700-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Quicksand';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('./assets/fonts/quicksand-700-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/*
+ * Gifty design tokens. DESIGN.md (repo root) and .impeccable/design.json are
+ * the source of truth; these custom properties are their CSS form.
+ *
+ * Use a token instead of a raw value. If no token fits the job, add one to
+ * DESIGN.md first, then here (light and dark), never a new hex in a module.
+ *
+ * The dark set lives under :root[data-theme="dark"]. ThemeContext.js sets
+ * data-theme from the Theme setting (and public/index.html does it before
+ * the first paint).
+ */
+:root {
+  /* Color: brand */
+  --color-primary: #006666;        /* actions, links, page titles, selected */
+  --color-primary-strong: #004c4c; /* hover/pressed of primary */
+  --color-primary-bright: #008080; /* fills, icons, large text only */
+  --color-primary-wash: #eaf7fa;   /* selected rows, ghost/secondary hover */
+  --color-on-fill: #ffffff;        /* text on filled buttons */
+
+  /* Color: header chrome */
+  --color-chrome: #334155;
+  --color-on-chrome: #ffffff;
+
+  /* Color: neutrals */
+  --color-surface: #ffffff;        /* cards, dialogs, inputs */
+  --color-surface-muted: #f8f9fa;  /* wells, stripes, disabled fill */
+  --color-ink: #333333;            /* body text */
+  --color-ink-muted: #666666;      /* secondary text, placeholders: the lightest text allowed */
+  --color-border: #e0e0e0;         /* dividers, card edges (decorative) */
+  --color-border-input: #888888;   /* form control edges (3:1) */
+  --color-scrim: rgba(0, 0, 0, 0.5);
+
+  /* Color: status (solid + wash) */
+  --color-success: #2e7d32;
+  --color-success-wash: #e8f5e9;
+  --color-warning: #856404;
+  --color-warning-wash: #fff3cd;
+  --color-danger: #dc3545;
+  --color-danger-strong: #c82333;  /* error text, text on the danger wash, danger hover */
+  --color-danger-wash: #ffebee;
+  --color-info: #4682b4;           /* non-text only (icons, borders, stripes) */
+  --color-info-ink: #36648b;       /* info text */
+  --color-info-wash: #f0f9ff;
+
+  /* Color: chart series (DESIGN.md > Data), fixed order, never text */
+  --color-data-1: #2a78d6;
+  --color-data-2: #eb6834;
+  --color-data-3: #1baf7a;
+  --color-data-4: #eda100;
+  --color-data-5: #e87ba4;
+  --color-data-6: #6250d6;
+
+  /* Page background */
+  --page-background: linear-gradient(135deg, var(--color-primary-wash) 0%, var(--color-surface-muted) 100%);
+
+  /* Typography */
+  --font-display: Quicksand, system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  --font-body: system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  --text-display: 2rem;      /* line-height 1.25, 700, Quicksand */
+  --text-headline: 1.5rem;   /* 1.3, 700, Quicksand */
+  --text-title: 1.25rem;     /* 1.35, 700, Quicksand */
+  --text-body: 1rem;         /* 1.5, 400 */
+  --text-body-sm: 0.875rem;  /* 1.45, 400 */
+  --text-label: 0.875rem;    /* 1.4, 600 */
+  --text-button: 1rem;       /* 1.25, 600 */
+  --text-caption: 0.75rem;   /* 1.4, 400; nothing smaller */
+  --leading-display: 1.25;
+  --leading-headline: 1.3;
+  --leading-title: 1.35;
+  --leading-body: 1.5;
+  --leading-body-sm: 1.45;
+  --leading-label: 1.4;
+  --leading-button: 1.25;
+  --leading-caption: 1.4;
+  /* Heading roles, each one `font` shorthand value */
+  --type-display: 700 var(--text-display)/var(--leading-display) var(--font-display);
+  --type-headline: 700 var(--text-headline)/var(--leading-headline) var(--font-display);
+  --type-title: 700 var(--text-title)/var(--leading-title) var(--font-display);
+  --measure: 70ch;           /* longest line for running text */
+
+  /* Shape */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-full: 9999px;
+
+  /* Spacing (4px grid) */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 12px;
+  --space-lg: 16px;
+  --space-xl: 20px;
+  --space-2xl: 24px;
+  --space-3xl: 32px;
+  --space-4xl: 40px;
+
+  /* Elevation */
+  --shadow-rest: 0 2px 4px rgba(0, 0, 0, 0.05);
+  --shadow-raised: 0 4px 12px rgba(0, 102, 102, 0.1);
+  --shadow-overlay: 0 10px 30px rgba(0, 0, 0, 0.1);
+  --focus-ring-color: var(--color-primary);
+  --focus-ring-width: 2px;
+  --focus-ring-offset: 2px;
+
+  /* Motion */
+  --duration-fast: 150ms;
+  --duration-base: 200ms;
+  --ease-out: cubic-bezier(0.2, 0, 0, 1);
+
+  /* Layout */
+  --header-height: 3.5rem;
+  --content-max: 1200px;
+  /* Page frame: every page's outer padding (DESIGN.md > Layout) */
+  --page-pad-top: var(--space-4xl);
+  --page-pad-x: var(--space-xl);
+  --page-pad-bottom: var(--space-4xl);
+  --page-padding: var(--page-pad-top) var(--page-pad-x) var(--page-pad-bottom);
+
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  --color-primary: #7cccc8;
+  --color-primary-strong: #b4e0e0;
+  --color-primary-bright: #2a9d8f;
+  --color-primary-wash: #134e4a;
+  --color-on-fill: #0f172a;
+
+  --color-chrome: #020617;
+  --color-on-chrome: #e2e8f0;
+
+  --color-surface: #1e293b;
+  --color-surface-muted: #0f172a;
+  --color-ink: #e2e8f0;
+  --color-ink-muted: #94a3b8;
+  --color-border: #334155;
+  --color-border-input: #64748b;
+  --color-scrim: rgba(0, 0, 0, 0.7);
+
+  --color-success: #a5d6a7;
+  --color-success-wash: #14301f;
+  --color-warning: #fcd34d;
+  --color-warning-wash: #3a2e0f;
+  --color-danger: #ef9a9a;
+  --color-danger-strong: #ffcdd2;
+  --color-danger-wash: #3b1d22;
+  --color-info: #4682b4;
+  --color-info-ink: #a8c6df;
+  --color-info-wash: #1c2e44;
+
+  --color-data-1: #3987e5;
+  --color-data-2: #d95926;
+  --color-data-3: #199e70;
+  --color-data-4: #c98500;
+  --color-data-5: #d55181;
+  --color-data-6: #9085e9;
+
+  --page-background: var(--color-surface-muted);
+
+  --shadow-rest: 0 2px 4px rgba(0, 0, 0, 0.4);
+  --shadow-raised: 0 4px 12px rgba(0, 0, 0, 0.5);
+  --shadow-overlay: 0 10px 30px rgba(0, 0, 0, 0.6);
+
+  color-scheme: dark;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-body);
+    font-size: var(--text-body);
+    line-height: var(--leading-body);
+  }
+  /* Heading defaults (DESIGN.md > Typography): Quicksand 700 in three
+     sizes. Where element and role differ, a module sets the role with
+     the --type-display/headline/title font values. */
+  h1, h2, h3 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    text-wrap: balance;
+  }
+  h1 { font-size: var(--text-display); line-height: var(--leading-display); }
+  h2 { font-size: var(--text-headline); line-height: var(--leading-headline); }
+  h3 { font-size: var(--text-title); line-height: var(--leading-title); }
+  /* Fields default to the theme's surface and ink (in dark mode the browser
+     would otherwise paint its own gray), placeholders to the muted floor.
+     :where() keeps this below every module rule. */
+  :where(input:not([type="checkbox"]):not([type="radio"]):not([type="range"]), select, textarea) {
+    background-color: var(--color-surface);
+    color: var(--color-ink);
+  }
+  input::placeholder,
+  textarea::placeholder {
+    color: var(--color-ink-muted);
+    opacity: 1;
+  }
+  ::selection {
+    background-color: var(--color-primary-wash);
+    color: var(--color-ink);
+  }
+  :root {
+    accent-color: var(--color-primary);
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --page-pad-top: var(--space-2xl);
+    --page-pad-bottom: var(--space-3xl);
+  }
+}
+@media (max-width: 480px) {
+  :root {
+    --page-pad-x: var(--space-lg);
+  }
+}
+
+/* The page frame as a class, for markup styled with Tailwind utilities */
+.page-frame {
+  box-sizing: content-box;
+  max-width: var(--content-max);
+  margin-inline: auto;
+  padding: var(--page-padding);
+}
+
+/* Type roles as classes, for markup styled with Tailwind utilities */
+.type-display { font: var(--type-display); }
+.type-headline { font: var(--type-headline); }
+.type-title { font: var(--type-title); }
+
+/* Third-party widgets in the theme. react-toastify injects its own :root
+   variables at runtime, so these use html:root to win. */
+html:root {
+  --toastify-color-light: var(--color-surface);
+  --toastify-text-color-light: var(--color-ink);
+  --toastify-color-info: var(--color-info);
+  --toastify-color-success: var(--color-success);
+  --toastify-color-warning: var(--color-warning);
+  --toastify-color-error: var(--color-danger);
+  --toastify-icon-color-info: var(--color-info);
+  --toastify-icon-color-success: var(--color-success);
+  --toastify-icon-color-warning: var(--color-warning);
+  --toastify-icon-color-error: var(--color-danger);
+  --toastify-color-progress-light: var(--color-primary);
+  --toastify-color-progress-info: var(--color-info);
+  --toastify-color-progress-success: var(--color-success);
+  --toastify-color-progress-warning: var(--color-warning);
+  --toastify-color-progress-error: var(--color-danger);
+}
+
+:root .Toastify__close-button--light {
+  color: var(--color-ink);
+  opacity: 0.7;
+}
+
+/* react-datepicker ships light-only hex colours */
+:root .react-datepicker {
+  background-color: var(--color-surface);
+  color: var(--color-ink);
+  border-color: var(--color-border);
+}
+:root .react-datepicker__header {
+  background-color: var(--color-surface-muted);
+  border-bottom-color: var(--color-border);
+}
+:root .react-datepicker__current-month,
+:root .react-datepicker-time__header,
+:root .react-datepicker-year-header,
+:root .react-datepicker__day-name,
+:root .react-datepicker__day,
+:root .react-datepicker__time-name {
+  color: var(--color-ink);
+}
+:root .react-datepicker__day:not([aria-disabled="true"]):hover,
+:root .react-datepicker__month-text:not([aria-disabled="true"]):hover {
+  background-color: var(--color-primary-wash);
+}
+:root .react-datepicker__day--selected,
+:root .react-datepicker__day--in-selecting-range,
+:root .react-datepicker__day--in-range,
+:root .react-datepicker__day--keyboard-selected {
+  background-color: var(--color-primary);
+  color: var(--color-on-fill);
+}
+:root .react-datepicker__day--selected:not([aria-disabled="true"]):hover,
+:root .react-datepicker__day--in-range:not([aria-disabled="true"]):hover,
+:root .react-datepicker__day--keyboard-selected:not([aria-disabled="true"]):hover {
+  background-color: var(--color-primary-strong);
+}
+:root .react-datepicker__day--disabled,
+:root .react-datepicker__day--outside-month {
+  color: var(--color-ink-muted);
+}
+:root .react-datepicker__navigation-icon::before {
+  border-color: var(--color-ink-muted);
+}
+:root .react-datepicker__triangle {
+  fill: var(--color-surface-muted);
+  color: var(--color-surface-muted);
+  stroke: var(--color-border);
+}
+
+/* One visible focus ring for every focusable control (DESIGN.md > Elevation).
+   Keyboard focus only for buttons and links; text fields show it on click too. */
+:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
+}
+
+/* Phones: 16px text in fields stops iOS Safari zooming the page on focus.
+   :root raises the specificity above the page modules' `.group input` rules. */
+@media (max-width: 768px) {
+  :root :is(input, select, textarea):not([type="checkbox"]):not([type="radio"]):not([type="range"]) {
+    font-size: 16px;
+  }
+}
+
+/* A control that cannot be used says so on hover, whatever its module sets */
+button:disabled,
+button[aria-disabled="true"],
+button:disabled:hover {
+  cursor: not-allowed;
+}
+
+/* Checkboxes and radios at least 24px on every screen (WCAG 2.5.8) */
+:root :is(input[type="checkbox"], input[type="radio"]) {
+  min-width: 24px;
+  min-height: 24px;
+}
+
+/* Touch screens: buttons and fields at least 44px (DESIGN.md > Buttons, Inputs) */
+@media (pointer: coarse) {
+  :root :is(button, select, [role="button"], input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="hidden"])) {
+    min-height: 44px;
+  }
+  :root button {
+    min-width: 44px;
+  }
+}
+
+/* Required fields: an asterisk after the label (drawn by CSS so the label's
+   accessible name stays the field name; the control carries aria-required)
+   and one line per form that explains it */
+label.required::after {
+  content: "\00a0*";
+  color: inherit;
+  font-weight: 600;
+}
+
+.required-legend {
+  margin: 0 0 16px;
+  font-size: var(--text-body-sm);
+  line-height: 1.45;
+  color: var(--color-ink-muted);
+}

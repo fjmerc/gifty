@@ -1,0 +1,151 @@
+.suggestionsHelpPage {
+  box-sizing: content-box;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: var(--page-padding);
+}
+
+.container {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-rest);
+  padding: var(--space-2xl);
+}
+
+.header {
+  margin-bottom: var(--space-2xl);
+}
+
+.header h1 {
+  font: var(--type-display);
+  color: var(--color-primary);
+  margin: 0;
+}
+
+.subtitle {
+  color: var(--color-ink-muted);
+  font-size: var(--text-body);
+  margin: var(--space-xs) 0 0;
+}
+
+.section p {
+  max-width: var(--measure);
+}
+
+.section {
+  margin-bottom: 2.5rem;
+}
+
+.section h2 {
+  font: var(--type-headline);
+  color: var(--color-ink);
+  margin-bottom: 1rem;
+  border-bottom: 2px solid var(--color-border);
+  padding-bottom: 0.5rem;
+}
+
+.featureCard {
+  display: flex;
+  margin-bottom: var(--space-lg);
+  background-color: var(--color-surface-muted);
+  border-radius: var(--radius-md);
+  padding: var(--space-xl);
+}
+
+/* One icon column, so every card's text starts at the same x whatever the
+   glyph's width */
+.featureIcon {
+  flex: none;
+  width: 2rem;
+  text-align: center;
+  color: var(--color-primary);
+  margin-right: var(--space-lg);
+  padding-top: 0.2rem;
+}
+
+.featureContent h3 {
+  font: var(--type-title);
+  color: var(--color-ink);
+  margin-bottom: 0.5rem;
+}
+
+.featureContent p {
+  color: var(--color-ink-muted);
+  line-height: 1.5;
+}
+
+.instructionsList {
+  padding-left: 1.5rem;
+}
+
+.instructionsList li {
+  margin-bottom: 1rem;
+  color: var(--color-ink-muted);
+  line-height: 1.5;
+}
+
+.callout {
+  background-color: var(--color-info-wash);
+  border-radius: var(--radius-sm);
+  padding: 1.5rem;
+  display: flex;
+  margin-bottom: 2rem;
+}
+
+.calloutIcon {
+  color: var(--color-info-ink);
+  margin-right: 1rem;
+  flex-shrink: 0;
+}
+
+.calloutContent h3 {
+  font: var(--type-title);
+  color: var(--color-info-ink);
+  margin-bottom: 0.5rem;
+}
+
+.calloutContent p {
+  color: var(--color-ink-muted);
+  line-height: 1.5;
+}
+
+.footer {
+  text-align: center;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.backButton {
+  background-color: var(--color-primary);
+  color: var(--color-on-fill);
+  padding: 0.6rem 1.2rem;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.backButton:hover {
+  background-color: var(--color-primary-strong);
+  text-decoration: none;
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: var(--space-lg);
+  }
+}
+
+@media (max-width: 768px) {
+  
+  .featureCard {
+    flex-direction: column;
+  }
+  
+  .featureIcon {
+    margin-bottom: 0.8rem;
+    text-align: left;
+  }
+}

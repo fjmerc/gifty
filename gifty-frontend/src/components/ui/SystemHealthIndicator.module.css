@@ -1,0 +1,273 @@
+.healthIndicator {
+  margin-bottom: 1.5rem;
+  background-color: var(--color-surface-muted);
+  padding: 1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  transition-property: color, background-color, border-color, box-shadow, transform, opacity;
+  transition-duration: 0.2s;
+  transition-timing-function: ease;
+}
+
+.healthStatus {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+  font-weight: 500;
+}
+
+.statusIcon {
+  font-size: var(--text-title);
+}
+
+.healthy {
+  color: var(--color-success);
+}
+
+.healthy .statusIcon {
+  color: var(--color-success);
+}
+
+.unhealthy {
+  color: var(--color-warning);
+}
+
+.unhealthy .statusIcon {
+  color: var(--color-warning);
+}
+
+.unknown {
+  color: var(--color-ink-muted);
+}
+
+.unknown .statusIcon {
+  color: var(--color-ink-muted);
+}
+
+.infoIcon {
+  color: var(--color-ink-muted);
+  cursor: help;
+  font-size: var(--text-body-sm);
+  margin-left: 0.5rem;
+}
+
+.infoIcon:hover {
+  color: var(--color-ink);
+}
+
+.healthProgressContainer {
+  height: 8px;
+  background-color: var(--color-border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  margin-bottom: 0.75rem;
+}
+
+.healthProgress {
+  height: 100%;
+  background-color: var(--color-success);
+  border-radius: var(--radius-sm);
+}
+
+/* When health is below threshold, use orange color */
+.unhealthy + .healthProgressContainer .healthProgress {
+  background-color: var(--color-warning);
+}
+
+.discoveryInfo {
+  font-size: var(--text-body-sm);
+  color: var(--color-ink-muted);
+  margin-top: 0.5rem;
+}
+
+/* Source distribution section */
+.sourceDistribution {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.sourceDistribution h4 {
+  font-size: var(--text-body-sm);
+  color: var(--color-ink);
+  margin-bottom: 0.5rem;
+}
+
+.distributionBar {
+  display: flex;
+  height: 24px;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+}
+
+.discoveredPortion {
+  background-color: var(--color-success);
+  height: 100%;
+}
+
+.aiPortion {
+  background-color: var(--color-info);
+  height: 100%;
+}
+
+.distributionLabels {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--text-caption);
+  color: var(--color-ink-muted);
+}
+
+.distributionLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.labelDot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+}
+
+.discoveredDot {
+  background-color: var(--color-success);
+}
+
+.aiDot {
+  background-color: var(--color-info);
+}
+
+/* Action buttons */
+.actionButtons {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.actionButton {
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  background-color: var(--color-surface);
+  font-size: var(--text-body-sm);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition-property: color, background-color, border-color, box-shadow, transform, opacity;
+  transition-duration: 0.2s;
+  transition-timing-function: ease;
+  color: var(--color-ink);
+}
+
+.actionButton:hover:not(:disabled) {
+  background-color: var(--color-surface-muted);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.actionButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.discoveryButton {
+  background-color: var(--color-primary);
+  color: var(--color-on-fill);
+  border-color: var(--color-primary);
+}
+
+.discoveryButton:hover:not(:disabled) {
+  background-color: var(--color-primary-strong);
+  border-color: var(--color-primary-strong);
+  color: var(--color-on-fill);
+}
+
+/* Messages */
+.message {
+  margin-top: 1rem;
+  padding: 0.75rem;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: var(--text-body-sm);
+}
+
+.message.error {
+  background-color: var(--color-danger-wash);
+  color: var(--color-danger-strong);
+  border: 1px solid var(--color-danger);
+}
+
+.message.success {
+  background-color: var(--color-success-wash);
+  color: var(--color-success);
+  border: 1px solid var(--color-success);
+}
+
+/* Diagnostic Report */
+.diagnosticReport {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.diagnosticReport h4 {
+  margin: 0 0 1rem 0;
+  color: var(--color-primary);
+  font-size: var(--text-body);
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 0.5rem;
+}
+
+.reportSection {
+  margin-bottom: 1rem;
+}
+
+.reportSection:last-child {
+  margin-bottom: 0;
+}
+
+.reportSection strong {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--color-ink);
+}
+
+.reportSection ul {
+  margin: 0;
+  padding-left: 1.5rem;
+}
+
+.reportSection li {
+  margin-bottom: 0.25rem;
+  color: var(--color-ink-muted);
+}
+
+@media (max-width: 768px) {
+  .healthIndicator {
+    padding: 0.75rem;
+  }
+  
+  .healthStatus {
+    font-size: var(--text-body-sm);
+  }
+  
+  .discoveryInfo {
+    font-size: var(--text-caption);
+  }
+  
+  .actionButtons {
+    flex-direction: column;
+  }
+  
+  .actionButton {
+    width: 100%;
+    justify-content: center;
+  }
+}
