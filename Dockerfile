@@ -11,12 +11,19 @@ COPY gifty-frontend/ ./
 ENV REACT_APP_API_BASE_URL=/api GENERATE_SOURCEMAP=false INLINE_RUNTIME_CHUNK=false
 RUN npm run build
 
-# Backend deps on the target platform (some have native builds)
-FROM ${NODE_IMAGE} AS deps
+# Backend deps install natively too (npm under QEMU can hang for hours), picking the
+# target's prebuilt packages. No dependency needs a native build: msgpackr-extract ships
+# prebuilt binaries per platform and falls back to plain JS without them
+FROM --platform=$BUILDPLATFORM ${NODE_IMAGE} AS deps
+ARG TARGETARCH
 WORKDIR /app
-RUN apk add --no-cache python3 make g++
 COPY gifty-backend/package*.json ./
-RUN npm ci --omit=dev --no-audit --no-fund
+RUN case "$TARGETARCH" in \
+      amd64) cpu=x64 ;; \
+      arm64) cpu=arm64 ;; \
+      *) echo "unsupported TARGETARCH '$TARGETARCH'" >&2; exit 1 ;; \
+    esac \
+ && npm ci --omit=dev --ignore-scripts --no-audit --no-fund --os=linux --cpu=$cpu --libc=musl
 
 FROM ${NODE_IMAGE} AS runtime
 # Release builds pass the tag; local builds fall back to package.json's version
