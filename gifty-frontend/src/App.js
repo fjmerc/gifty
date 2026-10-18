@@ -18,6 +18,9 @@ import './App.css';
 // page loads as its own chunk the first time it is visited.
 const UserHome = lazy(() => import('./pages/js/UserHome'));
 const Register = lazy(() => import('./pages/js/Register'));
+const Invite = lazy(() => import('./pages/js/Invite'));
+const Setup = lazy(() => import('./pages/js/Setup'));
+const ResetPassword = lazy(() => import('./pages/js/ResetPassword'));
 const Events = lazy(() => import('./pages/js/Events'));
 const Gifts = lazy(() => import('./pages/js/Gifts'));
 const Budgets = lazy(() => import('./pages/js/Budgets'));
@@ -29,6 +32,7 @@ const UserProfile = lazy(() => import('./pages/js/UserProfile'));
 const EditOverallBudget = lazy(() => import('./pages/js/EditOverallBudget'));
 const PurchaseHistory = lazy(() => import('./pages/js/PurchaseHistory'));
 const Settings = lazy(() => import('./pages/js/Settings'));
+const Admin = lazy(() => import('./pages/js/Admin'));
 const SuggestionsHelp = lazy(() => import('./pages/js/SuggestionsHelp'));
 const About = lazy(() => import('./pages/js/About'));
 const Favorites = lazy(() => import('./pages/js/Favorites'));
@@ -78,6 +82,9 @@ const AppContent = () => {
             <Route path="/about" element={<About />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/setup" element={<Setup />} />
+            <Route path="/invite/:token" element={<Invite />} />
+            <Route path="/reset/:token" element={<ResetPassword />} />
             <Route path="/userhome" element={<ProtectedRoute><UserHome /></ProtectedRoute>} />
             <Route path="/user-profile" element={<ProtectedRoute><UserProfile /></ProtectedRoute>} />
             {/* The profile is edited from the profile page, where the form gets the user's data */}
@@ -92,6 +99,7 @@ const AppContent = () => {
             <Route path="/recipients/:id/edit" element={<ProtectedRoute><EditRecipientProfileWrapper /></ProtectedRoute>} />
             <Route path="/purchase-history" element={<ProtectedRoute><PurchaseHistory /></ProtectedRoute>} />
             <Route path="/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
+            <Route path="/admin" element={<ProtectedRoute><Admin /></ProtectedRoute>} />
             <Route path="/suggestions-help" element={<ProtectedRoute><SuggestionsHelp /></ProtectedRoute>} />
             <Route path="/feedback-analytics" element={<ProtectedRoute><FeedbackAnalytics /></ProtectedRoute>} />
             <Route path="/favorites" element={<ProtectedRoute><Favorites /></ProtectedRoute>} />

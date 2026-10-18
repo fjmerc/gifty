@@ -47,6 +47,22 @@ const validationRules = {
       .isISO8601()
       .withMessage('Date of birth must be a valid date')
   ],
+
+  // A new password from a reset link: the same rules as registration
+  resetPassword: [
+    body('password')
+      .isLength({ min: 8 })
+      .withMessage('Password must be at least 8 characters long')
+      .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/)
+      .withMessage('Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character')
+  ],
+
+  // An invite: an optional email (normalised exactly as registration does,
+  // so a tied invite matches) and an expiry of 1, 7 or 30 days
+  createInvite: [
+    body('email').optional({ values: 'falsy' }).trim().isEmail().withMessage('Please provide a valid email address').normalizeEmail(),
+    body('days').optional().isIn([1, 7, 30]).withMessage('An invite lasts 1, 7 or 30 days').toInt()
+  ],
   
   loginUser: [
     body('email')

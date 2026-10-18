@@ -17,9 +17,12 @@ jest.mock('../../utils/cookieUtils', () => ({
   clearAuthCookies: jest.fn()
 }));
 // Owner lookup needs a real User query; the profile tests only need a flag
-jest.mock('../../middleware/instanceOwnerMiddleware', () => ({
-  isInstanceOwner: jest.fn().mockResolvedValue(false),
-  requireInstanceOwner: (req, res, next) => next()
+jest.mock('../../middleware/roleMiddleware', () => ({ requireAdmin: (req, res, next) => next(), requireOwner: (req, res, next) => next() }));
+jest.mock('../../services/instanceSettings', () => ({
+  isOwner: jest.fn().mockResolvedValue(false), getOwnerId: jest.fn().mockResolvedValue(null), ensureInstanceSettings: jest.fn().mockResolvedValue({ ownerId: null, changed: false }),
+  getInstanceDefaultsFromDb: jest.fn().mockResolvedValue({ country: 'US', currency: 'USD' }),
+  getInstanceSettings: jest.fn().mockResolvedValue({ signupMode: 'open' }), // these tests register without invites
+  SETTINGS_ID: 'settings', settingsCollection: () => ({ updateOne: jest.fn().mockResolvedValue({}) })
 }));
 jest.mock('../../utils/logger', () => ({ debug: jest.fn(),
   info: jest.fn(),

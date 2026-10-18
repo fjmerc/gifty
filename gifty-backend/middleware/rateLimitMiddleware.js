@@ -1,6 +1,7 @@
 /**
  * Enhanced rate limiting middleware configuration
  */
+const { redactUrl } = require('../utils/redactUrl');
 const rateLimit = require('express-rate-limit');
 const logger = require('../utils/logger');
 const { addressKey, networkKey } = require('../utils/passwordAttempts');
@@ -31,7 +32,7 @@ const createLimiter = (options) => {
     
     logger.warn('Rate limit exceeded', {
       ip: clientIP,
-      path: req.path,
+      path: redactUrl(req.originalUrl || req.path),
       method: req.method,
       windowMs: optionsUsed.windowMs,
       max: optionsUsed.max,
@@ -103,6 +104,13 @@ const authLimiters = {
     windowMs: 60 * 60 * 1000, // 1 hour
     max: 3,                   // 3 password change/reset attempts per hour
     message: 'Too many password operations, please try again after 1 hour',
+  }),
+
+  // Public invite and reset link lookups: enough for a household, not for guessing
+  links: createLimiter({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 30,
+    message: 'Too many requests, please try again after 15 minutes',
   }),
 };
 

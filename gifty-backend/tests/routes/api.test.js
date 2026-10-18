@@ -145,9 +145,9 @@ describe('API Router', () => {
       expect(apiRouter.stack).toBeDefined();
     });
 
-    it('should register 19 layers (1 direct route, the cache-clearing middleware, 17 sub-routes)', () => {
+    it('should register 22 layers (1 direct route, the cache-clearing middleware, 20 sub-routes)', () => {
       const routeCount = apiRouter.stack.length;
-      expect(routeCount).toBe(19);
+      expect(routeCount).toBe(22);
     });
 
     it('should clear the cache on writes before any sub-route runs', () => {
@@ -161,16 +161,16 @@ describe('API Router', () => {
         '/holidays', '/notifications',
         '/recipients', '/tags', '/users', '/vendors',
         '/settings', '/email-config', '/feedback', '/gift-library',
-        '/ai', '/instance'
+        '/ai', '/instance', '/invites', '/password-reset', '/admin'
       ];
       
       // Count sub-route mounts (exclude the direct /test route)
       const subRouteLayers = apiRouter.stack.filter(layer => !layer.route && layer.name !== 'clearUserCacheOnWrite');
-      expect(subRouteLayers.length).toBe(17);
+      expect(subRouteLayers.length).toBe(20);
       
       // For integration test, verify that each expected path is known
       // This is a more practical test than trying to parse Express internals
-      expect(expectedPaths.length).toBe(17);
+      expect(expectedPaths.length).toBe(20);
       expect(expectedPaths).toContain('/budgets');
       expect(expectedPaths).toContain('/users');
     });

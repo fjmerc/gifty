@@ -27,9 +27,7 @@ jest.mock('../../middleware/authMiddleware', () => {
   };
   return { protect, admin: (req, res, next) => next() };
 });
-jest.mock('../../middleware/instanceOwnerMiddleware', () => ({
-  requireInstanceOwner: (req, res, next) => next()
-}));
+jest.mock('../../middleware/roleMiddleware', () => ({ requireAdmin: (req, res, next) => next(), requireOwner: (req, res, next) => next() }));
 jest.mock('../../utils/logger', () => ({
   info: jest.fn(), warn: jest.fn(), error: jest.fn(), debug: jest.fn()
 }));
@@ -116,6 +114,9 @@ describe('POST /api/database/restore/:backupName', () => {
     expect(res.status).toBe(200);
     expect(res.body).toMatchObject({ success: true, safetyBackup: 'safety.tar.gz', collections: { gifts: 1 } });
     expect(res.body.upgrade).toMatchObject({ moneyModel: 'applied', textRepair: 'applied' });
+    // Users in the archive have no role (pre-1b): the restore names an owner
+    expect(res.body.upgrade.instanceOwner).toBe(String(owner));
+    expect((await User.findById(owner).lean()).role).toBe('admin');
 
     const gift = await Gift.findById(ids.gift).lean();
     expect(gift.price).toBe(20);

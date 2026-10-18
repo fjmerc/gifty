@@ -16,8 +16,9 @@ jest.mock('react-toastify', () => ({
 }));
 
 // The signed-in account; database tools are for the instance owner
-let mockAuthUser = { firstName: 'Test', isInstanceOwner: true };
-jest.mock('../../AuthContext', () => ({ useAuth: () => ({ user: mockAuthUser }) }));
+let mockAuthUser = { firstName: 'Test', role: 'admin', isOwner: true };
+const mockFetchUserProfile = jest.fn();
+jest.mock('../../AuthContext', () => ({ useAuth: () => ({ user: mockAuthUser, fetchUserProfile: mockFetchUserProfile }) }));
 
 // Mock CSS modules
 jest.mock('../css/Settings.module.css', () => ({
@@ -281,7 +282,6 @@ describe('Settings Page', () => {
       expect(screen.getByRole('heading', { name: /advanced settings/i })).toBeInTheDocument();
       expect(screen.getByRole('heading', { name: /notification settings/i })).toBeInTheDocument();
       expect(screen.getByRole('heading', { name: /user data management/i })).toBeInTheDocument();
-      expect(screen.getByRole('heading', { name: /database management/i })).toBeInTheDocument();
       expect(screen.getByRole('heading', { name: /account settings/i })).toBeInTheDocument();
     });
 
@@ -301,7 +301,7 @@ describe('Settings Page', () => {
       });
       
       // Verify key action buttons exist - handle duplicates
-      expect(screen.getAllByRole('button', { name: /create backup/i })).toHaveLength(2); // Data management + Database management
+      expect(screen.getAllByRole('button', { name: /create backup/i })).toHaveLength(1); // Data management (Database Management is on the Admin page)
       expect(screen.getByRole('button', { name: /restore backup/i })).toBeInTheDocument();
       expect(screen.getByRole('button', { name: /configure email/i })).toBeInTheDocument();
       expect(screen.getByRole('button', { name: /configure holidays/i })).toBeInTheDocument();
@@ -668,109 +668,6 @@ describe('Settings Page', () => {
     });
   });
 
-  // 6. Database Management Operations
-  describe('Database Management Operations', () => {
-    test('opens database backup modal and fetches backups', async () => {
-      renderWithRouter(<Settings />);
-      
-      await waitFor(() => {
-        expect(screen.queryByText(/loading\.\.\./i)).not.toBeInTheDocument();
-      });
-      
-      const manageBackupsBtn = screen.getByRole('button', { name: /manage backups/i });
-      fireEvent.click(manageBackupsBtn);
-      
-      await waitFor(() => {
-        expect(axiosInstance.get).toHaveBeenCalledWith('/database/backups');
-        expect(screen.getByRole('heading', { name: /database backups/i })).toBeInTheDocument();
-      });
-    });
-
-    // A focused control that turns disabled drops focus to <body>, out of the
-    // dialog; the backup list loads right as the dialog opens
-    test('Create New Backup stays focusable while the list loads, and does nothing then', async () => {
-      let finish;
-      axiosInstance.get.mockImplementation((url) => (url === '/database/backups'
-        ? new Promise((resolve) => { finish = () => resolve({ data: [] }); })
-        : Promise.resolve({ data: {} })));
-      renderWithRouter(<Settings />);
-      await waitFor(() => expect(screen.queryByText(/loading\.\.\./i)).not.toBeInTheDocument());
-
-      fireEvent.click(screen.getByRole('button', { name: /manage backups/i }));
-      const create = await screen.findByRole('button', { name: /create new backup/i });
-      await waitFor(() => expect(create).toHaveAttribute('aria-disabled', 'true'));
-      expect(create).not.toBeDisabled();
-      fireEvent.click(create);
-      expect(axiosInstance.post).not.toHaveBeenCalledWith('/database/backup');
-      finish();
-      await waitFor(() => expect(create).toHaveAttribute('aria-disabled', 'false'));
-    });
-
-    test('creates new database backup', async () => {
-      axiosInstance.post.mockResolvedValue({ data: { backupName: 'new-backup.tar.gz' } });
-      
-      renderWithRouter(<Settings />);
-      
-      await waitFor(() => {
-        expect(screen.queryByText(/loading\.\.\./i)).not.toBeInTheDocument();
-      });
-      
-      const createDbBackupBtns = screen.getAllByRole('button', { name: /create backup/i });
-      fireEvent.click(createDbBackupBtns[1]); // Second "Create Backup" button (Database Management section)
-      
-      await waitFor(() => {
-        expect(axiosInstance.post).toHaveBeenCalledWith('/database/backup');
-        expect(toast.success).toHaveBeenCalledWith("Database backup 'new-backup.tar.gz' created successfully");
-      });
-    });
-
-    test('handles database backup creation errors with helpful messages', async () => {
-      axiosInstance.post.mockRejectedValue({
-        response: { data: { message: 'MongoDB Database Tools are not installed' } }
-      });
-      
-      renderWithRouter(<Settings />);
-      
-      await waitFor(() => {
-        expect(screen.queryByText(/loading\.\.\./i)).not.toBeInTheDocument();
-      });
-      
-      const createDbBackupBtns = screen.getAllByRole('button', { name: /create backup/i });
-      fireEvent.click(createDbBackupBtns[1]); // Second "Create Backup" button (Database Management section)
-      
-      await waitFor(() => {
-        expect(toast.error).toHaveBeenCalledWith(expect.stringContaining('MongoDB Database Tools are not installed'), expect.objectContaining({ autoClose: false }));
-      });
-    });
-
-    test('deletes database backup with confirmation', async () => {
-      renderWithRouter(<Settings />);
-      
-      await waitFor(() => {
-        expect(screen.queryByText(/loading\.\.\./i)).not.toBeInTheDocument();
-      });
-      
-      // Open manage backups modal
-      fireEvent.click(screen.getByRole('button', { name: /manage backups/i }));
-      
-      await waitFor(() => {
-        expect(screen.getByRole('heading', { name: /database backups/i })).toBeInTheDocument();
-        expect(axiosInstance.get).toHaveBeenCalledWith('/database/backups');
-      });
-      
-      fireEvent.click(await screen.findByRole('button', { name: 'Delete backup backup-2023-01-01.tar.gz' }));
-
-      // Asks first, in a confirmation on top of the backups dialog
-      const confirmation = screen.getByRole('alertdialog', { name: 'Delete backup' });
-      expect(confirmation).toHaveTextContent("Are you sure you want to delete backup 'backup-2023-01-01.tar.gz'?");
-      expect(axiosInstance.delete).not.toHaveBeenCalled();
-      fireEvent.click(within(confirmation).getByRole('button', { name: 'Delete' }));
-
-      await waitFor(() => expect(axiosInstance.delete).toHaveBeenCalledWith('/database/backups/backup-2023-01-01.tar.gz'));
-      expect(toast.success).toHaveBeenCalledWith("Backup 'backup-2023-01-01.tar.gz' deleted successfully");
-    });
-  });
-
   // 7. Modal Integrations & Lazy Loading
   describe('Modal Integrations & Lazy Loading', () => {
     test('opens email configuration modal', async () => {
@@ -806,20 +703,6 @@ describe('Settings Page', () => {
       fireEvent.click(screen.getByTestId('email-save-button'));
       
       expect(screen.queryByRole('heading', { name: /email configuration/i })).not.toBeInTheDocument();
-    });
-
-    test('hides database management from household members who are not the owner', async () => {
-      mockAuthUser = { firstName: 'Kid', isInstanceOwner: false };
-      try {
-        renderWithRouter(<Settings />);
-        await waitFor(() => {
-          expect(screen.queryByText(/loading\.\.\./i)).not.toBeInTheDocument();
-        });
-        expect(screen.queryByRole('heading', { name: /database management/i })).not.toBeInTheDocument();
-        expect(axiosInstance.get).not.toHaveBeenCalledWith('/database/backups');
-      } finally {
-        mockAuthUser = { firstName: 'Test', isInstanceOwner: true };
-      }
     });
 
     test('opens holiday settings modal with user data', async () => {
@@ -1071,28 +954,6 @@ describe('Settings Page', () => {
       expect(screen.getByText(/not supported/i)).toBeInTheDocument();
     });
 
-    test('handles empty database backups list', async () => {
-      axiosInstance.get.mockImplementation((url) => {
-        if (url === '/database/backups') {
-          return Promise.resolve({ data: [] });
-        }
-        return Promise.resolve({ data: mockUserPreferences });
-      });
-      
-      renderWithRouter(<Settings />);
-      
-      await waitFor(() => {
-        expect(screen.queryByText(/loading\.\.\./i)).not.toBeInTheDocument();
-      });
-      
-      fireEvent.click(screen.getByRole('button', { name: /manage backups/i }));
-      
-      await waitFor(() => {
-        expect(screen.getByText(/no database backups found/i)).toBeInTheDocument();
-        expect(screen.getByText(/create your first backup/i)).toBeInTheDocument();
-      });
-    });
-
     test('handles network errors during operations', async () => {
       axiosInstance.get.mockRejectedValue(new Error('Network Error'));
       axiosInstance.post.mockRejectedValue(new Error('Network Error'));
@@ -1165,7 +1026,6 @@ describe('Settings Page', () => {
       ['Configure Holidays', 'Holiday Reminders', 'dialog'],
       ['Configure Email', 'Email Configuration', 'dialog'],
       ['Export as ZIP', 'Select Data to Export', 'dialog'],
-      ['Manage Backups', 'Database Backups', 'dialog'],
       ['Delete Account', 'Delete Account', 'alertdialog'],
     ])('%s opens a named %s that Escape closes', async (button, title, role) => {
       await loaded();

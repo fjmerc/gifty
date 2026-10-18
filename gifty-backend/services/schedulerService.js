@@ -7,6 +7,18 @@ const logger = require('../utils/logger');
 let tasks = [];
 let startupTimer = null;
 
+// A daily job waits on one 24-hour timer, which follows the monotonic clock:
+// when the wall clock steps (time sync, a paused VM) it wakes late by the
+// step, and node-cron skips any run later than this (1 s by default)
+const MISSED_TOLERANCE_MS = 60 * 60 * 1000;
+
+const schedule = (expr, name, fn, timezone) => {
+    const task = cron.schedule(expr, job(name, fn), { timezone, missedExecutionTolerance: MISSED_TOLERANCE_MS });
+    // Through the app's log (node-cron's own warning goes to stdout only)
+    task.on?.('execution:missed', (ctx) => logger.warn(`Scheduled job missed: ${name} (due ${ctx?.date?.toISOString?.() || 'unknown'})`));
+    return task;
+};
+
 const job = (name, fn) => async () => {
     logger.info(`Scheduled job started: ${name}`);
     try {
@@ -22,19 +34,18 @@ const job = (name, fn) => async () => {
  * in the instance's configured timezone.
  */
 const initializeSchedulers = ({ timezone = process.env.TZ || 'UTC' } = {}) => {
-    const opts = { timezone };
     tasks = [
-        cron.schedule('0 2 1 * *', job('recurring events', calendarUpkeep), opts),
-        cron.schedule('0 3 * * 0', job('gift discovery', async () => {
+        schedule('0 2 1 * *', 'recurring events', calendarUpkeep, timezone),
+        schedule('0 3 * * 0', 'gift discovery', async () => {
             if (!process.env.BRAVE_SEARCH_API_KEY) {
                 logger.warn('Skipping gift discovery: BRAVE_SEARCH_API_KEY not configured');
                 return;
             }
             const saved = await giftDiscoveryService.discoverGifts();
             logger.info(`Gift discovery saved ${saved.length} new gifts`);
-        }), opts),
-        cron.schedule('0 0 * * *', job('discovery maintenance', () => discoveryMaintenance.runDailyMaintenance()), opts),
-        cron.schedule('30 2 * * *', job('automatic backup', () => require('./backupService').runScheduledBackup()), opts)
+        }, timezone),
+        schedule('0 0 * * *', 'discovery maintenance', () => discoveryMaintenance.runDailyMaintenance(), timezone),
+        schedule('30 2 * * *', 'automatic backup', () => require('./backupService').runScheduledBackup(), timezone)
     ];
 
     // Catch up on occurrences and birthdays missed while the server was down

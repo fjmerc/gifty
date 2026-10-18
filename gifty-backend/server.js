@@ -102,7 +102,7 @@ app.use('/api/database', databaseRoutes);
 
 // Add 404 handler for API routes
 app.use('/api/*', (req, res) => {
-    logger.warn(`API endpoint not found: ${req.originalUrl}`);
+    logger.warn(`API endpoint not found: ${require('./utils/redactUrl').redactUrl(req.originalUrl)}`);
     res.status(404).json({
         status: 'error',
         message: 'API endpoint not found: The requested service is not available or not properly set up on the server'

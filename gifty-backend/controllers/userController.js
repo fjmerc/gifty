@@ -27,9 +27,12 @@ const { HttpError } = require('../utils/ownership');
 const passwordAttempts = require('../utils/passwordAttempts');
 const setupCode = require('../services/setupCodeService');
 const { loginLookupEmail } = require('../utils/loginEmail');
-const { isInstanceOwner } = require('../middleware/instanceOwnerMiddleware');
+const instanceSettings = require('../services/instanceSettings');
+const { isOwner, getOwnerId } = instanceSettings;
+const tokens = require('../services/instanceTokens');
+const { INVITE_MESSAGES, CODE_OF } = require('./inviteController');
+const { recordAudit } = require('../services/auditLog');
 const { HOLIDAY_COUNTRIES } = require('../utils/dbInitializer');
-const { getInstanceDefaults } = require('../config/instanceDefaults');
 const { ALLOWED_PREFERENCE_KEYS, HOLIDAY_CATEGORIES } = require('../config/userPreferences');
 
 // Sign this response in with the user's current token version
@@ -53,17 +56,7 @@ const dummyPasswordCheck = async (password) => {
 // strangers which accounts exist
 const TAKEN_MESSAGE = "That email or username can't be used. If you already have an account, sign in instead.";
 
-// The current password typed into a signed-in form: 'blocked' after too
-// many wrong ones (see utils/passwordAttempts), else whether it matched
-const checkCurrentPassword = async (req, user, password) => {
-    const release = passwordAttempts.reserveAttempt(req);
-    if (!release) return 'blocked';
-    if (typeof password === 'string' && password && await user.matchPassword(password)) {
-        release();
-        return 'ok';
-    }
-    return 'wrong';
-};
+const { checkCurrentPassword } = passwordAttempts;
 
 const MIN_REMIND_DAYS = 1;
 const MAX_REMIND_DAYS = 30;
@@ -177,6 +170,7 @@ exports.changePassword = asyncHandler(async (req, res) => {
     user.password = newPassword;
     user.tokenVersion = currentTokenVersion(user) + 1;
     await user.save();
+    await tokens.deleteResetLinksFor(user._id);
     issueSession(res, user);
 
     res.status(200).json({
@@ -209,12 +203,10 @@ exports.deleteAccount = asyncHandler(async (req, res) => {
         if (check === 'blocked') return passwordField(429, passwordAttempts.TOO_MANY_MESSAGE);
         if (check === 'wrong') return passwordField(400, passwordAttempts.WRONG_MESSAGE);
 
-        // The instance owner is the oldest account: deleting it would hand
-        // owner rights (instance backups, restore) to the next account
-        const owner = await User.findOne({}, { _id: 1 }).sort({ _id: 1 }).lean();
-        if (owner && String(owner._id) === String(userId) && await User.exists({ _id: { $ne: userId } })) {
+        // The owner can't leave while others still use the instance
+        if (String(await getOwnerId()) === String(userId) && await User.exists({ _id: { $ne: userId } })) {
             res.status(409);
-            throw new Error('The instance owner can\'t delete their account while other accounts exist.');
+            throw new Error('The owner can\'t delete their account while other accounts exist. Hand over ownership first on the Admin page.');
         }
 
         // End every session first, so a half-finished deletion still signs everyone out
@@ -305,6 +297,27 @@ exports.registerUser = asyncHandler(async (req, res) => {
         return res.status(400).json({ message, errors: [{ field: 'setupCode', message }] });
     }
 
+    // Every account after the first needs an invite unless sign-up is open.
+    // An invite that comes with the registration is always used, in either mode
+    const { inviteToken } = req.body;
+    let invite = null;
+    if (!firstAccount) {
+        if (inviteToken) {
+            const inspected = await tokens.inspectToken('invite', inviteToken);
+            if (inspected.status !== 'valid') {
+                const code = CODE_OF[inspected.status];
+                return res.status(400).json({ code, message: INVITE_MESSAGES[code], errors: [{ field: 'inviteToken', message: INVITE_MESSAGES[code] }] });
+            }
+            invite = inspected.doc;
+            if (invite.email && invite.email !== String(email).toLowerCase()) {
+                return res.status(400).json({ code: 'INVITE_EMAIL', message: INVITE_MESSAGES.INVITE_EMAIL, errors: [{ field: 'email', message: INVITE_MESSAGES.INVITE_EMAIL }] });
+            }
+        } else if ((await instanceSettings.getInstanceSettings()).signupMode !== 'open') {
+            logger.warn('Registration refused - invite-only instance and no invite');
+            return res.status(403).json({ code: 'INVITE_REQUIRED', message: INVITE_MESSAGES.INVITE_REQUIRED });
+        }
+    }
+
     // An email or username already in use; both get the same answer
     const userExists = await User.findOne({ email });
     const usernameExists = userExists ? null : await User.findOne({ username });
@@ -314,21 +327,44 @@ exports.registerUser = asyncHandler(async (req, res) => {
         throw new Error(TAKEN_MESSAGE);
     }
 
+    // Take the invite (one atomic write), then create the account; give the
+    // invite back if creating the account fails
+    let consumed = null;
+    if (invite) {
+        consumed = await tokens.consumeToken('invite', inviteToken, invite.email ? { email: invite.email } : {});
+        if (!consumed) return res.status(400).json({ code: 'INVITE_USED', message: INVITE_MESSAGES.INVITE_USED, errors: [{ field: 'inviteToken', message: INVITE_MESSAGES.INVITE_USED }] });
+    }
+
     // Create user, with this instance's holiday country and currency
-    const defaults = getInstanceDefaults();
-    const user = await User.create({
-        username,
-        email,
-        password, // Note: Hashing will be handled in the User model
-        firstName,
-        lastName,
-        dateOfBirth,
-        preferences: { currency: defaults.currency, holidaySettings: { countryCode: defaults.country } }
-    });
+    const defaults = await instanceSettings.getInstanceDefaultsFromDb();
+    let user;
+    try {
+        user = await User.create({
+            username,
+            email,
+            password, // Note: Hashing will be handled in the User model
+            firstName,
+            lastName,
+            dateOfBirth,
+            role: firstAccount ? 'admin' : 'member',
+            preferences: { currency: defaults.currency, holidaySettings: { countryCode: defaults.country } }
+        });
+    } catch (error) {
+        if (consumed) await tokens.releaseToken(consumed._id);
+        throw error;
+    }
+    if (consumed) await recordAudit('invite.used', { actor: user._id, target: consumed._id });
 
     if (user) {
         logger.info('User created successfully', { userId: user._id });
-        if (firstAccount) await setupCode.clearSetupCode();
+        if (firstAccount) {
+            await setupCode.clearSetupCode();
+            // A fresh install is not set up until the owner finishes or skips the wizard
+            await instanceSettings.settingsCollection().updateOne(
+                { _id: instanceSettings.SETTINGS_ID }, { $set: { setupCompletedAt: null } }, { upsert: true }
+            );
+            await instanceSettings.ensureInstanceSettings();
+        }
         
         // HTTP-only cookies with access and refresh tokens
         issueSession(res, user);
@@ -355,7 +391,7 @@ exports.registerUser = asyncHandler(async (req, res) => {
             dateOfBirth: user.dateOfBirth,
             profilePicture: user.profilePicture,
             createdAt: user.createdAt,
-            isInstanceOwner: await isInstanceOwner(user._id)
+            ...(await roleFields(user))
         });
     } else {
         logger.error('Failed to create user');
@@ -363,6 +399,9 @@ exports.registerUser = asyncHandler(async (req, res) => {
         throw new Error('Invalid user data');
     }
 });
+
+// Role fields of every account response
+const roleFields = async (user) => ({ role: user.role || 'member', isOwner: await isOwner(user._id) });
 
 // Whether the account holds anything worth a backup (the client's backup
 // reminder waits for it); the holidays account doesn't count
@@ -391,6 +430,10 @@ exports.loginUser = asyncHandler(async (req, res) => {
 
     // Check if user exists and password matches
     if (user && (await user.matchPassword(password))) {
+        if (user.active === false) {
+            logger.warn('Login refused - account deactivated', { userId: user._id });
+            return res.status(403).json({ message: 'This account is deactivated. Ask an admin of this Gifty to reactivate it.', code: 'ACCOUNT_DEACTIVATED' });
+        }
         logger.info('Login successful', { userId: user._id });
         
         // HTTP-only cookies with access and refresh tokens
@@ -410,7 +453,7 @@ exports.loginUser = asyncHandler(async (req, res) => {
             profilePicture: user.profilePicture,
             createdAt: user.createdAt,
             hasRecipients: await hasRecipients(user._id),
-            isInstanceOwner: await isInstanceOwner(user._id)
+            ...(await roleFields(user))
         });
     } else {
         // Failed login attempt (counted per account for the log)
@@ -445,8 +488,7 @@ exports.getUserProfile = asyncHandler(async (req, res) => {
             profilePicture: user.profilePicture,
             createdAt: user.createdAt,
             hasRecipients: await hasRecipients(user._id),
-            // Instance-wide tools (database backups) are shown only to the owner
-            isInstanceOwner: await isInstanceOwner(user._id)
+            ...(await roleFields(user))
         });
     } else {
         logger.warn('User not found during profile fetch', { userId: req.user._id });

@@ -1,0 +1,55 @@
+.page {
+  max-width: 40rem;
+  margin: 2rem auto;
+  padding: 0 16px;
+}
+
+.progress {
+  color: var(--color-ink-muted);
+  font-size: var(--text-caption);
+}
+
+.error {
+  color: var(--color-danger-strong);
+  margin: 8px 0 16px;
+  font-size: var(--text-body-sm);
+  padding: 8px;
+  background-color: var(--color-danger-wash);
+  border-radius: var(--radius-sm);
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+}
+
+.secondaryButton {
+  min-height: 44px;
+  padding: 8px 14px;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: var(--text-body-sm);
+  cursor: pointer;
+  background-color: var(--color-surface);
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+}
+
+.secondaryButton:hover {
+  background-color: var(--color-primary-wash);
+  color: var(--color-primary-strong);
+}
+
+.primaryButton {
+  composes: secondaryButton;
+  background-color: var(--color-primary);
+  color: var(--color-on-fill);
+}
+
+.primaryButton:hover {
+  background-color: var(--color-primary-strong);
+  color: var(--color-on-fill);
+}

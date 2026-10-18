@@ -1,3 +1,4 @@
+const { redactUrl } = require('../utils/redactUrl');
 const logger = require('../utils/logger');
 const os = require('os');
 const v8 = require('v8');
@@ -120,7 +121,7 @@ const memoryMonitorMiddleware = () => {
         // Only log high-memory requests (> 10MB growth)
         if (heapGrowthMB > 10) {
           logger.warn('High memory usage for request', {
-            path: req.path,
+            path: redactUrl(req.originalUrl || req.path),
             method: req.method,
             heapGrowthMB: heapGrowthMB.toFixed(2),
             rssGrowthMB: ((after.rss - before.rss) / (1024 * 1024)).toFixed(2),

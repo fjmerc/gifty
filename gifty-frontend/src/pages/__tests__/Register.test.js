@@ -3,6 +3,7 @@ import { render, screen, fireEvent, waitFor } from '../../test-utils';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 import Register from '../js/Register';
+import RegisterForm from '../../components/js/RegisterForm';
 
 // Mock axiosInstance to avoid API calls in tests
 jest.mock('../../axiosInstance', () => ({
@@ -28,9 +29,13 @@ jest.mock('react-router-dom', () => ({
   Link: ({ children, to, ...props }) => <a href={to} {...props}>{children}</a>
 }));
 
+// The form itself (fields, validation, the API call) is RegisterForm; on
+// /register it goes to sign-in after a registration
+const Form = () => <RegisterForm onRegistered={() => mockNavigate('/login')} />;
+
 describe('Register Component', () => {
   it('uses plain labelled inputs with autocomplete hints (no MUI)', () => {
-    const { container } = render(<Register />, { routerProps: { initialEntries: ['/register'] } });
+    const { container } = render(<Form />, { routerProps: { initialEntries: ['/register'] } });
     expect(container.querySelector('[class*="Mui"]')).toBeNull();
     expect(screen.getByLabelText('Username')).toHaveAttribute('autocomplete', 'username');
     expect(screen.getByLabelText('Email')).toHaveAttribute('autocomplete', 'email');
@@ -48,7 +53,7 @@ describe('Register Component', () => {
 
   describe('Basic Rendering', () => {
     it('should render without crashing', () => {
-      render(<Register />, {
+      render(<Form />, {
         routerProps: { initialEntries: ['/register'] }
       });
       
@@ -58,7 +63,7 @@ describe('Register Component', () => {
     });
 
     it('should render all required form fields', () => {
-      render(<Register />, {
+      render(<Form />, {
         routerProps: { initialEntries: ['/register'] }
       });
       
@@ -72,7 +77,7 @@ describe('Register Component', () => {
     });
 
     it('should render submit button', () => {
-      render(<Register />, {
+      render(<Form />, {
         routerProps: { initialEntries: ['/register'] }
       });
       
@@ -80,7 +85,7 @@ describe('Register Component', () => {
     });
 
     it('should render login link', () => {
-      render(<Register />, {
+      render(<Form />, {
         routerProps: { initialEntries: ['/register'] }
       });
       
@@ -89,7 +94,7 @@ describe('Register Component', () => {
     });
 
     it('should not show error message initially', () => {
-      render(<Register />, {
+      render(<Form />, {
         routerProps: { initialEntries: ['/register'] }
       });
       
@@ -100,7 +105,7 @@ describe('Register Component', () => {
   describe('Form Interactions', () => {
     it('should update username field on user input', async () => {
       const user = userEvent.setup();
-      render(<Register />, {
+      render(<Form />, {
         routerProps: { initialEntries: ['/register'] }
       });
       
@@ -112,7 +117,7 @@ describe('Register Component', () => {
 
     it('should update email field on user input', async () => {
       const user = userEvent.setup();
-      render(<Register />, {
+      render(<Form />, {
         routerProps: { initialEntries: ['/register'] }
       });
       
@@ -124,7 +129,7 @@ describe('Register Component', () => {
 
     it('should update password fields on user input', async () => {
       const user = userEvent.setup();
-      render(<Register />, {
+      render(<Form />, {
         routerProps: { initialEntries: ['/register'] }
       });
       
@@ -140,7 +145,7 @@ describe('Register Component', () => {
 
     it('should update name fields on user input', async () => {
       const user = userEvent.setup();
-      render(<Register />, {
+      render(<Form />, {
         routerProps: { initialEntries: ['/register'] }
       });
       
@@ -156,7 +161,7 @@ describe('Register Component', () => {
 
     it('should update date of birth field on user input', async () => {
       const user = userEvent.setup();
-      render(<Register />, {
+      render(<Form />, {
         routerProps: { initialEntries: ['/register'] }
       });
       
@@ -170,7 +175,7 @@ describe('Register Component', () => {
   describe('Form Validation', () => {
     it('should show error when passwords do not match', async () => {
       const user = userEvent.setup();
-      render(<Register />, {
+      render(<Form />, {
         routerProps: { initialEntries: ['/register'] }
       });
       
@@ -199,7 +204,7 @@ describe('Register Component', () => {
         data: { message: 'Registration successful' }
       });
       
-      render(<Register />, {
+      render(<Form />, {
         routerProps: { initialEntries: ['/register'] }
       });
       
@@ -240,7 +245,7 @@ describe('Register Component', () => {
         data: { message: 'Registration successful' }
       });
       
-      render(<Register />, {
+      render(<Form />, {
         routerProps: { initialEntries: ['/register'] }
       });
       
@@ -284,7 +289,7 @@ describe('Register Component', () => {
         }
       });
       
-      render(<Register />, {
+      render(<Form />, {
         routerProps: { initialEntries: ['/register'] }
       });
       
@@ -314,7 +319,7 @@ describe('Register Component', () => {
       const axiosInstance = require('../../axiosInstance');
       axiosInstance.post.mockRejectedValueOnce(new Error('Network error'));
       
-      render(<Register />, {
+      render(<Form />, {
         routerProps: { initialEntries: ['/register'] }
       });
       
@@ -346,7 +351,7 @@ describe('Register Component', () => {
         data: { message: 'Registration successful' }
       });
       
-      render(<Register />, {
+      render(<Form />, {
         routerProps: { initialEntries: ['/register'] }
       });
       
@@ -388,7 +393,7 @@ describe('Register Component', () => {
         }
       });
       
-      render(<Register />, {
+      render(<Form />, {
         routerProps: { initialEntries: ['/register'] }
       });
       
@@ -403,7 +408,7 @@ describe('Register Component', () => {
     it('should handle special characters in form fields', async () => {
       const user = userEvent.setup();
       
-      render(<Register />, {
+      render(<Form />, {
         routerProps: { initialEntries: ['/register'] }
       });
       
@@ -420,7 +425,7 @@ describe('Register Component', () => {
     it('should handle long input values', async () => {
       const user = userEvent.setup();
       
-      render(<Register />, {
+      render(<Form />, {
         routerProps: { initialEntries: ['/register'] }
       });
       
@@ -433,7 +438,7 @@ describe('Register Component', () => {
 
   describe('Accessibility', () => {
     it('should have proper form structure for screen readers', () => {
-      render(<Register />, {
+      render(<Form />, {
         routerProps: { initialEntries: ['/register'] }
       });
       
@@ -448,7 +453,7 @@ describe('Register Component', () => {
     });
 
     it('should mark required fields appropriately', () => {
-      render(<Register />, {
+      render(<Form />, {
         routerProps: { initialEntries: ['/register'] }
       });
       
@@ -475,34 +480,27 @@ describe('Register Component', () => {
       await user.type(screen.getByLabelText('Last Name'), 'Er');
     };
 
+    // A fresh instance's first account is made in the setup wizard, which
+    // passes setupRequired; /register itself redirects there (below)
+    const SetupForm = () => <RegisterForm setupRequired onRegistered={() => mockNavigate('/login')} />;
+
     it('shows a Setup code field only while the instance has no accounts', async () => {
-      axiosInstance.get.mockResolvedValue({ data: { setupRequired: true } });
-      render(<Register />, { routerProps: { initialEntries: ['/register'] } });
+      render(<SetupForm />, { routerProps: { initialEntries: ['/setup'] } });
 
       const field = await screen.findByLabelText('Setup code');
       expect(field).toBeRequired();
       expect(field).toHaveAttribute('autocomplete', 'off');
-      expect(axiosInstance.get).toHaveBeenCalledWith('/instance');
     });
 
-    it('has no Setup code field once accounts exist, or when the instance info is unavailable', async () => {
-      axiosInstance.get.mockResolvedValueOnce({ data: { setupRequired: false } });
-      const { unmount } = render(<Register />, { routerProps: { initialEntries: ['/register'] } });
-      await waitFor(() => expect(axiosInstance.get).toHaveBeenCalled());
-      expect(screen.queryByLabelText('Setup code')).not.toBeInTheDocument();
-      unmount();
-
-      axiosInstance.get.mockRejectedValueOnce(new Error('offline'));
-      render(<Register />, { routerProps: { initialEntries: ['/register'] } });
-      await waitFor(() => expect(axiosInstance.get).toHaveBeenCalledTimes(2));
+    it('has no Setup code field once accounts exist', () => {
+      render(<Form />, { routerProps: { initialEntries: ['/register'] } });
       expect(screen.queryByLabelText('Setup code')).not.toBeInTheDocument();
     });
 
     it('sends the code with the registration', async () => {
       const user = userEvent.setup();
-      axiosInstance.get.mockResolvedValue({ data: { setupRequired: true } });
       axiosInstance.post.mockResolvedValueOnce({ data: {} });
-      render(<Register />, { routerProps: { initialEntries: ['/register'] } });
+      render(<SetupForm />, { routerProps: { initialEntries: ['/setup'] } });
       await fill(user);
       await user.type(await screen.findByLabelText('Setup code'), 'ABCD-EFGH-JKMN-PQRS');
       await user.click(screen.getByRole('button', { name: /create account/i }));
@@ -515,9 +513,8 @@ describe('Register Component', () => {
     it('shows a wrong code next to the Setup code field', async () => {
       const user = userEvent.setup();
       const message = 'Enter the setup code from the server log or from setup-code.txt in the data folder';
-      axiosInstance.get.mockResolvedValue({ data: { setupRequired: true } });
       axiosInstance.post.mockRejectedValueOnce({ response: { status: 400, data: { message, errors: [{ field: 'setupCode', message }] } } });
-      render(<Register />, { routerProps: { initialEntries: ['/register'] } });
+      render(<SetupForm />, { routerProps: { initialEntries: ['/setup'] } });
       await fill(user);
       await user.type(await screen.findByLabelText('Setup code'), 'WRONG');
       await user.click(screen.getByRole('button', { name: /create account/i }));
@@ -531,11 +528,10 @@ describe('Register Component', () => {
     it('shows the Setup code field when the server asks for a code the page did not know about', async () => {
       const user = userEvent.setup();
       const message = 'Enter the setup code from the server log or from setup-code.txt in the data folder';
-      axiosInstance.get.mockRejectedValue(new Error('offline'));
       axiosInstance.post
         .mockRejectedValueOnce({ response: { status: 400, data: { message, errors: [{ field: 'setupCode', message }] } } })
         .mockResolvedValueOnce({ data: {} });
-      render(<Register />, { routerProps: { initialEntries: ['/register'] } });
+      render(<Form />, { routerProps: { initialEntries: ['/register'] } });
       await fill(user);
       await user.click(screen.getByRole('button', { name: /create account/i }));
 
@@ -551,6 +547,36 @@ describe('Register Component', () => {
         username: 'owner', email: 'owner@example.com', setupCode: 'ABCD-EFGH-JKMN-PQRS'
       })));
       expect(mockNavigate).toHaveBeenCalledWith('/login');
+    });
+  });
+
+  describe('the /register page', () => {
+    const axiosInstance = require('../../axiosInstance');
+
+    it('an open instance shows the form', async () => {
+      axiosInstance.get.mockResolvedValue({ data: { setupRequired: false, signupMode: 'open' } });
+      render(<Register />, { routerProps: { initialEntries: ['/register'] } });
+      expect(await screen.findByLabelText('Username')).toBeInTheDocument();
+      expect(axiosInstance.get).toHaveBeenCalledWith('/instance');
+    });
+
+    it('an invite-only instance explains how to join and shows no form', async () => {
+      axiosInstance.get.mockResolvedValue({ data: { setupRequired: false, signupMode: 'invite-only' } });
+      render(<Register />, { routerProps: { initialEntries: ['/register'] } });
+      expect(await screen.findByText('This Gifty is invite-only. Ask someone who uses it for an invite link.')).toBeInTheDocument();
+      expect(screen.queryByRole('button', { name: /create account/i })).toBeNull();
+    });
+
+    it('a fresh instance sends the first visitor to the setup wizard', async () => {
+      axiosInstance.get.mockResolvedValue({ data: { setupRequired: true, signupMode: 'invite-only' } });
+      render(<Register />, { routerProps: { initialEntries: ['/register'] } });
+      await waitFor(() => expect(mockNavigate).toHaveBeenCalledWith('/setup', { replace: true }));
+    });
+
+    it('shows the form when the instance info is unavailable (the server still decides)', async () => {
+      axiosInstance.get.mockRejectedValue(new Error('offline'));
+      render(<Register />, { routerProps: { initialEntries: ['/register'] } });
+      expect(await screen.findByLabelText('Username')).toBeInTheDocument();
     });
   });
 });

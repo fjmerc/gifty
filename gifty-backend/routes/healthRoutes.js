@@ -8,7 +8,7 @@ const { cleanupQueue } = require('../queues');
 
 const { getVersion } = require('../config/runtime');
 const { protect } = require('../middleware/authMiddleware');
-const { requireInstanceOwner } = require('../middleware/instanceOwnerMiddleware');
+const { requireAdmin } = require('../middleware/roleMiddleware');
 
 /**
  * @route   GET /api/health
@@ -89,7 +89,7 @@ router.get('/readiness', async (req, res) => {
  *          so for the instance owner only
  * @access  Private (instance owner)
  */
-router.get('/detailed', protect, requireInstanceOwner, async (req, res) => {
+router.get('/detailed', protect, requireAdmin, async (req, res) => {
   try {
     // Check MongoDB connection
     const dbStatus = mongoose.connection.readyState === 1 ? 'UP' : 'DOWN';

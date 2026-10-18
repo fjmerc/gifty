@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const request = require('supertest');
 const { teardownTestDB } = require('../utils/testSetup');
+const { openSignup } = require('../utils/signupMode');
 const { TEST_SETUP_CODE } = require('../utils/setupCode');
 
 
@@ -45,13 +46,15 @@ const signedIn = async (extra = {}) => {
   const account = { username: `prof${seq}`, email: `prof${seq}@example.com`, password: PASSWORD, firstName: 'Pro', lastName: 'File', setupCode: TEST_SETUP_CODE, ...extra };
   const registered = await agent.post('/api/users/register').send(account);
   expect(registered.status).toBe(201);
-  expect(typeof registered.body.isInstanceOwner).toBe('boolean');
+  expect(typeof registered.body.isOwner).toBe('boolean');
   const user = await User.findOne({ email: account.email });
   return { agent, account, user };
 };
 
 beforeAll(async () => {
   await mongoose.connect(TEST_DB_URI);
+  // Several accounts sign up here without invites
+  await openSignup();
 });
 
 afterAll(async () => {
@@ -168,7 +171,7 @@ describe('changing the email on PUT /api/users/profile', () => {
 });
 
 describe('GET /api/users/profile', () => {
-  it('says whether the account is the instance owner (the oldest account)', async () => {
+  it('says whether the account is the owner, and its role', async () => {
     const { agent: newer } = await signedIn();
     const owner = await User.findOne({}, { email: 1 }).sort({ _id: 1 }).lean();
     const ownerAgent = request.agent(app);
@@ -176,10 +179,10 @@ describe('GET /api/users/profile', () => {
     const login = await ownerAgent.post('/api/users/login').send({ email: owner.email, password: PASSWORD });
     expect(login.status).toBe(200);
     // The app keeps the login answer as the signed-in user
-    expect(login.body.isInstanceOwner).toBe(true);
+    expect(login.body).toMatchObject({ isOwner: true, role: 'admin' });
 
-    expect((await ownerAgent.get('/api/users/profile')).body.isInstanceOwner).toBe(true);
-    expect((await newer.get('/api/users/profile')).body.isInstanceOwner).toBe(false);
+    expect((await ownerAgent.get('/api/users/profile')).body.isOwner).toBe(true);
+    expect((await newer.get('/api/users/profile')).body).toMatchObject({ isOwner: false, role: 'member' });
   });
 });
 

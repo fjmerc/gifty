@@ -11,8 +11,8 @@ const giftLibraryController = require('../../controllers/giftLibraryController')
 const User = require('../../models/User');
 
 // Mock dependencies
-// Owner-only gating is covered in ownerOnlyRoutes.test.js / instanceOwnerMiddleware.test.js
-jest.mock('../../middleware/instanceOwnerMiddleware', () => ({ requireInstanceOwner: (req, res, next) => next() }));
+// Admin gating is covered in adminOnlyRoutes.test.js / roleMiddleware.test.js
+jest.mock('../../middleware/roleMiddleware', () => ({ requireAdmin: (req, res, next) => next(), requireOwner: (req, res, next) => next() }));
 jest.mock('../../controllers/giftLibraryController');
 jest.mock('../../models/User');
 jest.mock('../../utils/logger', () => ({ debug: jest.fn(),

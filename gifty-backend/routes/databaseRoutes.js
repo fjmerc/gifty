@@ -1,8 +1,9 @@
 const express = require('express');
-// Instance-wide operations: owner-only until 1b adds admin roles
+// Instance-wide operations for admins. Restore and deleting a backup are the
+// owner's: a restore replaces every account and the owner record
 const router = express.Router();
 const { protect } = require('../middleware/authMiddleware');
-const { requireInstanceOwner } = require('../middleware/instanceOwnerMiddleware');
+const { requireAdmin, requireOwner } = require('../middleware/roleMiddleware');
 const backupService = require('../services/backupService');
 const { upgradeData, calendarUpkeep } = require('../services/dataUpgrade');
 const { clearAllResponseCaches } = require('../middleware/cacheMiddleware');
@@ -17,7 +18,7 @@ const logger = require('../utils/logger');
 // archive that isn't one) is expected, not a server fault
 const logAtStatus = (statusCode, message) => (statusCode >= 500 ? logger.error(message) : logger.warn(message));
 
-router.post('/backup', protect, requireInstanceOwner, async (req, res) => {
+router.post('/backup', protect, requireAdmin, async (req, res) => {
   try {
     logger.info(`User ${req.user.id} requested database backup creation`);
     
@@ -52,7 +53,7 @@ router.post('/backup', protect, requireInstanceOwner, async (req, res) => {
  * @route   GET /api/database/backups
  * @access  Private
  */
-router.get('/backups', protect, requireInstanceOwner, async (req, res) => {
+router.get('/backups', protect, requireAdmin, async (req, res) => {
   try {
     logger.info(`User ${req.user.id} requested list of database backups`);
     
@@ -77,7 +78,7 @@ router.get('/backups', protect, requireInstanceOwner, async (req, res) => {
  * @route   POST /api/database/restore/:backupName
  * @access  Private
  */
-router.post('/restore/:backupName', protect, requireInstanceOwner, async (req, res) => {
+router.post('/restore/:backupName', protect, requireOwner, async (req, res) => {
   const { backupName } = req.params;
   
   try {
@@ -134,7 +135,7 @@ router.post('/restore/:backupName', protect, requireInstanceOwner, async (req, r
  * @route   DELETE /api/database/backups/:backupName
  * @access  Private
  */
-router.delete('/backups/:backupName', protect, requireInstanceOwner, async (req, res) => {
+router.delete('/backups/:backupName', protect, requireOwner, async (req, res) => {
   const { backupName } = req.params;
   
   try {
@@ -173,7 +174,7 @@ router.delete('/backups/:backupName', protect, requireInstanceOwner, async (req,
  * @route   GET /api/database/system-check
  * @access  Private
  */
-router.get('/system-check', protect, requireInstanceOwner, async (req, res) => {
+router.get('/system-check', protect, requireAdmin, async (req, res) => {
   try {
     logger.info(`User ${req.user.id} requested database system check`);
     

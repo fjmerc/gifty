@@ -1,6 +1,6 @@
 {
   "name": "gifty",
-  "version": "0.9.0",
+  "version": "1.0.0",
   "main": "index.js",
   "scripts": {
     "test": "jest --config jest.config.js",
@@ -43,6 +43,7 @@
     "nodemailer": "^10.1.2",
     "similarity": "^1.2.1",
     "tar": "^7.5.22",
+    "validator": "^13.15.35",
     "winston": "^3.13.0"
   },
   "devDependencies": {

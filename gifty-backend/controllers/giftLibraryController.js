@@ -380,7 +380,7 @@ exports.deleteGiftFromLibrary = asyncHandler(async (req, res) => {
     }
     
     // Authorization: the library is shared by every user, so the route is
-    // guarded by requireInstanceOwner (see routes/giftLibraryRoutes.js)
+    // guarded by requireAdmin (see routes/giftLibraryRoutes.js)
     
     // Delete the gift
     await GiftLibrary.findByIdAndDelete(giftId);

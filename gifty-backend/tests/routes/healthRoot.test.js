@@ -3,7 +3,7 @@ const request = require('supertest');
 
 // Who may read /detailed is tested with real auth in tests/security/health.security.test.js
 jest.mock('../../middleware/authMiddleware', () => ({ protect: (req, res, next) => next() }));
-jest.mock('../../middleware/instanceOwnerMiddleware', () => ({ requireInstanceOwner: (req, res, next) => next() }));
+jest.mock('../../middleware/roleMiddleware', () => ({ requireAdmin: (req, res, next) => next(), requireOwner: (req, res, next) => next() }));
 jest.mock('../../config/redis', () => ({ redisClient: { ping: jest.fn() } }));
 jest.mock('../../queues', () => ({ cleanupQueue: {} }));
 jest.mock('mongoose', () => ({ connection: { readyState: 1 } }));

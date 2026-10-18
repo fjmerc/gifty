@@ -56,6 +56,16 @@ const protect = asyncHandler(async (req, res, next) => {
       return res.json({ message: 'User not found' });
     }
     
+    // Deactivated by an admin: refused even with a token issued before
+    if (user.active === false) {
+      logger.warn(`Deactivated account used: ${user._id}`);
+      res.status(401);
+      if (typeof res.setHeader === 'function') {
+        res.setHeader('Content-Type', 'application/json');
+      }
+      return res.json({ message: 'This account is deactivated. Ask an admin of this Gifty to reactivate it.', code: 'ACCOUNT_DEACTIVATED' });
+    }
+
     // Signed out, or the password or email changed, since this token was issued
     if (!isTokenCurrent(decoded, user)) {
       logger.warn(`Revoked token used for user: ${user._id}`);

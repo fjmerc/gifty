@@ -1,6 +1,7 @@
 /**
  * Enhanced error handling middleware
  */
+const { redactUrl } = require('../utils/redactUrl');
 const logger = require('../utils/logger');
 
 // Error handler middleware
@@ -75,7 +76,7 @@ const errorHandler = (err, req, res, next) => {
     logger.error('Attempted to send error response after headers were already sent', {
       error: err.message,
       statusCode,
-      path: req.path,
+      path: redactUrl(req.originalUrl || req.path),
       method: req.method
     });
   }

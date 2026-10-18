@@ -35,6 +35,12 @@ const refreshToken = asyncHandler(async (req, res) => {
       throw new Error('User not found');
     }
 
+    // Deactivated by an admin
+    if (user.active === false) {
+      res.status(401);
+      throw new Error('This account is deactivated. Ask an admin of this Gifty to reactivate it.');
+    }
+
     // Signed out, or the password or email changed, since it was issued
     if (!isTokenCurrent(decoded, user)) {
       res.status(401);

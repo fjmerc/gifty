@@ -10,6 +10,7 @@ const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const request = require('supertest');
 const { teardownTestDB } = require('../utils/testSetup');
+const { openSignup } = require('../utils/signupMode');
 const { TEST_SETUP_CODE } = require('../utils/setupCode');
 
 const TEST_DB_URI = `mongodb://localhost:27017/gifty-test-instance-defaults-${process.pid}`;
@@ -63,7 +64,13 @@ beforeAll(async () => {
   await mongoose.connect(TEST_DB_URI);
   await initializeDatabase();
 });
-beforeEach(() => ENV_KEYS.forEach((key) => delete process.env[key]));
+beforeEach(async () => {
+  ENV_KEYS.forEach((key) => delete process.env[key]);
+  // Each test seeds the stored defaults from its own env
+  await mongoose.connection.db.collection('instance').deleteMany({});
+  // Several accounts sign up here without invites
+  await openSignup();
+});
 afterAll(async () => {
   ENV_KEYS.forEach((key) => {
     if (savedEnv[key] === undefined) delete process.env[key];
@@ -142,5 +149,15 @@ describe('an instance without the settings', () => {
     expect(await holidayNames(user._id)).toContain('Independence Day');
     expect((await agent.get(`/api/budgets/overall/${YEAR}`)).body.currency).toBe('USD');
     expect((await request(app).get('/api/instance')).body.defaults).toEqual({ country: 'US', currency: 'USD' });
+  });
+});
+
+describe('stored defaults', () => {
+  it('once stored, the database defaults win over a changed .env', async () => {
+    process.env.DEFAULT_CURRENCY = 'EUR';
+    await require('../../services/instanceSettings').ensureInstanceSettings();
+    process.env.DEFAULT_CURRENCY = 'GBP';
+    const info = (await request(app).get('/api/instance')).body;
+    expect(info.defaults.currency).toBe('EUR');
   });
 });

@@ -51,6 +51,18 @@ const userSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
+    // Instance role (1b). The owner is kept in the instance settings
+    // (services/instanceSettings), and is always an admin.
+    role: {
+        type: String,
+        enum: ['admin', 'member'],
+        default: 'member'
+    },
+    // Deactivated accounts can't sign in; their data is kept
+    active: {
+        type: Boolean,
+        default: true
+    },
     tags: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Tag'

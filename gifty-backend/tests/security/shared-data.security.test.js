@@ -64,6 +64,8 @@ describe('Shared data authorization', () => {
     await clearDatabase();
     userA = await makeUser('a');
     userB = await makeUser('b');
+    // As at boot: the oldest account becomes the owner and an admin
+    await require('../../services/instanceSettings').ensureInstanceSettings();
     authA = `Bearer ${generateToken(userA._id.toString())}`;
     authB = `Bearer ${generateToken(userB._id.toString())}`;
   });

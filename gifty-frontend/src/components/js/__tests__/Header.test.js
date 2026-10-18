@@ -8,16 +8,17 @@ import Header from '../Header';
 
 const mockLogout = jest.fn();
 let mockAuthLoading = false;
+let mockUser = { firstName: 'Ana', role: 'member' };
 jest.mock('../../../AuthContext', () => ({
   useAuth: () => ({
     logout: mockLogout,
-    user: { firstName: 'Ana' },
+    user: mockUser,
     isAuthenticated: !mockAuthLoading,
     isLoading: mockAuthLoading,
   }),
 }));
 
-afterEach(() => { mockAuthLoading = false; });
+afterEach(() => { mockAuthLoading = false; mockUser = { firstName: 'Ana', role: 'member' }; });
 jest.mock('../../../NotificationContext', () => ({
   useNotification: () => ({ unreadCount: 0 }),
 }));
@@ -234,5 +235,22 @@ describe('fonts', () => {
     const external = [...document.head.querySelectorAll('link[rel="stylesheet"]')]
       .filter((link) => !link.href.startsWith(window.location.origin));
     expect(external).toEqual([]);
+  });
+});
+
+describe('Admin entry', () => {
+  it('is in the account menu for admins', async () => {
+    mockUser = { firstName: 'Ana', role: 'admin' };
+    const user = userEvent.setup();
+    renderHeader();
+    await user.click(screen.getByRole('button', { name: 'Account menu' }));
+    expect(screen.getByRole('menuitem', { name: 'Admin' })).toHaveAttribute('href', '/admin');
+  });
+
+  it('is not in the account menu for members', async () => {
+    const user = userEvent.setup();
+    renderHeader();
+    await user.click(screen.getByRole('button', { name: 'Account menu' }));
+    expect(screen.queryByRole('menuitem', { name: 'Admin' })).toBeNull();
   });
 });

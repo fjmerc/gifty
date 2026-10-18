@@ -18,8 +18,12 @@ jest.mock('../../middleware/authMiddleware', () => {
     }
   };
 });
-jest.mock('../../middleware/instanceOwnerMiddleware', () => ({
-  requireInstanceOwner: (req, res, next) => next(), isInstanceOwner: jest.fn()
+jest.mock('../../middleware/roleMiddleware', () => ({ requireAdmin: (req, res, next) => next(), requireOwner: (req, res, next) => next() }));
+jest.mock('../../services/instanceSettings', () => ({
+  isOwner: jest.fn().mockResolvedValue(false), getOwnerId: jest.fn().mockResolvedValue(null), ensureInstanceSettings: jest.fn().mockResolvedValue({ ownerId: null, changed: false }),
+  getInstanceDefaultsFromDb: jest.fn().mockResolvedValue({ country: 'US', currency: 'USD' }),
+  getInstanceSettings: jest.fn().mockResolvedValue({ signupMode: 'open' }), // these tests register without invites
+  SETTINGS_ID: 'settings', settingsCollection: () => ({ updateOne: jest.fn().mockResolvedValue({}) })
 }));
 jest.mock('../../utils/logger', () => ({
   info: jest.fn(), warn: jest.fn(), error: jest.fn(), debug: jest.fn()

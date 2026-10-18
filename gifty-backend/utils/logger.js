@@ -1,3 +1,4 @@
+const { redactUrl } = require('./redactUrl');
 const winston = require('winston');
 const path = require('path');
 const fs = require('fs');
@@ -160,7 +161,7 @@ try {
         requestId: req.id || req.requestId || 'fallback_unknown_id',
         ip: req.ip || (req.connection && req.connection.remoteAddress) || 'fallback_unknown_ip',
         method: req.method || 'FALLBACK_METHOD',
-        path: req.originalUrl || req.url || '/fallback_path'
+        path: redactUrl(req.originalUrl || req.url) || '/fallback_path'
       };
     },
     requestMiddleware: (req, res, next) => {
@@ -189,7 +190,7 @@ logger.addRequestContext = (req) => {
     requestId: req.id || req.requestId || 'unknown',
     ip: req.ip || (req.connection && req.connection.remoteAddress) || 'unknown',
     method: req.method,
-    path: req.originalUrl || req.url
+    path: redactUrl(req.originalUrl || req.url)
   };
   
   // Add user ID if authenticated
@@ -214,7 +215,7 @@ logger.requestMiddleware = (req, res, next) => {
   res.set('X-Request-ID', req.id);
   
   // Log the request
-  logger.info(`Incoming request: ${req.method} ${req.originalUrl}`, logger.addRequestContext(req));
+  logger.info(`Incoming request: ${req.method} ${redactUrl(req.originalUrl)}`, logger.addRequestContext(req));
   
   // Calculate response time
   const start = Date.now();

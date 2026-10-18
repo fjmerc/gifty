@@ -13,6 +13,7 @@ const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const request = require('supertest');
 const { teardownTestDB } = require('../utils/testSetup');
+const { openSignup } = require('../utils/signupMode');
 const { TEST_SETUP_CODE } = require('../utils/setupCode');
 
 
@@ -66,6 +67,8 @@ const storedFiles = () => (fs.existsSync(UPLOADS_DIR) ? fs.readdirSync(UPLOADS_D
 
 beforeAll(async () => {
   await mongoose.connect(TEST_DB_URI);
+  // Several accounts sign up here without invites
+  await openSignup();
 });
 
 afterAll(async () => {

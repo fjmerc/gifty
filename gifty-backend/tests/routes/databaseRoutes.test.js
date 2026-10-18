@@ -10,8 +10,8 @@ const { setupTestDB, teardownTestDB, clearDatabase } = require('../utils/testSet
 const { createMockUser, generateTestToken } = require('../utils/mockUtils');
 
 // Mock dependencies
-// Owner-only gating is covered in ownerOnlyRoutes.test.js / instanceOwnerMiddleware.test.js
-jest.mock('../../middleware/instanceOwnerMiddleware', () => ({ requireInstanceOwner: (req, res, next) => next() }));
+// Admin gating is covered in adminOnlyRoutes.test.js / roleMiddleware.test.js
+jest.mock('../../middleware/roleMiddleware', () => ({ requireAdmin: (req, res, next) => next(), requireOwner: (req, res, next) => next() }));
 jest.mock('../../services/backupService');
 // tests/integration/database-restore.test.js runs these against MongoDB and Redis
 jest.mock('../../services/dataUpgrade', () => ({

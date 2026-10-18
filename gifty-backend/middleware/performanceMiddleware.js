@@ -1,3 +1,4 @@
+const { redactUrl } = require('../utils/redactUrl');
 const logger = require('../utils/logger');
 
 /**
@@ -44,7 +45,7 @@ const performanceMiddleware = () => {
       const logLevel = isSlow ? 'warn' : 'info';
       logger[logLevel]('API Performance', {
         method: req.method,
-        url: req.originalUrl,
+        url: redactUrl(req.originalUrl),
         statusCode: res.statusCode,
         responseTime: `${responseTime}ms`,
         contentLength: res.get('Content-Length') || 0,
@@ -61,7 +62,7 @@ const performanceMiddleware = () => {
           publisherClient.publish('gifty:metrics:api', JSON.stringify({
             timestamp: Date.now(),
             method: req.method,
-            path: req.path,
+            path: redactUrl(req.originalUrl || req.path),
             statusCode: res.statusCode,
             responseTime: parseFloat(responseTime),
             contentLength: parseInt(res.get('Content-Length') || 0),
@@ -106,7 +107,7 @@ const requestTimeoutMiddleware = (timeout = 30000) => {
       // Log timeout
       logger.error('Request timeout', {
         method: req.method,
-        url: req.originalUrl,
+        url: redactUrl(req.originalUrl),
         timeout: `${timeout}ms`,
         userId: req.user?._id?.toString() || 'anonymous'
       });

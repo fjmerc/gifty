@@ -18,6 +18,7 @@ const feedbackRoutes = require('./feedbackRoutes');
 const giftLibraryRoutes = require('./giftLibraryRoutes');
 const holidayRoutes = require('./holidayRoutes');
 const aiRoutes = require('./aiRoutes');
+const adminRoutes = require('./adminRoutes');
 const { clearUserCacheOnWrite } = require('../middleware/cacheMiddleware');
 
 // @route   GET api/test
@@ -39,6 +40,7 @@ router.use('/notifications', notificationRoutes);
 router.use('/recipients', recipientRoutes);
 router.use('/tags', tagRoutes); 
 router.use('/users', userRoutes);
+router.use('/admin', adminRoutes);
 router.use('/vendors', vendorRoutes);
 router.use('/settings', settingsRoutes);
 router.use('/email-config', emailConfigRoutes);
@@ -46,5 +48,7 @@ router.use('/feedback', feedbackRoutes);
 router.use('/gift-library', giftLibraryRoutes);
 router.use('/ai', aiRoutes);
 router.use('/instance', require('./instanceRoutes'));
+router.use('/invites', require('./inviteRoutes'));
+router.use('/password-reset', require('./passwordResetRoutes'));
 
 module.exports = router;

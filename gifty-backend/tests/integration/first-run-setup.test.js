@@ -10,6 +10,7 @@ const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const request = require('supertest');
 const { teardownTestDB } = require('../utils/testSetup');
+const { openSignup } = require('../utils/signupMode');
 
 const TEST_DB_URI = `mongodb://localhost:27017/gifty-test-first-run-${process.pid}`;
 
@@ -29,6 +30,7 @@ const logger = require('../../utils/logger');
 const setup = require('../../services/setupCodeService');
 const errorHandler = require('../../middleware/errorHandler');
 const User = require('../../models/User');
+const { settingsCollection, SETTINGS_ID } = require('../../services/instanceSettings');
 
 jest.setTimeout(30000);
 
@@ -55,6 +57,7 @@ beforeAll(async () => {
 });
 beforeEach(async () => {
   await User.deleteMany({});
+  await settingsCollection().deleteMany({});
   await setup.clearSetupCode();
   jest.clearAllMocks();
 });
@@ -65,6 +68,16 @@ afterAll(async () => {
 });
 
 describe('first-run setup code', () => {
+  it('the first registration leaves setup unfinished and /api/instance says so', async () => {
+    await setup.ensureSetupCode();
+    await request(app).post('/api/users/register').send(account(1, { setupCode: codeFromFile() })).expect(201);
+    const doc = await settingsCollection().findOne({ _id: SETTINGS_ID });
+    expect(doc.setupCompletedAt).toBeNull();
+    const info = (await request(app).get('/api/instance')).body;
+    expect(info).toMatchObject({ setupRequired: false, setupComplete: false, signupMode: 'invite-only' });
+    expect(info.publicUrl).toMatch(/^https?:\/\//);
+  });
+
   it('on a boot with no accounts: logs the code once with instructions, writes it 0600 to the data folder and stores only a hash', async () => {
     await setup.ensureSetupCode();
 
@@ -109,6 +122,7 @@ describe('first-run setup code', () => {
 
     expect(fs.existsSync(CODE_FILE)).toBe(false);
     expect(await mongoose.connection.db.collection('instance').findOne({ _id: 'setup-code' })).toBeNull();
+    await openSignup(); // the second account needs no code (and, open, no invite)
     expect((await request(app).post('/api/users/register').send(account(2))).status).toBe(201);
   });
 
@@ -156,6 +170,7 @@ describe('first-run setup code', () => {
     expect(fs.existsSync(CODE_FILE)).toBe(false);
     expect(logger.warn).not.toHaveBeenCalled();
     expect((await request(app).get('/api/instance')).body.setupRequired).toBe(false);
+    await openSignup();
     expect((await request(app).post('/api/users/register').send(account(2))).status).toBe(201);
   });
 

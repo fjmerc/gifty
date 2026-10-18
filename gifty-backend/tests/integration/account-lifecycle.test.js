@@ -10,6 +10,7 @@ const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const request = require('supertest');
 const { teardownTestDB } = require('../utils/testSetup');
+const { openSignup } = require('../utils/signupMode');
 const { TEST_SETUP_CODE } = require('../utils/setupCode');
 
 
@@ -50,6 +51,8 @@ beforeAll(async () => {
   // Every model, so every collection a user's data can live in is checked
   const modelsDir = path.join(__dirname, '../../models');
   fs.readdirSync(modelsDir).filter((f) => f.endsWith('.js')).forEach((f) => require(path.join(modelsDir, f)));
+  // Several accounts sign up here without invites
+  await openSignup();
 });
 
 afterAll(async () => {

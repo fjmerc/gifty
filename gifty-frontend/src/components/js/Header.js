@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faUserCircle, faBell, faDollarSign, faGift, faCalendarAlt,
   faStar, faUser, faCog, faSignOutAlt, faHome, faUsers, faBars, faCompass,
-  faXmark, faReceipt, faChartLine, faCircleQuestion
+  faXmark, faReceipt, faChartLine, faCircleQuestion, faUserShield
 } from '@fortawesome/free-solid-svg-icons';
 import NavbarLogo from '../../assets/navbar_icon.png'; 
 import { useAuth } from '../../AuthContext';
@@ -23,6 +23,8 @@ const ACCOUNT_PAGES = [
   { to: '/user-profile', label: 'Profile', icon: faUser },
   { to: '/settings', label: 'Settings', icon: faCog },
 ];
+// Admins also get the Admin page (accounts of this Gifty)
+const ADMIN_PAGE = { to: '/admin', label: 'Admin', icon: faUserShield };
 // Every page, in the order the phone menu lists them
 const PHONE_PAGES = [
   { to: '/userhome', label: 'Home', icon: faHome },
@@ -44,6 +46,9 @@ const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
   const { logout, user, isAuthenticated, isLoading } = useAuth();
+  const isAdmin = user?.role === 'admin';
+  const accountPages = isAdmin ? [...ACCOUNT_PAGES, ADMIN_PAGE] : ACCOUNT_PAGES;
+  const phonePages = isAdmin ? [...PHONE_PAGES, ADMIN_PAGE] : PHONE_PAGES;
   const { unreadCount } = useNotification();
   const accountRef = useRef(null);
   const triggerRef = useRef(null);
@@ -285,7 +290,7 @@ const Header = () => {
                 >
                   {MORE_PAGES.map(menuLink)}
                   <div role="separator" className={styles['dropdown-separator']} />
-                  {ACCOUNT_PAGES.map(menuLink)}
+                  {accountPages.map(menuLink)}
                   <div role="separator" className={styles['dropdown-separator']} />
                   <button
                     type="button"
@@ -323,7 +328,7 @@ const Header = () => {
           <div className={styles.scrim} data-testid="menu-scrim" onClick={() => closeDrawer()} />
           <nav id={drawerId} ref={drawerRef} className={styles.drawer} aria-label="Menu" onKeyDown={onDrawerKeyDown}>
             <ul className={styles.drawerList}>
-              {PHONE_PAGES.map(({ to, label, icon, badge }) => (
+              {phonePages.map(({ to, label, icon, badge }) => (
                 <li key={to}>
                   <NavLink
                     to={to}

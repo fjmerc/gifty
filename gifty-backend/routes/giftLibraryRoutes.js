@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { protect } = require('../middleware/authMiddleware');
-const { requireInstanceOwner } = require('../middleware/instanceOwnerMiddleware');
+const { requireAdmin } = require('../middleware/roleMiddleware');
 const giftLibraryController = require('../controllers/giftLibraryController');
 
 // @route   GET /api/gift-library/explore
@@ -37,11 +37,11 @@ router.get('/system-health', protect, giftLibraryController.getSystemHealth);
 // @route   POST /api/gift-library/discover/trigger
 // @desc    Manually trigger gift discovery (admin only)
 // @access  Private/Admin
-router.post('/discover/trigger', protect, requireInstanceOwner, giftLibraryController.triggerDiscovery);
+router.post('/discover/trigger', protect, requireAdmin, giftLibraryController.triggerDiscovery);
 
 // @route   DELETE /api/gift-library/gifts/:giftId
 // @desc    Delete a gift from the library (shared by all users: owner only)
 // @access  Private/Admin
-router.delete('/gifts/:giftId', protect, requireInstanceOwner, giftLibraryController.deleteGiftFromLibrary);
+router.delete('/gifts/:giftId', protect, requireAdmin, giftLibraryController.deleteGiftFromLibrary);
 
 module.exports = router;

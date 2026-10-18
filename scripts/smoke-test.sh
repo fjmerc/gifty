@@ -66,6 +66,39 @@ curl -fs "$BASE/api/instance" | grep -q '"setupRequired":false'
 [ -z "$(awk '$4=="TRUE" && $6=="access_token"' "$JAR")" ]
 curl -fs -b "$JAR" "$BASE/api/users/profile" | grep -q smoke
 
+echo "4b. the first account is the owner and an admin"
+curl -fs -b "$JAR" "$BASE/api/users/profile" | grep -q '"role":"admin"' || { echo "first account is not an admin"; exit 1; }
+curl -fs -b "$JAR" "$BASE/api/users/profile" | grep -q '"isOwner":true' || { echo "first account is not the owner"; exit 1; }
+curl -fs -b "$JAR" "$BASE/api/admin/users" | grep -q '"isOwner":true' || { echo "admin users list failed"; exit 1; }
+
+echo "4c. the wizard API: defaults, then setup is complete"
+curl -fs -b "$JAR" "$BASE/api/instance" | grep -q '"setupComplete":false' || { echo "a fresh install is marked set up"; exit 1; }
+curl -fs -b "$JAR" -X PATCH -H 'Content-Type: application/json' -H "Origin: $BASE" \
+  -d '{"signupMode":"invite-only","defaultCountry":"DE","defaultCurrency":"EUR"}' "$BASE/api/admin/settings" | grep -q '"defaultCurrency":"EUR"' \
+  || { echo "saving instance settings failed"; exit 1; }
+curl -fs -b "$JAR" -X POST -H "Origin: $BASE" "$BASE/api/admin/setup-complete" >/dev/null
+curl -fs "$BASE/api/instance" | grep -q '"setupComplete":true' || { echo "setup not marked complete"; exit 1; }
+
+echo "4d. invite-only: refused without an invite, admitted with one"
+SECOND='{"username":"second","email":"second@example.com","password":"Sec0nd!pass","firstName":"Sec","lastName":"Ond"'
+[ "$(curl -s -o /dev/null -w '%{http_code}' -H 'Content-Type: application/json' -H "Origin: $BASE" \
+  -d "$SECOND}" "$BASE/api/users/register")" = "403" ] || { echo "registration without an invite was not refused"; exit 1; }
+INVITE_TOKEN="$(curl -fs -b "$JAR" -X POST -H 'Content-Type: application/json' -H "Origin: $BASE" -d '{}' "$BASE/api/admin/invites" \
+  | sed -n 's|.*/invite/\([A-Za-z0-9_-]*\)".*|\1|p')"
+[ -n "$INVITE_TOKEN" ] || { echo "no invite link"; exit 1; }
+curl -fs -H 'Content-Type: application/json' -H "Origin: $BASE" \
+  -d "$SECOND,\"inviteToken\":\"$INVITE_TOKEN\"}" "$BASE/api/users/register" >/dev/null || { echo "registration with an invite failed"; exit 1; }
+unset INVITE_TOKEN
+
+echo "4e. a reset link from the server command works"
+RESET_TOKEN="$(docker compose -p gifty-smoke exec -T gifty node scripts/reset-link.js second@example.com | sed -n 's|.*/reset/\([A-Za-z0-9_-]*\).*|\1|p')"
+[ -n "$RESET_TOKEN" ] || { echo "reset-link.js printed no link"; exit 1; }
+curl -fs -H 'Content-Type: application/json' -H "Origin: $BASE" -d '{"password":"N3w!second"}' "$BASE/api/password-reset/$RESET_TOKEN" >/dev/null \
+  || { echo "using the reset link failed"; exit 1; }
+unset RESET_TOKEN
+curl -fs -H 'Content-Type: application/json' -H "Origin: $BASE" -d '{"email":"second@example.com","password":"N3w!second"}' "$BASE/api/users/login" >/dev/null \
+  || { echo "login with the new password failed"; exit 1; }
+
 echo "5. create recipient"
 curl -fs -b "$JAR" -H 'Content-Type: application/json' -H "Origin: $BASE" \
   -d '{"firstName":"Maya","lastName":"Rivera","relation":"Friend","relationship":"friendship","birthdate":"1990-05-01"}' \

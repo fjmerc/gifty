@@ -26,6 +26,8 @@ describe('health endpoints', () => {
     await mongoose.connection.db.dropDatabase();
     const owner = await User.create({ username: 'owner', email: 'owner@example.com', password: 'Passw0rd!x', firstName: 'O', lastName: 'W' });
     const other = await User.create({ username: 'other', email: 'other@example.com', password: 'Passw0rd!x', firstName: 'O', lastName: 'T' });
+    // As at boot: the oldest account becomes the owner and an admin
+    await require('../../services/instanceSettings').ensureInstanceSettings();
     ownerAuth = `Bearer ${generateToken(owner._id.toString())}`;
     otherAuth = `Bearer ${generateToken(other._id.toString())}`;
     app = express();

@@ -10,6 +10,7 @@ const { ensureUpcomingBirthdays, repairLegacyBirthdayType } = require('./birthda
 const { initializeDatabase } = require('../utils/dbInitializer');
 const { repairLocalMidnightDates, realignHolidayEvents } = require('./eventDateRepair');
 const { assignOwnerlessVendors } = require('./legacyOwnership');
+const { ensureInstanceSettings } = require('./instanceSettings');
 const { encryptStoredSmtpPasswords } = require('./smtpPasswordMigration');
 const { addGermanPublicHolidays } = require('./holidayCategoryUpgrade');
 const { regenerateAllHolidayEvents } = require('./holidayService');
@@ -70,6 +71,15 @@ const upgradeData = async () => {
         logger.error(`Holiday date repair failed: ${error.message}`);
     }
 
+    // Roles and the instance owner (1b): accounts from older versions or an
+    // older archive have no role, and a restored ownerId may name nobody
+    let instanceOwner = null;
+    try {
+        ({ ownerId: instanceOwner } = await ensureInstanceSettings());
+    } catch (error) {
+        logger.error(`Instance owner check failed: ${error.message}`);
+    }
+
     // Vendors from before accounts were separated have no owner
     let vendorsOwned = 0;
     try {
@@ -94,7 +104,7 @@ const upgradeData = async () => {
         logger.error(`Removing collections of removed features failed: ${error.message}`);
     }
 
-    return { moneyModel, textRepair, eventTypesSeeded, germanHolidaysAdded, smtpPasswordsEncrypted, birthdayTypesRepaired, eventDatesRepaired, holidayEventsRealigned, vendorsOwned };
+    return { moneyModel, textRepair, eventTypesSeeded, germanHolidaysAdded, smtpPasswordsEncrypted, birthdayTypesRepaired, eventDatesRepaired, holidayEventsRealigned, vendorsOwned, instanceOwner };
 };
 
 /**

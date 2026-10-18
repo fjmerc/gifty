@@ -5,5 +5,5 @@ Please report vulnerabilities privately via GitHub's "Report a vulnerability" (S
 Supported versions: the latest minor release.
 
 Known limitations before 1.0:
-- There are no admin roles yet. The **first account created** is the instance owner and the only account that can back up, restore or trigger discovery. Creating it needs the one-time setup code from the server's log (see the README).
-- After the first account, sign-up is open to anyone who can reach the instance, and account emails are not verified. Don't expose a pre-1.0 instance to the public internet; 1.0 adds invite-only sign-up.
+- The **first account created** is the instance owner. Only the owner and the admins they appoint can make backups or trigger discovery; only the owner restores or deletes backups and manages admins. Creating the first account needs the one-time setup code from the server's log (see the README).
+- Sign-up is invite-only by default. Invite and reset links are one-time, expire (invites 1–30 days, reset links 24 hours) and are stored only as a SHA-256 hash; anyone holding a valid link can use it, so send links over a channel you trust. Account emails are not verified.

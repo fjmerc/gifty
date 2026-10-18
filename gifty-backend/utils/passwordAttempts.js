@@ -99,7 +99,19 @@ const resetPasswordAttempts = () => {
 const TOO_MANY_MESSAGE = 'Too many wrong passwords. Please try again in 15 minutes.';
 const WRONG_MESSAGE = 'Current password is incorrect';
 
+// The current password typed into a signed-in form: 'blocked' after too
+// many wrong ones, else whether it matched
+const checkCurrentPassword = async (req, user, password) => {
+  const release = reserveAttempt(req);
+  if (!release) return 'blocked';
+  if (typeof password === 'string' && password && await user.matchPassword(password)) {
+    release();
+    return 'ok';
+  }
+  return 'wrong';
+};
+
 module.exports = {
-  reserveAttempt, resetPasswordAttempts, addressKey, networkKey,
+  checkCurrentPassword, reserveAttempt, resetPasswordAttempts, addressKey, networkKey,
   TOO_MANY_MESSAGE, WRONG_MESSAGE, MAX_PER_ACCOUNT, MAX_PER_IP, WINDOW_MS
 };

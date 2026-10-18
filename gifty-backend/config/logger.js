@@ -1,3 +1,4 @@
+const { redactUrl } = require('../utils/redactUrl');
 const winston = require('winston');
 const path = require('path');
 const { createLogger, format, transports } = winston;
@@ -66,7 +67,7 @@ logger.addRequestId = (req) => {
     requestId: req.id || 'unknown',
     ip: req.ip || req.connection.remoteAddress,
     method: req.method,
-    path: req.originalUrl || req.url
+    path: redactUrl(req.originalUrl || req.url)
   };
 };
 
