@@ -1,4 +1,6 @@
 jest.mock('../../services/backupService');
+// Only the route definitions are read: no real job queue (its Redis connection would keep Jest from exiting)
+jest.mock('../../queues', () => ({ cleanupQueue: {} }));
 jest.mock('../../controllers/giftLibraryController', () => new Proxy({}, { get: () => (req, res) => res.end() }));
 
 const handlerNames = (router, path, method) => {
